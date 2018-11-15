@@ -82029,6 +82029,12 @@ var _StreamersItem = __webpack_require__(1137);
 
 var _StreamersItem2 = _interopRequireDefault(_StreamersItem);
 
+var _StreamerGridFilter = __webpack_require__(1138);
+
+var _StreamerGridFilter2 = _interopRequireDefault(_StreamerGridFilter);
+
+var _index = __webpack_require__(1136);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -82050,6 +82056,7 @@ var StreamersPage = function (_Component) {
       searchValue: ""
     };
     _this.handleScroll = _this.handleScroll.bind(_this);
+    _this.searchValueChanged = _this.searchValueChanged.bind(_this);
     return _this;
   }
 
@@ -82057,7 +82064,7 @@ var StreamersPage = function (_Component) {
     key: "componentWillMount",
     value: function componentWillMount() {
       var getStreamers = this.props.getStreamers;
-      // Initial rendering of the streamers
+      // Client side rendering of the streamers
 
       getStreamers(0);
     }
@@ -82074,6 +82081,20 @@ var StreamersPage = function (_Component) {
           _fetchMoreStreamers(this.state.pageIndex, this.state.searchValue);
         }
       }
+    }
+  }, {
+    key: "searchValueChanged",
+    value: function searchValueChanged(value) {
+      this.setState({
+        pageIndex: 1,
+        searchValue: value
+      });
+      var _props = this.props,
+          getStreamers = _props.getStreamers,
+          requestStreamers = _props.requestStreamers;
+
+      requestStreamers();
+      getStreamers(0, value);
     }
   }, {
     key: "render",
@@ -82100,6 +82121,9 @@ var StreamersPage = function (_Component) {
             _react2.default.createElement(
               "div",
               { className: "segment-grid-filter" },
+              _react2.default.createElement(_StreamerGridFilter2.default, {
+                searchValueChanged: this.searchValueChanged
+              }),
               _react2.default.createElement(
                 _semanticUiReact.Divider,
                 { horizontal: true },
@@ -82162,7 +82186,7 @@ function mapStateToProps(_ref) {
 }
 
 exports.default = {
-  component: (0, _reactRedux.connect)(mapStateToProps, { getStreamers: _streamers.getStreamers, fetchMoreStreamers: _streamers.fetchMoreStreamers })(StreamersPage),
+  component: (0, _reactRedux.connect)(mapStateToProps, { getStreamers: _streamers.getStreamers, fetchMoreStreamers: _streamers.fetchMoreStreamers, requestStreamers: _index.requestStreamers })(StreamersPage),
   loadData: function loadData(_ref2) {
     var dispatch = _ref2.dispatch;
     return dispatch((0, _streamers.getStreamers)(0));
@@ -82400,6 +82424,93 @@ var StreamersItem = function StreamersItem(_ref) {
 };
 
 exports.default = StreamersItem;
+
+/***/ }),
+/* 1138 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(826);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var StreamerGridFilter = function (_Component) {
+  _inherits(StreamerGridFilter, _Component);
+
+  function StreamerGridFilter(props) {
+    _classCallCheck(this, StreamerGridFilter);
+
+    var _this = _possibleConstructorReturn(this, (StreamerGridFilter.__proto__ || Object.getPrototypeOf(StreamerGridFilter)).call(this, props));
+
+    _this.timeout = 0;
+    return _this;
+  }
+
+  _createClass(StreamerGridFilter, [{
+    key: "onSearchChange",
+    value: function onSearchChange(value) {
+      var _this2 = this;
+
+      if (this.timeout) clearTimeout(this.timeout);
+      this.timeout = setTimeout(function () {
+        _this2.props.searchValueChanged(value);
+      }, 1000);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this3 = this;
+
+      return _react2.default.createElement(
+        _semanticUiReact.Menu,
+        { fluid: true, borderless: true, size: "large" },
+        _react2.default.createElement(
+          _semanticUiReact.Menu.Item,
+          { header: true },
+          _react2.default.createElement(_semanticUiReact.Icon, { name: "filter" }),
+          "Filters"
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Menu.Item,
+          null,
+          _react2.default.createElement(_semanticUiReact.Input, {
+            className: "icon",
+            icon: "user",
+            iconPosition: "left",
+            placeholder: "Search A Streamer...",
+            size: "small",
+            onChange: function onChange(e, _ref) {
+              var value = _ref.value;
+              return _this3.onSearchChange(value);
+            }
+          })
+        )
+      );
+    }
+  }]);
+
+  return StreamerGridFilter;
+}(_react.Component);
+
+exports.default = StreamerGridFilter;
 
 /***/ })
 /******/ ]);

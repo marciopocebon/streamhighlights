@@ -3,6 +3,8 @@ import { Grid, Segment, Divider, Label, Icon } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { getStreamers, fetchMoreStreamers } from "../reducers/streamers";
 import StreamersItem from "./../components/streamers/StreamersItem";
+import StreamerGridFilter from "./../components/streamers/StreamerGridFilter";
+import { requestStreamers } from './../actions/streamers/index';
 
 class StreamersPage extends Component {
   constructor(props) {
@@ -12,11 +14,12 @@ class StreamersPage extends Component {
       searchValue: ""
     };
     this.handleScroll = this.handleScroll.bind(this);
+    this.searchValueChanged = this.searchValueChanged.bind(this);
   }
 
   componentWillMount() {
     const { getStreamers } = this.props;
-    // Initial rendering of the streamers
+    // Client side rendering of the streamers
     getStreamers(0);
   }
 
@@ -33,6 +36,16 @@ class StreamersPage extends Component {
     }
   }
 
+  searchValueChanged(value) {
+    this.setState({
+      pageIndex: 1,
+      searchValue: value
+    });
+    const { getStreamers, requestStreamers } = this.props;
+    requestStreamers();
+    getStreamers(0, value);
+  }
+
   render() {
     const { streamers } = this.props;
     return (
@@ -44,9 +57,9 @@ class StreamersPage extends Component {
               Streamers
             </Label>
             <div className="segment-grid-filter">
-              {/* <StreamerGridFilter
+              <StreamerGridFilter
                 searchValueChanged={this.searchValueChanged}
-              /> */}
+              />
 
               <Divider horizontal>Results</Divider>
               <div
@@ -101,7 +114,7 @@ function mapStateToProps({ streamers }) {
 export default {
   component: connect(
     mapStateToProps,
-    { getStreamers, fetchMoreStreamers }
+    { getStreamers, fetchMoreStreamers, requestStreamers }
   )(StreamersPage),
   loadData: ({ dispatch }) => dispatch(getStreamers(0))
 };
