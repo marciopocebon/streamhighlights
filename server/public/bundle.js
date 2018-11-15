@@ -37668,10 +37668,6 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _HomePage = __webpack_require__(453);
-
-var _HomePage2 = _interopRequireDefault(_HomePage);
-
 var _UsersListPage = __webpack_require__(454);
 
 var _UsersListPage2 = _interopRequireDefault(_UsersListPage);
@@ -37688,10 +37684,14 @@ var _AdminsListPage = __webpack_require__(470);
 
 var _AdminsListPage2 = _interopRequireDefault(_AdminsListPage);
 
+var _StreamersPage = __webpack_require__(1134);
+
+var _StreamersPage2 = _interopRequireDefault(_StreamersPage);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = [_extends({}, _App2.default, {
-  routes: [_extends({}, _HomePage2.default, {
+  routes: [_extends({}, _StreamersPage2.default, {
     path: "/",
     exact: true
   }), _extends({
@@ -37702,65 +37702,7 @@ exports.default = [_extends({}, _App2.default, {
 })];
 
 /***/ }),
-/* 453 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(5);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Home = function (_Component) {
-  _inherits(Home, _Component);
-
-  function Home() {
-    _classCallCheck(this, Home);
-
-    return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).apply(this, arguments));
-  }
-
-  _createClass(Home, [{
-    key: "render",
-    value: function render() {
-      return _react2.default.createElement(
-        "div",
-        { className: "center-align", style: { marginTop: "200px" } },
-        _react2.default.createElement(
-          "h3",
-          null,
-          "Welcome"
-        ),
-        _react2.default.createElement(
-          "p",
-          null,
-          "Check out these awesome features"
-        )
-      );
-    }
-  }]);
-
-  return Home;
-}(_react.Component);
-
-exports.default = { component: Home };
-
-/***/ }),
+/* 453 */,
 /* 454 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -41572,12 +41514,17 @@ var _adminsReducer = __webpack_require__(478);
 
 var _adminsReducer2 = _interopRequireDefault(_adminsReducer);
 
+var _index = __webpack_require__(1135);
+
+var _index2 = _interopRequireDefault(_index);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = (0, _redux.combineReducers)({
   users: _usersReducer2.default,
   auth: _authReducer2.default,
-  admins: _adminsReducer2.default
+  admins: _adminsReducer2.default,
+  streamers: _index2.default
 });
 
 /***/ }),
@@ -82054,6 +82001,386 @@ Feed.User = __WEBPACK_IMPORTED_MODULE_16__FeedUser__["a" /* default */];
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__Statistic__["a"]; });
 
 
+
+/***/ }),
+/* 1134 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(826);
+
+var _reactRedux = __webpack_require__(80);
+
+var _streamers = __webpack_require__(1135);
+
+var _StreamersItem = __webpack_require__(1137);
+
+var _StreamersItem2 = _interopRequireDefault(_StreamersItem);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var StreamersPage = function (_Component) {
+  _inherits(StreamersPage, _Component);
+
+  function StreamersPage(props) {
+    _classCallCheck(this, StreamersPage);
+
+    var _this = _possibleConstructorReturn(this, (StreamersPage.__proto__ || Object.getPrototypeOf(StreamersPage)).call(this, props));
+
+    _this.state = {
+      pageIndex: 1,
+      searchValue: ""
+    };
+    _this.handleScroll = _this.handleScroll.bind(_this);
+    return _this;
+  }
+
+  _createClass(StreamersPage, [{
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      var getStreamers = this.props.getStreamers;
+      // Initial rendering of the streamers
+
+      getStreamers(0);
+    }
+  }, {
+    key: "handleScroll",
+    value: function handleScroll() {
+      if (this.scroller) {
+        if (this.scroller.scrollHeight - this.scroller.scrollTop === this.scroller.clientHeight) {
+          this.setState(function (prevState) {
+            return { pageIndex: prevState.pageIndex + 1 };
+          });
+          var _fetchMoreStreamers = this.props.fetchMoreStreamers;
+
+          console.log("I will fetch page " + this.state.pageIndex);
+          _fetchMoreStreamers(this.state.pageIndex, this.state.searchValue);
+        }
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var streamers = this.props.streamers;
+
+      return _react2.default.createElement(
+        _semanticUiReact.Grid,
+        null,
+        _react2.default.createElement(
+          _semanticUiReact.Grid.Column,
+          { width: 10 },
+          _react2.default.createElement(
+            _semanticUiReact.Segment,
+            { className: "streamer-segment" },
+            _react2.default.createElement(
+              _semanticUiReact.Label,
+              { attached: "top", size: "big", className: "colored-label" },
+              _react2.default.createElement(_semanticUiReact.Icon, { name: "user" }),
+              "Streamers"
+            ),
+            _react2.default.createElement(
+              "div",
+              { className: "segment-grid-filter" },
+              _react2.default.createElement(
+                _semanticUiReact.Divider,
+                { horizontal: true },
+                "Results"
+              ),
+              _react2.default.createElement(
+                "div",
+                {
+                  ref: function ref(scroller) {
+                    _this2.scroller = scroller;
+                  },
+                  onScroll: this.handleScroll,
+                  style: {
+                    height: "75vh",
+                    overflowY: "auto",
+                    overflowX: "hidden",
+                    paddingRight: "10px"
+                  }
+                },
+                _react2.default.createElement(
+                  _semanticUiReact.Grid,
+                  {
+                    stackable: true,
+                    columns: 4,
+                    className: "streamer-grid animated fadeIn"
+                  },
+                  _react2.default.createElement(
+                    _semanticUiReact.Grid.Row,
+                    null,
+                    streamers && streamers.map(function (streamer, index) {
+                      return streamer && _react2.default.createElement(
+                        _semanticUiReact.Grid.Column,
+                        { width: 4, key: index },
+                        _react2.default.createElement(_StreamersItem2.default, {
+                          key: index,
+                          streamer: streamer,
+                          numberOfClips: streamer.numberOfClips,
+                          numberOfArchives: streamer.numberOfArchives
+                        })
+                      );
+                    })
+                  )
+                )
+              )
+            )
+          )
+        ),
+        _react2.default.createElement(_semanticUiReact.Grid.Column, { width: 6 })
+      );
+    }
+  }]);
+
+  return StreamersPage;
+}(_react.Component);
+
+function mapStateToProps(_ref) {
+  var streamers = _ref.streamers;
+
+  return { streamers: streamers };
+}
+
+exports.default = {
+  component: (0, _reactRedux.connect)(mapStateToProps, { getStreamers: _streamers.getStreamers, fetchMoreStreamers: _streamers.fetchMoreStreamers })(StreamersPage),
+  loadData: function loadData(_ref2) {
+    var dispatch = _ref2.dispatch;
+    return dispatch((0, _streamers.getStreamers)(0));
+  }
+};
+
+/***/ }),
+/* 1135 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.fetchMoreStreamers = exports.getStreamers = undefined;
+
+var _index = __webpack_require__(1136);
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+var initialState = [];
+
+var streamers = function streamers() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _index.FETCH_STREAMERS:
+      return action.payload;
+    case _index.APPEND_STREAMERS:
+      return [].concat(_toConsumableArray(state), _toConsumableArray(action.payload));
+    default:
+      return state;
+  }
+};
+
+var getStreamers = exports.getStreamers = function getStreamers(pageIndex, streamerFilter) {
+  return function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch, getState, api) {
+      var res;
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              console.log(pageIndex, streamerFilter);
+              _context.next = 3;
+              return api.get("/streamers?page=" + pageIndex + (streamerFilter ? "&q=" + streamerFilter : ""));
+
+            case 3:
+              res = _context.sent;
+
+              dispatch((0, _index.fetchStreamers)(res.data.streamers));
+
+            case 5:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, undefined);
+    }));
+
+    return function (_x2, _x3, _x4) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+};
+
+var fetchMoreStreamers = exports.fetchMoreStreamers = function fetchMoreStreamers(pageIndex, streamerFilter) {
+  return function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(dispatch, getState, api) {
+      var res;
+      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return api.get("/streamers?page=" + pageIndex + (streamerFilter ? "&q=" + streamerFilter : ""));
+
+            case 2:
+              res = _context2.sent;
+
+              dispatch((0, _index.appendStreamers)(res.data.streamers));
+
+            case 4:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, undefined);
+    }));
+
+    return function (_x5, _x6, _x7) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+};
+
+exports.default = streamers;
+
+/***/ }),
+/* 1136 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var FETCH_STREAMERS = exports.FETCH_STREAMERS = "FETCH_STREAMERS";
+var APPEND_STREAMERS = exports.APPEND_STREAMERS = "APPEND_STREAMERS";
+
+var fetchStreamers = exports.fetchStreamers = function fetchStreamers(streamers) {
+  return {
+    type: FETCH_STREAMERS,
+    payload: streamers
+  };
+};
+
+var appendStreamers = exports.appendStreamers = function appendStreamers(streamers) {
+  return {
+    type: APPEND_STREAMERS,
+    payload: streamers
+  };
+};
+
+/***/ }),
+/* 1137 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(826);
+
+var _reactRouterDom = __webpack_require__(161);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var StreamersItem = function StreamersItem(_ref) {
+  var streamer = _ref.streamer,
+      numberOfClips = _ref.numberOfClips,
+      numberOfArchives = _ref.numberOfArchives;
+
+  return _react2.default.createElement(
+    _semanticUiReact.Segment.Group,
+    { className: "streamer-item" },
+    _react2.default.createElement(
+      _semanticUiReact.Segment,
+      null,
+      _react2.default.createElement(
+        _semanticUiReact.Label,
+        { attached: "top", className: "inverted-color-label" },
+        streamer.monitored && _react2.default.createElement(_semanticUiReact.Icon, { name: "circle thin", color: "red" }),
+        streamer.displayName
+      ),
+      _react2.default.createElement(
+        _semanticUiReact.Item.Group,
+        null,
+        _react2.default.createElement(
+          _semanticUiReact.Item,
+          null,
+          _react2.default.createElement(_semanticUiReact.Item.Image, { size: "tiny", src: streamer.profileImageURL, circular: true }),
+          _react2.default.createElement(
+            _semanticUiReact.Item.Content,
+            null,
+            _react2.default.createElement(
+              _semanticUiReact.Item.Extra,
+              null,
+              _react2.default.createElement(_semanticUiReact.Icon, { name: "video" }),
+              " ",
+              numberOfClips ? numberOfClips : "0",
+              " ",
+              "clips"
+            ),
+            _react2.default.createElement(
+              _semanticUiReact.Item.Extra,
+              null,
+              _react2.default.createElement(_semanticUiReact.Icon, { name: "film" }),
+              " ",
+              numberOfArchives ? numberOfArchives : "0",
+              " ",
+              "archives"
+            )
+          )
+        )
+      )
+    ),
+    _react2.default.createElement(
+      _semanticUiReact.Segment,
+      { textAlign: "center" },
+      _react2.default.createElement(
+        _semanticUiReact.Button,
+        null,
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { to: { pathname: "/streamer/" + streamer.streamerId } },
+          "Visit"
+        )
+      )
+    )
+  );
+};
+
+exports.default = StreamersItem;
 
 /***/ })
 /******/ ]);
