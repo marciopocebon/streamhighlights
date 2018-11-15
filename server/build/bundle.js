@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 12);
+/******/ 	return __webpack_require__(__webpack_require__.s = 16);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -71,6 +71,12 @@ module.exports = require("react");
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-redux");
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -185,19 +191,134 @@ var fetchAdmins = exports.fetchAdmins = function fetchAdmins() {
 };
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-redux");
+module.exports = require("semantic-ui-react");
 
 /***/ }),
-/* 3 */
+/* 4 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-router-dom");
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-router-config");
 
 /***/ }),
-/* 4 */
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.fetchMoreActivity = exports.getActivity = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _index = __webpack_require__(33);
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+var initialState = { items: [], fetching: false };
+
+var activity = function activity() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _index.REQUEST_ACTIVITY:
+      return _extends({}, state, {
+        fetching: true
+      });
+    case _index.FETCH_ACTIVITY:
+      return _extends({}, state, {
+        items: action.payload,
+        fetching: false
+      });
+    case _index.APPEND_ACTIVITY:
+      return _extends({}, state, {
+        items: [].concat(_toConsumableArray(state.items), _toConsumableArray(action.payload)),
+        fetching: false
+      });
+    default:
+      return state;
+  }
+};
+
+var getActivity = exports.getActivity = function getActivity(pageIndex) {
+  return function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch, getState, api) {
+      var res;
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return api.get("/activity/latest?page=" + pageIndex);
+
+            case 2:
+              res = _context.sent;
+
+              dispatch((0, _index.fetchActivity)(res.data.clips));
+
+            case 4:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, undefined);
+    }));
+
+    return function (_x2, _x3, _x4) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+};
+
+var fetchMoreActivity = exports.fetchMoreActivity = function fetchMoreActivity(pageIndex) {
+  return function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(dispatch, getState, api) {
+      var res;
+      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              dispatch((0, _index.requestActivity)());
+              _context2.next = 3;
+              return api.get("/activity/latest?page=" + pageIndex);
+
+            case 3:
+              res = _context2.sent;
+
+              dispatch((0, _index.appendActivity)(res.data.clips));
+
+            case 5:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, undefined);
+    }));
+
+    return function (_x5, _x6, _x7) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+};
+
+exports.default = activity;
+
+/***/ }),
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -209,23 +330,23 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _UsersListPage = __webpack_require__(16);
+var _UsersListPage = __webpack_require__(19);
 
 var _UsersListPage2 = _interopRequireDefault(_UsersListPage);
 
-var _App = __webpack_require__(17);
+var _App = __webpack_require__(20);
 
 var _App2 = _interopRequireDefault(_App);
 
-var _NotFoundPage = __webpack_require__(18);
+var _NotFoundPage = __webpack_require__(22);
 
 var _NotFoundPage2 = _interopRequireDefault(_NotFoundPage);
 
-var _AdminsListPage = __webpack_require__(19);
+var _AdminsListPage = __webpack_require__(23);
 
 var _AdminsListPage2 = _interopRequireDefault(_AdminsListPage);
 
-var _StreamersPage = __webpack_require__(40);
+var _StreamersPage = __webpack_require__(30);
 
 var _StreamersPage2 = _interopRequireDefault(_StreamersPage);
 
@@ -243,75 +364,213 @@ exports.default = [_extends({}, _App2.default, {
 })];
 
 /***/ }),
-/* 5 */
+/* 8 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-helmet");
 
 /***/ }),
-/* 6 */
+/* 9 */
 /***/ (function(module, exports) {
 
 module.exports = require("object-assign");
 
 /***/ }),
-/* 7 */
+/* 10 */
 /***/ (function(module, exports) {
 
 module.exports = require("fbjs/lib/emptyObject");
 
 /***/ }),
-/* 8 */
+/* 11 */
 /***/ (function(module, exports) {
 
 module.exports = require("fbjs/lib/invariant");
 
 /***/ }),
-/* 9 */
+/* 12 */
 /***/ (function(module, exports) {
 
 module.exports = require("fbjs/lib/emptyFunction");
 
 /***/ }),
-/* 10 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-router-dom");
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports) {
-
-module.exports = require("redux");
-
-/***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(13);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.fetchMoreStreamers = exports.getStreamers = undefined;
 
-var _express = __webpack_require__(14);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _index = __webpack_require__(14);
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+var initialState = { items: [], fetching: false };
+
+var streamers = function streamers() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _index.REQUEST_STREAMERS:
+      return _extends({}, state, {
+        fetching: true
+      });
+    case _index.FETCH_STREAMERS:
+      return _extends({}, state, {
+        items: action.payload,
+        fetching: false
+      });
+    case _index.APPEND_STREAMERS:
+      return _extends({}, state, {
+        items: [].concat(_toConsumableArray(state.items), _toConsumableArray(action.payload)),
+        fetching: false
+      });
+    default:
+      return state;
+  }
+};
+
+var getStreamers = exports.getStreamers = function getStreamers(pageIndex, streamerFilter) {
+  return function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch, getState, api) {
+      var res;
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              console.log(pageIndex, streamerFilter);
+              _context.next = 3;
+              return api.get("/streamers?page=" + pageIndex + (streamerFilter ? "&q=" + streamerFilter : ""));
+
+            case 3:
+              res = _context.sent;
+
+              dispatch((0, _index.fetchStreamers)(res.data.streamers));
+
+            case 5:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, undefined);
+    }));
+
+    return function (_x2, _x3, _x4) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+};
+
+var fetchMoreStreamers = exports.fetchMoreStreamers = function fetchMoreStreamers(pageIndex, streamerFilter) {
+  return function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(dispatch, getState, api) {
+      var res;
+      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              dispatch((0, _index.requestStreamers)());
+              _context2.next = 3;
+              return api.get("/streamers?page=" + pageIndex + (streamerFilter ? "&q=" + streamerFilter : ""));
+
+            case 3:
+              res = _context2.sent;
+
+              dispatch((0, _index.appendStreamers)(res.data.streamers));
+
+            case 5:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, undefined);
+    }));
+
+    return function (_x5, _x6, _x7) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+};
+
+exports.default = streamers;
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var FETCH_STREAMERS = exports.FETCH_STREAMERS = "FETCH_STREAMERS";
+var APPEND_STREAMERS = exports.APPEND_STREAMERS = "APPEND_STREAMERS";
+var REQUEST_STREAMERS = exports.REQUEST_STREAMERS = "REQUEST_STREAMERS";
+
+var fetchStreamers = exports.fetchStreamers = function fetchStreamers(streamers) {
+  return {
+    type: FETCH_STREAMERS,
+    payload: streamers
+  };
+};
+
+var requestStreamers = exports.requestStreamers = function requestStreamers() {
+  return {
+    type: REQUEST_STREAMERS
+  };
+};
+
+var appendStreamers = exports.appendStreamers = function appendStreamers(streamers) {
+  return {
+    type: APPEND_STREAMERS,
+    payload: streamers
+  };
+};
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports) {
+
+module.exports = require("redux");
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(17);
+
+var _express = __webpack_require__(18);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _reactRouterConfig = __webpack_require__(3);
+var _reactRouterConfig = __webpack_require__(5);
 
-var _routes = __webpack_require__(4);
+var _routes = __webpack_require__(7);
 
 var _routes2 = _interopRequireDefault(_routes);
 
-var _expressHttpProxy = __webpack_require__(26);
+var _expressHttpProxy = __webpack_require__(37);
 
 var _expressHttpProxy2 = _interopRequireDefault(_expressHttpProxy);
 
-var _renderer = __webpack_require__(27);
+var _renderer = __webpack_require__(38);
 
 var _renderer2 = _interopRequireDefault(_renderer);
 
-var _createStore = __webpack_require__(30);
+var _createStore = __webpack_require__(41);
 
 var _createStore2 = _interopRequireDefault(_createStore);
 
@@ -363,20 +622,19 @@ app.listen(3000, function () {
 });
 
 /***/ }),
-/* 13 */
+/* 17 */
 /***/ (function(module, exports) {
 
 module.exports = require("babel-polyfill");
 
 /***/ }),
-/* 14 */
+/* 18 */
 /***/ (function(module, exports) {
 
 module.exports = require("express");
 
 /***/ }),
-/* 15 */,
-/* 16 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -392,11 +650,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(2);
+var _reactRedux = __webpack_require__(1);
 
-var _actions = __webpack_require__(1);
+var _actions = __webpack_require__(2);
 
-var _reactHelmet = __webpack_require__(5);
+var _reactHelmet = __webpack_require__(8);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -485,7 +743,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 17 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -501,11 +759,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterConfig = __webpack_require__(3);
+var _reactRouterConfig = __webpack_require__(5);
 
-var _index = __webpack_require__(1);
+var _index = __webpack_require__(2);
 
-var _TopMenu = __webpack_require__(38);
+var _TopMenu = __webpack_require__(21);
 
 var _TopMenu2 = _interopRequireDefault(_TopMenu);
 
@@ -552,7 +810,104 @@ exports.default = {
 };
 
 /***/ }),
-/* 18 */
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(3);
+
+var _reactRouterDom = __webpack_require__(4);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TopMenu = function (_Component) {
+  _inherits(TopMenu, _Component);
+
+  function TopMenu(props) {
+    _classCallCheck(this, TopMenu);
+
+    var _this = _possibleConstructorReturn(this, (TopMenu.__proto__ || Object.getPrototypeOf(TopMenu)).call(this, props));
+
+    _this.state = {
+      activeItem: {}
+    };
+    _this.handleItemClick = _this.handleItemClick.bind(_this);
+    return _this;
+  }
+
+  _createClass(TopMenu, [{
+    key: "handleItemClick",
+    value: function handleItemClick(e, _ref) {
+      var name = _ref.name;
+
+      this.setState({ activeItem: name });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var activeItem = this.state.activeItem;
+
+      return _react2.default.createElement(
+        _semanticUiReact.Menu,
+        { stackable: true, borderless: true },
+        _react2.default.createElement(
+          _semanticUiReact.Menu.Item,
+          { className: "brand" },
+          "Stream Highlights"
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Menu.Item,
+          {
+            as: _reactRouterDom.Link,
+            name: "streamers",
+            to: "/",
+            onClick: this.handleItemClick,
+            active: activeItem === "streamers"
+          },
+          _react2.default.createElement(_semanticUiReact.Icon, { name: "users" }),
+          "Streamers"
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Menu.Item,
+          {
+            as: _reactRouterDom.Link,
+            name: "games",
+            to: "/games",
+            onClick: this.handleItemClick,
+            active: activeItem === "games"
+          },
+          _react2.default.createElement(_semanticUiReact.Icon, { name: "gamepad" }),
+          "Games"
+        )
+      );
+    }
+  }]);
+
+  return TopMenu;
+}(_react.Component);
+
+exports.default = TopMenu;
+
+/***/ }),
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -583,7 +938,7 @@ var NotFoundPage = function NotFoundPage(_ref) {
 exports.default = { component: NotFoundPage };
 
 /***/ }),
-/* 19 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -599,11 +954,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(2);
+var _reactRedux = __webpack_require__(1);
 
-var _actions = __webpack_require__(1);
+var _actions = __webpack_require__(2);
 
-var _requireAuth = __webpack_require__(20);
+var _requireAuth = __webpack_require__(24);
 
 var _requireAuth2 = _interopRequireDefault(_requireAuth);
 
@@ -678,7 +1033,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 20 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -690,13 +1045,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _React = __webpack_require__(21);
+var _React = __webpack_require__(25);
 
 var _React2 = _interopRequireDefault(_React);
 
-var _reactRedux = __webpack_require__(2);
+var _reactRedux = __webpack_require__(1);
 
-var _reactRouterDom = __webpack_require__(10);
+var _reactRouterDom = __webpack_require__(4);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -747,21 +1102,21 @@ exports.default = function (ChildComponent) {
 };
 
 /***/ }),
-/* 21 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 if (process.env.NODE_ENV === 'production') {
-  module.exports = __webpack_require__(22);
+  module.exports = __webpack_require__(26);
 } else {
-  module.exports = __webpack_require__(23);
+  module.exports = __webpack_require__(27);
 }
 
 
 /***/ }),
-/* 22 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -774,7 +1129,7 @@ if (process.env.NODE_ENV === 'production') {
  This source code is licensed under the MIT license found in the
  LICENSE file in the root directory of this source tree.
 */
-var f=__webpack_require__(6),p=__webpack_require__(7);__webpack_require__(8);var r=__webpack_require__(9);
+var f=__webpack_require__(9),p=__webpack_require__(10);__webpack_require__(11);var r=__webpack_require__(12);
 function t(a){for(var b=arguments.length-1,d="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,e=0;e<b;e++)d+="\x26args[]\x3d"+encodeURIComponent(arguments[e+1]);b=Error(d+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}
 var u={isMounted:function(){return!1},enqueueForceUpdate:function(){},enqueueReplaceState:function(){},enqueueSetState:function(){}};function v(a,b,d){this.props=a;this.context=b;this.refs=p;this.updater=d||u}v.prototype.isReactComponent={};v.prototype.setState=function(a,b){"object"!==typeof a&&"function"!==typeof a&&null!=a?t("85"):void 0;this.updater.enqueueSetState(this,a,b,"setState")};v.prototype.forceUpdate=function(a){this.updater.enqueueForceUpdate(this,a,"forceUpdate")};
 function w(a,b,d){this.props=a;this.context=b;this.refs=p;this.updater=d||u}function x(){}x.prototype=v.prototype;var y=w.prototype=new x;y.constructor=w;f(y,v.prototype);y.isPureReactComponent=!0;function z(a,b,d){this.props=a;this.context=b;this.refs=p;this.updater=d||u}var A=z.prototype=new x;A.constructor=z;f(A,v.prototype);A.unstable_isAsyncReactComponent=!0;A.render=function(){return this.props.children};
@@ -791,7 +1146,7 @@ module.exports={Children:{map:S.map,forEach:S.forEach,count:S.count,toArray:S.to
 
 
 /***/ }),
-/* 23 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -811,12 +1166,12 @@ if (process.env.NODE_ENV !== "production") {
 
 'use strict';
 
-var objectAssign$1 = __webpack_require__(6);
-var require$$0 = __webpack_require__(24);
-var emptyObject = __webpack_require__(7);
-var invariant = __webpack_require__(8);
-var emptyFunction = __webpack_require__(9);
-var checkPropTypes = __webpack_require__(25);
+var objectAssign$1 = __webpack_require__(9);
+var require$$0 = __webpack_require__(28);
+var emptyObject = __webpack_require__(10);
+var invariant = __webpack_require__(11);
+var emptyFunction = __webpack_require__(12);
+var checkPropTypes = __webpack_require__(29);
 
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -2496,89 +2851,16 @@ module.exports = ReactEntry;
 
 
 /***/ }),
-/* 24 */
+/* 28 */
 /***/ (function(module, exports) {
 
 module.exports = require("fbjs/lib/warning");
 
 /***/ }),
-/* 25 */
-/***/ (function(module, exports) {
-
-module.exports = require("prop-types/checkPropTypes");
-
-/***/ }),
-/* 26 */
-/***/ (function(module, exports) {
-
-module.exports = require("express-http-proxy");
-
-/***/ }),
-/* 27 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _server = __webpack_require__(28);
-
-var _reactRouterDom = __webpack_require__(10);
-
-var _reactRedux = __webpack_require__(2);
-
-var _reactRouterConfig = __webpack_require__(3);
-
-var _routes = __webpack_require__(4);
-
-var _routes2 = _interopRequireDefault(_routes);
-
-var _serializeJavascript = __webpack_require__(29);
-
-var _serializeJavascript2 = _interopRequireDefault(_serializeJavascript);
-
-var _reactHelmet = __webpack_require__(5);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = function (req, store, context) {
-  var content = (0, _server.renderToString)(_react2.default.createElement(
-    _reactRedux.Provider,
-    { store: store },
-    _react2.default.createElement(
-      _reactRouterDom.StaticRouter,
-      { location: req.path, context: context },
-      _react2.default.createElement(
-        "div",
-        null,
-        (0, _reactRouterConfig.renderRoutes)(_routes2.default)
-      )
-    )
-  ));
-
-  var helmet = _reactHelmet.Helmet.renderStatic();
-
-  return "\n    <html>\n        <head>\n          " + helmet.title.toString() + "\n          " + helmet.meta.toString() + "\n          <link rel=\"stylesheet\" href=\"//cdn.jsdelivr.net/npm/semantic-ui@2.4.0/dist/semantic.min.css\"></link>\n          <link rel=\"stylesheet\" href=\"assets/style.css\">\n        </head>\n        <body>\n            <div id=\"root\">" + content + "</div>\n            <script>window.INITIAL_STATE = " + (0, _serializeJavascript2.default)(store.getState()) + "</script>\n            <script src=\"bundle.js\"></script>\n        </body>\n    </html>\n  ";
-};
-
-/***/ }),
-/* 28 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-dom/server");
-
-/***/ }),
 /* 29 */
 /***/ (function(module, exports) {
 
-module.exports = require("serialize-javascript");
+module.exports = require("prop-types/checkPropTypes");
 
 /***/ }),
 /* 30 */
@@ -2591,292 +2873,33 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _redux = __webpack_require__(11);
-
-var _reduxThunk = __webpack_require__(31);
-
-var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
-
-var _index = __webpack_require__(32);
-
-var _index2 = _interopRequireDefault(_index);
-
-var _axios = __webpack_require__(36);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = function (req) {
-  var axiosInstance = _axios2.default.create({
-    baseURL: "http://localhost:3001",
-    headers: { cookie: req.get("cookie") || "" }
-  });
-  var store = (0, _redux.createStore)(_index2.default, {}, (0, _redux.applyMiddleware)(_reduxThunk2.default.withExtraArgument(axiosInstance)));
-  return store;
-};
-
-/***/ }),
-/* 31 */
-/***/ (function(module, exports) {
-
-module.exports = require("redux-thunk");
-
-/***/ }),
-/* 32 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _redux = __webpack_require__(11);
-
-var _usersReducer = __webpack_require__(33);
-
-var _usersReducer2 = _interopRequireDefault(_usersReducer);
-
-var _authReducer = __webpack_require__(34);
-
-var _authReducer2 = _interopRequireDefault(_authReducer);
-
-var _adminsReducer = __webpack_require__(35);
-
-var _adminsReducer2 = _interopRequireDefault(_adminsReducer);
-
-var _index = __webpack_require__(41);
-
-var _index2 = _interopRequireDefault(_index);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = (0, _redux.combineReducers)({
-  users: _usersReducer2.default,
-  auth: _authReducer2.default,
-  admins: _adminsReducer2.default,
-  streamers: _index2.default
-});
-
-/***/ }),
-/* 33 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _index = __webpack_require__(1);
-
-exports.default = function () {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-  var action = arguments[1];
-
-  switch (action.type) {
-    case _index.FETCH_USERS:
-      return action.payload.data;
-    default:
-      return state;
-  }
-};
-
-/***/ }),
-/* 34 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-exports.default = function () {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-  var action = arguments[1];
-
-  switch (action.type) {
-    case _index.FETCH_CURRENT_USER:
-      return action.payload.data || false;
-    default:
-      return state;
-  }
-};
-
-var _index = __webpack_require__(1);
-
-/***/ }),
-/* 35 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _index = __webpack_require__(1);
-
-exports.default = function () {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-  var action = arguments[1];
-
-  switch (action.type) {
-    case _index.FETCH_ADMINS:
-      return action.payload.data;
-    default:
-      return state;
-  }
-};
-
-/***/ }),
-/* 36 */
-/***/ (function(module, exports) {
-
-module.exports = require("axios");
-
-/***/ }),
-/* 37 */,
-/* 38 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _semanticUiReact = __webpack_require__(39);
+var _semanticUiReact = __webpack_require__(3);
 
-var _reactRouterDom = __webpack_require__(10);
+var _reactRedux = __webpack_require__(1);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _streamers = __webpack_require__(13);
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var TopMenu = function (_Component) {
-  _inherits(TopMenu, _Component);
-
-  function TopMenu(props) {
-    _classCallCheck(this, TopMenu);
-
-    var _this = _possibleConstructorReturn(this, (TopMenu.__proto__ || Object.getPrototypeOf(TopMenu)).call(this, props));
-
-    _this.state = {
-      activeItem: {}
-    };
-    _this.handleItemClick = _this.handleItemClick.bind(_this);
-    return _this;
-  }
-
-  _createClass(TopMenu, [{
-    key: "handleItemClick",
-    value: function handleItemClick(e, _ref) {
-      var name = _ref.name;
-
-      this.setState({ activeItem: name });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var activeItem = this.state.activeItem;
-
-      return _react2.default.createElement(
-        _semanticUiReact.Menu,
-        { stackable: true, borderless: true },
-        _react2.default.createElement(
-          _semanticUiReact.Menu.Item,
-          { className: "brand" },
-          "Stream Highlights"
-        ),
-        _react2.default.createElement(
-          _semanticUiReact.Menu.Item,
-          {
-            as: _reactRouterDom.Link,
-            name: "streamers",
-            to: "/",
-            onClick: this.handleItemClick,
-            active: activeItem === "streamers"
-          },
-          _react2.default.createElement(_semanticUiReact.Icon, { name: "users" }),
-          "Streamers"
-        ),
-        _react2.default.createElement(
-          _semanticUiReact.Menu.Item,
-          {
-            as: _reactRouterDom.Link,
-            name: "games",
-            to: "/games",
-            onClick: this.handleItemClick,
-            active: activeItem === "games"
-          },
-          _react2.default.createElement(_semanticUiReact.Icon, { name: "gamepad" }),
-          "Games"
-        )
-      );
-    }
-  }]);
-
-  return TopMenu;
-}(_react.Component);
-
-exports.default = TopMenu;
-
-/***/ }),
-/* 39 */
-/***/ (function(module, exports) {
-
-module.exports = require("semantic-ui-react");
-
-/***/ }),
-/* 40 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _semanticUiReact = __webpack_require__(39);
-
-var _reactRedux = __webpack_require__(2);
-
-var _streamers = __webpack_require__(41);
-
-var _StreamersItem = __webpack_require__(43);
+var _StreamersItem = __webpack_require__(31);
 
 var _StreamersItem2 = _interopRequireDefault(_StreamersItem);
 
-var _StreamerGridFilter = __webpack_require__(44);
+var _StreamerGridFilter = __webpack_require__(32);
 
 var _StreamerGridFilter2 = _interopRequireDefault(_StreamerGridFilter);
 
-var _index = __webpack_require__(42);
+var _index = __webpack_require__(14);
+
+var _activity = __webpack_require__(6);
+
+var _ActivityFeed = __webpack_require__(34);
+
+var _ActivityFeed2 = _interopRequireDefault(_ActivityFeed);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3014,7 +3037,11 @@ var StreamersPage = function (_Component) {
             )
           )
         ),
-        _react2.default.createElement(_semanticUiReact.Grid.Column, { width: 6 })
+        _react2.default.createElement(
+          _semanticUiReact.Grid.Column,
+          { width: 6 },
+          _react2.default.createElement(_ActivityFeed2.default, null)
+        )
       );
     }
   }]);
@@ -3032,156 +3059,15 @@ exports.default = {
   component: (0, _reactRedux.connect)(mapStateToProps, { getStreamers: _streamers.getStreamers, fetchMoreStreamers: _streamers.fetchMoreStreamers, requestStreamers: _index.requestStreamers })(StreamersPage),
   loadData: function loadData(_ref2) {
     var dispatch = _ref2.dispatch;
-    return dispatch((0, _streamers.getStreamers)(0));
+
+    return dispatch((0, _streamers.getStreamers)(0)).then(function () {
+      return dispatch((0, _activity.getActivity)(0));
+    });
   }
 };
 
 /***/ }),
-/* 41 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.fetchMoreStreamers = exports.getStreamers = undefined;
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _index = __webpack_require__(42);
-
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-var initialState = { items: [], fetching: false };
-
-var streamers = function streamers() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-  var action = arguments[1];
-
-  switch (action.type) {
-    case _index.REQUEST_STREAMERS:
-      return _extends({}, state, {
-        fetching: true
-      });
-    case _index.FETCH_STREAMERS:
-      return _extends({}, state, {
-        items: action.payload,
-        fetching: false
-      });
-    case _index.APPEND_STREAMERS:
-      return _extends({}, state, {
-        items: [].concat(_toConsumableArray(state.items), _toConsumableArray(action.payload)),
-        fetching: false
-      });
-    default:
-      return state;
-  }
-};
-
-var getStreamers = exports.getStreamers = function getStreamers(pageIndex, streamerFilter) {
-  return function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch, getState, api) {
-      var res;
-      return regeneratorRuntime.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              console.log(pageIndex, streamerFilter);
-              _context.next = 3;
-              return api.get("/streamers?page=" + pageIndex + (streamerFilter ? "&q=" + streamerFilter : ""));
-
-            case 3:
-              res = _context.sent;
-
-              dispatch((0, _index.fetchStreamers)(res.data.streamers));
-
-            case 5:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee, undefined);
-    }));
-
-    return function (_x2, _x3, _x4) {
-      return _ref.apply(this, arguments);
-    };
-  }();
-};
-
-var fetchMoreStreamers = exports.fetchMoreStreamers = function fetchMoreStreamers(pageIndex, streamerFilter) {
-  return function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(dispatch, getState, api) {
-      var res;
-      return regeneratorRuntime.wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              dispatch((0, _index.requestStreamers)());
-              _context2.next = 3;
-              return api.get("/streamers?page=" + pageIndex + (streamerFilter ? "&q=" + streamerFilter : ""));
-
-            case 3:
-              res = _context2.sent;
-
-              dispatch((0, _index.appendStreamers)(res.data.streamers));
-
-            case 5:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2, undefined);
-    }));
-
-    return function (_x5, _x6, _x7) {
-      return _ref2.apply(this, arguments);
-    };
-  }();
-};
-
-exports.default = streamers;
-
-/***/ }),
-/* 42 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var FETCH_STREAMERS = exports.FETCH_STREAMERS = "FETCH_STREAMERS";
-var APPEND_STREAMERS = exports.APPEND_STREAMERS = "APPEND_STREAMERS";
-var REQUEST_STREAMERS = exports.REQUEST_STREAMERS = "REQUEST_STREAMERS";
-
-var fetchStreamers = exports.fetchStreamers = function fetchStreamers(streamers) {
-  return {
-    type: FETCH_STREAMERS,
-    payload: streamers
-  };
-};
-
-var requestStreamers = exports.requestStreamers = function requestStreamers() {
-  return {
-    type: REQUEST_STREAMERS
-  };
-};
-
-var appendStreamers = exports.appendStreamers = function appendStreamers(streamers) {
-  return {
-    type: APPEND_STREAMERS,
-    payload: streamers
-  };
-};
-
-/***/ }),
-/* 43 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3195,9 +3081,9 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _semanticUiReact = __webpack_require__(39);
+var _semanticUiReact = __webpack_require__(3);
 
-var _reactRouterDom = __webpack_require__(10);
+var _reactRouterDom = __webpack_require__(4);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3269,7 +3155,7 @@ var StreamersItem = function StreamersItem(_ref) {
 exports.default = StreamersItem;
 
 /***/ }),
-/* 44 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3285,7 +3171,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _semanticUiReact = __webpack_require__(39);
+var _semanticUiReact = __webpack_require__(3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3354,6 +3240,518 @@ var StreamerGridFilter = function (_Component) {
 }(_react.Component);
 
 exports.default = StreamerGridFilter;
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var FETCH_ACTIVITY = exports.FETCH_ACTIVITY = "FETCH_ACTIVITY";
+var APPEND_ACTIVITY = exports.APPEND_ACTIVITY = "APPEND_ACTIVITY";
+var REQUEST_ACTIVITY = exports.REQUEST_ACTIVITY = "REQUEST_ACTIVITY";
+
+var fetchActivity = exports.fetchActivity = function fetchActivity(activity) {
+  return {
+    type: FETCH_ACTIVITY,
+    payload: activity
+  };
+};
+
+var requestActivity = exports.requestActivity = function requestActivity() {
+  return {
+    type: REQUEST_ACTIVITY
+  };
+};
+
+var appendActivity = exports.appendActivity = function appendActivity(activity) {
+  return {
+    type: APPEND_STREAMERS,
+    payload: activity
+  };
+};
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(3);
+
+var _reactRedux = __webpack_require__(1);
+
+var _reactTimeago = __webpack_require__(35);
+
+var _reactTimeago2 = _interopRequireDefault(_reactTimeago);
+
+var _languageUtils = __webpack_require__(36);
+
+var _index = __webpack_require__(6);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var image = "https://image.flaticon.com/icons/svg/843/843273.svg";
+
+var ActivityFeed = function (_Component) {
+  _inherits(ActivityFeed, _Component);
+
+  function ActivityFeed(props) {
+    _classCallCheck(this, ActivityFeed);
+
+    var _this = _possibleConstructorReturn(this, (ActivityFeed.__proto__ || Object.getPrototypeOf(ActivityFeed)).call(this, props));
+
+    _this.state = {
+      pageIndex: 1,
+      modalOpen: false,
+      url: "",
+      streamerId: 0
+    };
+    _this.closeModal = _this.closeModal.bind(_this);
+    _this.handleScroll = _this.handleScroll.bind(_this);
+    return _this;
+  }
+
+  _createClass(ActivityFeed, [{
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      var getActivity = this.props.getActivity;
+
+      getActivity(0);
+    }
+  }, {
+    key: "handleScroll",
+    value: function handleScroll() {
+      if (this.scroller) {
+        if (this.scroller.scrollHeight - this.scroller.scrollTop === this.scroller.clientHeight) {
+          this.setState(function (prevState) {
+            return { pageIndex: prevState.pageIndex + 1 };
+          });
+          var _fetchMoreActivity = this.props.fetchMoreActivity;
+
+          _fetchMoreActivity(this.state.pageIndex);
+        }
+      }
+    }
+  }, {
+    key: "closeModal",
+    value: function closeModal() {
+      this.setState({
+        modalOpen: false
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var activity = this.props.activity;
+
+      return _react2.default.createElement(
+        _semanticUiReact.Segment,
+        { loading: activity.fetching, className: "activity-segment" },
+        _react2.default.createElement(
+          _semanticUiReact.Label,
+          { attached: "top", size: "big", className: "colored-label" },
+          _react2.default.createElement(_semanticUiReact.Icon, { loading: true, name: "certificate" }),
+          "Activity Feed"
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Message,
+          { warning: true },
+          "Those clips are generated automatically by ",
+          _react2.default.createElement(
+            "b",
+            null,
+            "AutoClipper (\u03B2)"
+          )
+        ),
+        _react2.default.createElement(
+          "div",
+          {
+            ref: function ref(scroller) {
+              _this2.scroller = scroller;
+            },
+            onScroll: this.handleScroll,
+            style: {
+              height: "85vh",
+              overflowY: "auto"
+            },
+            className: "activity-feed"
+          },
+          _react2.default.createElement(
+            _semanticUiReact.Feed,
+            { style: { marginTop: "20px", padding: "10px" } },
+            activity && activity.items && activity.items.map(function (clip) {
+              return _react2.default.createElement(
+                _semanticUiReact.Feed.Event,
+                {
+                  onClick: function onClick() {
+                    return _this2.setState({
+                      modalOpen: true,
+                      url: clip.embedClipURL,
+                      streamerId: clip.channelId.streamerId
+                    });
+                  }
+                },
+                _react2.default.createElement(_semanticUiReact.Feed.Label, { image: image }),
+                _react2.default.createElement(
+                  _semanticUiReact.Feed.Content,
+                  null,
+                  _react2.default.createElement(_semanticUiReact.Feed.Date, { content: _react2.default.createElement(_reactTimeago2.default, { date: clip.created_at }) }),
+                  _react2.default.createElement(_semanticUiReact.Feed.Summary, {
+                    content: "AutoClipper created a new clip for " + clip.channelId.displayName
+                  }),
+                  _react2.default.createElement(_semanticUiReact.Feed.Extra, { images: [clip.thumbnailURL] }),
+                  _react2.default.createElement(
+                    _semanticUiReact.Feed.Extra,
+                    null,
+                    _react2.default.createElement(
+                      _semanticUiReact.Label,
+                      null,
+                      _react2.default.createElement(_semanticUiReact.Flag, { name: (0, _languageUtils.mapToFlag)(clip.language) }),
+                      clip.language
+                    ),
+                    _react2.default.createElement(
+                      _semanticUiReact.Label,
+                      null,
+                      _react2.default.createElement(_semanticUiReact.Rating, {
+                        icon: "star",
+                        defaultRating: clip.score,
+                        maxRating: 5,
+                        disabled: true
+                      })
+                    )
+                  ),
+                  _react2.default.createElement(
+                    _semanticUiReact.Feed.Meta,
+                    null,
+                    _react2.default.createElement(
+                      _semanticUiReact.Feed.Like,
+                      null,
+                      _react2.default.createElement(_semanticUiReact.Icon, { name: "gamepad" }),
+                      clip.gameId[0] && clip.gameId[0].name
+                    )
+                  )
+                )
+              );
+            })
+          )
+        )
+      );
+    }
+  }]);
+
+  return ActivityFeed;
+}(_react.Component);
+
+function mapStateToProps(_ref) {
+  var activity = _ref.activity;
+
+  return { activity: activity };
+}
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, { getActivity: _index.getActivity, fetchMoreActivity: _index.fetchMoreActivity })(ActivityFeed);
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-timeago");
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+// Maps a twitch language to a flag
+var mapToFlag = exports.mapToFlag = function mapToFlag(language) {
+  switch (language) {
+    case "en":
+      return "us";
+    case "pt-br":
+      return "br";
+    case "ko":
+      return "kr";
+    case "zh-tw":
+      return "tw";
+    case "en-gb":
+      return "gb";
+    case "zh":
+      return "cn";
+    case "ja":
+      return "jp";
+    case "da":
+      return "dk";
+    default:
+      return language;
+  }
+};
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports) {
+
+module.exports = require("express-http-proxy");
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _server = __webpack_require__(39);
+
+var _reactRouterDom = __webpack_require__(4);
+
+var _reactRedux = __webpack_require__(1);
+
+var _reactRouterConfig = __webpack_require__(5);
+
+var _routes = __webpack_require__(7);
+
+var _routes2 = _interopRequireDefault(_routes);
+
+var _serializeJavascript = __webpack_require__(40);
+
+var _serializeJavascript2 = _interopRequireDefault(_serializeJavascript);
+
+var _reactHelmet = __webpack_require__(8);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (req, store, context) {
+  var content = (0, _server.renderToString)(_react2.default.createElement(
+    _reactRedux.Provider,
+    { store: store },
+    _react2.default.createElement(
+      _reactRouterDom.StaticRouter,
+      { location: req.path, context: context },
+      _react2.default.createElement(
+        "div",
+        null,
+        (0, _reactRouterConfig.renderRoutes)(_routes2.default)
+      )
+    )
+  ));
+
+  var helmet = _reactHelmet.Helmet.renderStatic();
+
+  return "\n    <html>\n        <head>\n          " + helmet.title.toString() + "\n          " + helmet.meta.toString() + "\n          <link rel=\"stylesheet\" href=\"//cdn.jsdelivr.net/npm/semantic-ui@2.4.0/dist/semantic.min.css\"></link>\n          <link rel=\"stylesheet\" href=\"assets/style.css\">\n        </head>\n        <body>\n            <div id=\"root\">" + content + "</div>\n            <script>window.INITIAL_STATE = " + (0, _serializeJavascript2.default)(store.getState()) + "</script>\n            <script src=\"bundle.js\"></script>\n        </body>\n    </html>\n  ";
+};
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-dom/server");
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports) {
+
+module.exports = require("serialize-javascript");
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _redux = __webpack_require__(15);
+
+var _reduxThunk = __webpack_require__(42);
+
+var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
+
+var _index = __webpack_require__(43);
+
+var _index2 = _interopRequireDefault(_index);
+
+var _axios = __webpack_require__(47);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (req) {
+  var axiosInstance = _axios2.default.create({
+    baseURL: "http://localhost:3001",
+    headers: { cookie: req.get("cookie") || "" }
+  });
+  var store = (0, _redux.createStore)(_index2.default, {}, (0, _redux.applyMiddleware)(_reduxThunk2.default.withExtraArgument(axiosInstance)));
+  return store;
+};
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports) {
+
+module.exports = require("redux-thunk");
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _redux = __webpack_require__(15);
+
+var _usersReducer = __webpack_require__(44);
+
+var _usersReducer2 = _interopRequireDefault(_usersReducer);
+
+var _authReducer = __webpack_require__(45);
+
+var _authReducer2 = _interopRequireDefault(_authReducer);
+
+var _adminsReducer = __webpack_require__(46);
+
+var _adminsReducer2 = _interopRequireDefault(_adminsReducer);
+
+var _index = __webpack_require__(13);
+
+var _index2 = _interopRequireDefault(_index);
+
+var _index3 = __webpack_require__(6);
+
+var _index4 = _interopRequireDefault(_index3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = (0, _redux.combineReducers)({
+  users: _usersReducer2.default,
+  auth: _authReducer2.default,
+  admins: _adminsReducer2.default,
+  streamers: _index2.default,
+  activity: _index4.default
+});
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _index = __webpack_require__(2);
+
+exports.default = function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _index.FETCH_USERS:
+      return action.payload.data;
+    default:
+      return state;
+  }
+};
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _index.FETCH_CURRENT_USER:
+      return action.payload.data || false;
+    default:
+      return state;
+  }
+};
+
+var _index = __webpack_require__(2);
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _index = __webpack_require__(2);
+
+exports.default = function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _index.FETCH_ADMINS:
+      return action.payload.data;
+    default:
+      return state;
+  }
+};
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports) {
+
+module.exports = require("axios");
 
 /***/ })
 /******/ ]);

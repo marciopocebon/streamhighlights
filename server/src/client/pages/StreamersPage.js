@@ -4,7 +4,9 @@ import { connect } from "react-redux";
 import { getStreamers, fetchMoreStreamers } from "../reducers/streamers";
 import StreamersItem from "./../components/streamers/StreamersItem";
 import StreamerGridFilter from "./../components/streamers/StreamerGridFilter";
-import { requestStreamers } from './../actions/streamers/index';
+import { requestStreamers } from "./../actions/streamers/index";
+import { getActivity } from "../reducers/activity";
+import ActivityFeed from "../components/activity/ActivityFeed";
 
 class StreamersPage extends Component {
   constructor(props) {
@@ -101,7 +103,9 @@ class StreamersPage extends Component {
             </div>
           </Segment>
         </Grid.Column>
-        <Grid.Column width={6} />
+        <Grid.Column width={6}>
+          <ActivityFeed />
+        </Grid.Column>
       </Grid>
     );
   }
@@ -116,5 +120,7 @@ export default {
     mapStateToProps,
     { getStreamers, fetchMoreStreamers, requestStreamers }
   )(StreamersPage),
-  loadData: ({ dispatch }) => dispatch(getStreamers(0))
+  loadData: ({ dispatch }) => {
+    return dispatch(getStreamers(0)).then(() => dispatch(getActivity(0)));
+  }
 };
