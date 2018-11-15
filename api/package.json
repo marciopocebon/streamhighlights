@@ -4,7 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "date-fns": "^1.29.0",
+    "express": "^4.16.3",
+    "mongodb": "^3.1.8",
+    "mongoose": "^5.3.3",
+    "nodemon": "^1.18.4"
   },
   "keywords": [],
   "author": "",
