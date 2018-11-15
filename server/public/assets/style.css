@@ -1,1 +1,102 @@
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
+body {
+  font-family: "Poppins", sans-serif;
+  background: #fafafa;
+}
+
+a {
+  color: unset;
+}
+
+/* Common */
+
+.app-content {
+  margin: 0 20px;
+}
+
+.ui.top.attached.label + [class*="right floated"] + *,
+.ui.top.attached.label:first-child + :not(.attached) {
+  margin-top: 3rem !important;
+}
+
+.colored-label {
+  background-color: #6d7fcc !important;
+  color: white !important;
+  font-weight: 300 !important;
+}
+
+.inverted-color-label,
+.ui.menu .header.item,
+.ui.vertical.menu .header.item {
+  font-weight: 500 !important;
+  background-color: #e8e8e838 !important;
+  color: #7386d5 !important;
+}
+
+.bordered-segment {
+  border-left: 5px solid #6d7fcc !important;
+}
+
+.ui.segment {
+  box-shadow: 0 0.75rem 1.5rem rgba(18, 38, 63, 0.03) !important;
+}
+
+.ui.menu .active.item {
+  border-bottom: 3px solid #6d7fcc !important;
+  font-weight: 700 !important;
+}
+
+.ui.feed > .event > .content .user {
+  margin-right: 5px !important;
+}
+
+.ui.message .header {
+  margin-bottom: 5px !important;
+}
+
+.inverted-button {
+  background-color: #6d7fcc !important;
+  color: white !important;
+}
+
+/* Streamers Dashboard */
+
+.streamer-item {
+  margin-bottom: 30px !important;
+}
+
+.segment-grid-filter {
+  margin-top: 40px !important;
+}
+
+/* Activity Feed */
+
+.activity-segment {
+  padding: 0 !important;
+}
+
+.clips-segment {
+  height: 75vh;
+}
+
+.ui.feed > .event {
+  margin-bottom: 20px !important;
+  padding: 15px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.ui.feed > .event:hover {
+  background: #e8e8e8;
+}
+
+/* Clips */
+
+.clip-rating {
+  margin-bottom: 4px !important;
+}
+
+.clip-automatic {
+  border-left: 3px solid #6d7fcc !important;
+}
