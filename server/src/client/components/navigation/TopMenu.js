@@ -8,6 +8,7 @@ class TopMenu extends Component {
     this.state = {
       activeItem: {}
     };
+    this.handleItemClick = this.handleItemClick.bind(this);
   }
 
   handleItemClick(e, { name }) {
@@ -19,11 +20,23 @@ class TopMenu extends Component {
     return (
       <Menu stackable borderless>
         <Menu.Item className="brand">Stream Highlights</Menu.Item>
-        <Menu.Item as={Link} name="streamers" to="/">
+        <Menu.Item
+          as={Link}
+          name="streamers"
+          to="/"
+          onClick={this.handleItemClick}
+          active={activeItem === "streamers"}
+        >
           <Icon name="users" />
           Streamers
         </Menu.Item>
-        <Menu.Item as={Link} name="games" to="/games">
+        <Menu.Item
+          as={Link}
+          name="games"
+          to="/games"
+          onClick={this.handleItemClick}
+          active={activeItem === "games"}
+        >
           <Icon name="gamepad" />
           Games
         </Menu.Item>

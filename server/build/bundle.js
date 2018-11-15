@@ -2835,6 +2835,7 @@ var TopMenu = function (_Component) {
     _this.state = {
       activeItem: {}
     };
+    _this.handleItemClick = _this.handleItemClick.bind(_this);
     return _this;
   }
 
@@ -2860,13 +2861,25 @@ var TopMenu = function (_Component) {
         ),
         _react2.default.createElement(
           _semanticUiReact.Menu.Item,
-          { as: _reactRouterDom.Link, name: "streamers", to: "/" },
+          {
+            as: _reactRouterDom.Link,
+            name: "streamers",
+            to: "/",
+            onClick: this.handleItemClick,
+            active: activeItem === "streamers"
+          },
           _react2.default.createElement(_semanticUiReact.Icon, { name: "users" }),
           "Streamers"
         ),
         _react2.default.createElement(
           _semanticUiReact.Menu.Item,
-          { as: _reactRouterDom.Link, name: "games", to: "/games" },
+          {
+            as: _reactRouterDom.Link,
+            name: "games",
+            to: "/games",
+            onClick: this.handleItemClick,
+            active: activeItem === "games"
+          },
           _react2.default.createElement(_semanticUiReact.Icon, { name: "gamepad" }),
           "Games"
         )
