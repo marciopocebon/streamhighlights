@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 16);
+/******/ 	return __webpack_require__(__webpack_require__.s = 20);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -222,7 +222,7 @@ exports.fetchMoreActivity = exports.getActivity = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _index = __webpack_require__(33);
+var _index = __webpack_require__(37);
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
@@ -327,30 +327,73 @@ exports.default = activity;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+var SET_SELECTED_STREAMER = exports.SET_SELECTED_STREAMER = "SET_SELECTED_STREAMER";
+var SET_SELECTED_GAME = exports.SET_SELECTED_GAME = "SET_SELECTED_GAME";
+var SET_AUTOMATIC_CHECKBOX = exports.SET_AUTOMATIC_CHECKBOX = "SET_AUTOMATIC_CHECKBOX";
+var SET_TIME_FILTER = exports.SET_TIME_FILTER = "SET_TIME_FILTER";
+
+var setSelectedGame = exports.setSelectedGame = function setSelectedGame(game) {
+  return {
+    type: SET_SELECTED_GAME,
+    payload: game
+  };
+};
+
+var setSelectedStreamer = exports.setSelectedStreamer = function setSelectedStreamer(streamer) {
+  return {
+    type: SET_SELECTED_STREAMER,
+    payload: streamer
+  };
+};
+
+var setAutomaticCheckbox = exports.setAutomaticCheckbox = function setAutomaticCheckbox(value) {
+  return {
+    type: SET_AUTOMATIC_CHECKBOX,
+    payload: value
+  };
+};
+
+var setTimeFilter = exports.setTimeFilter = function setTimeFilter(time) {
+  return {
+    type: SET_TIME_FILTER,
+    payload: time
+  };
+};
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _UsersListPage = __webpack_require__(19);
+var _UsersListPage = __webpack_require__(23);
 
 var _UsersListPage2 = _interopRequireDefault(_UsersListPage);
 
-var _App = __webpack_require__(20);
+var _App = __webpack_require__(24);
 
 var _App2 = _interopRequireDefault(_App);
 
-var _NotFoundPage = __webpack_require__(22);
+var _NotFoundPage = __webpack_require__(26);
 
 var _NotFoundPage2 = _interopRequireDefault(_NotFoundPage);
 
-var _AdminsListPage = __webpack_require__(23);
+var _AdminsListPage = __webpack_require__(27);
 
 var _AdminsListPage2 = _interopRequireDefault(_AdminsListPage);
 
-var _StreamersPage = __webpack_require__(30);
+var _StreamersPage = __webpack_require__(34);
 
 var _StreamersPage2 = _interopRequireDefault(_StreamersPage);
 
-var _StreamerDetailPage = __webpack_require__(39);
+var _StreamerDetailPage = __webpack_require__(43);
 
 var _StreamerDetailPage2 = _interopRequireDefault(_StreamerDetailPage);
 
@@ -360,8 +403,9 @@ exports.default = [_extends({}, _App2.default, {
   routes: [_extends({}, _StreamersPage2.default, {
     path: "/",
     exact: true
-  }), _extends({ path: '/streamer/:id'
-  }, _StreamerDetailPage2.default), _extends({
+  }), _extends({}, _StreamerDetailPage2.default, {
+    path: "/streamer/:id"
+  }), _extends({
     path: "/users"
   }, _UsersListPage2.default), _extends({
     path: "/admins"
@@ -369,37 +413,37 @@ exports.default = [_extends({}, _App2.default, {
 })];
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-helmet");
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports) {
 
 module.exports = require("object-assign");
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports) {
 
 module.exports = require("fbjs/lib/emptyObject");
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports) {
 
 module.exports = require("fbjs/lib/invariant");
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports) {
 
 module.exports = require("fbjs/lib/emptyFunction");
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -412,7 +456,7 @@ exports.fetchMoreStreamers = exports.getStreamers = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _index = __webpack_require__(14);
+var _index = __webpack_require__(15);
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
@@ -452,16 +496,16 @@ var getStreamers = exports.getStreamers = function getStreamers(pageIndex, strea
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              console.log(pageIndex, streamerFilter);
-              _context.next = 3;
+              _context.next = 2;
               return api.get("/streamers?page=" + pageIndex + (streamerFilter ? "&q=" + streamerFilter : ""));
 
-            case 3:
+            case 2:
               res = _context.sent;
 
+              // Error handling maybe?
               dispatch((0, _index.fetchStreamers)(res.data.streamers));
 
-            case 5:
+            case 4:
             case "end":
               return _context.stop();
           }
@@ -509,7 +553,7 @@ var fetchMoreStreamers = exports.fetchMoreStreamers = function fetchMoreStreamer
 exports.default = streamers;
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -543,39 +587,262 @@ var appendStreamers = exports.appendStreamers = function appendStreamers(streame
 };
 
 /***/ }),
-/* 15 */
-/***/ (function(module, exports) {
-
-module.exports = require("redux");
-
-/***/ }),
 /* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(17);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var REQUEST_CLIPS = exports.REQUEST_CLIPS = "REQUEST_CLIPS";
+var FETCH_CLIPS_SUCCESS = exports.FETCH_CLIPS_SUCCESS = "FETCH_CLIPS_SUCCESS";
+var SET_CLIPS = exports.SET_CLIPS = "SET_CLIPS";
 
-var _express = __webpack_require__(18);
+var requestClips = exports.requestClips = function requestClips() {
+  return {
+    type: REQUEST_CLIPS
+  };
+};
+
+var fetchClipsSuccess = exports.fetchClipsSuccess = function fetchClipsSuccess(json) {
+  return {
+    type: FETCH_CLIPS_SUCCESS,
+    payload: json
+  };
+};
+
+var setClips = exports.setClips = function setClips(clips) {
+  return {
+    type: SET_CLIPS,
+    payload: clips
+  };
+};
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.fetchClips = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _index = __webpack_require__(16);
+
+var _ui = __webpack_require__(7);
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+var initialState = { items: [], fetching: false };
+
+var clips = function clips() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _index.SET_CLIPS:
+      return _extends({}, state, {
+        items: action.payload
+      });
+    case _index.REQUEST_CLIPS:
+      return _extends({}, state, {
+        fetching: true
+      });
+    case _index.FETCH_CLIPS_SUCCESS:
+      return _extends({}, state, {
+        items: [].concat(_toConsumableArray(state.items), _toConsumableArray(action.payload)),
+        fetching: false
+      });
+    default:
+      return state;
+  }
+};
+
+var fetchClips = exports.fetchClips = function fetchClips(userId, pageIndex, game, title, automatic, time) {
+  return function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch, getState, api) {
+      var res;
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              dispatch((0, _index.requestClips)());
+              console.log("/clips/" + userId + "?page=" + pageIndex + (time ? "&time=" + time : "&time=week") + (game ? "&game=" + game : "") + (title ? "&title=" + title : "") + "&automatic=1");
+              _context.next = 4;
+              return api.get("/clips/" + userId + "?page=" + pageIndex + (time ? "&time=" + time : "&time=week") + (game ? "&game=" + game : "") + (title ? "&title=" + title : "") + "&automatic=1");
+
+            case 4:
+              res = _context.sent;
+
+              dispatch((0, _ui.setSelectedStreamer)(res.data.streamer));
+              dispatch((0, _index.fetchClipsSuccess)(res.data.clips));
+
+            case 7:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, undefined);
+    }));
+
+    return function (_x2, _x3, _x4) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+};
+
+// export const fetchClipsByArchive = (archiveId, pageIndex) => {
+//   return dispatch => {
+//     dispatch(requestClips());
+//     axios
+//       .get(`/clips/archive/${archiveId}?page=${pageIndex}`)
+//       .then(response => {
+//         dispatch(fetchClipsSuccess(response.data.clips));
+//       })
+//       .catch(err => console.log("This should be a dispatched error"));
+//   };
+// };
+
+// export const fetchClipsByGame = (
+//   gameId,
+//   pageIndex,
+//   streamer,
+//   title,
+//   automatic
+// ) => {
+//   return dispatch => {
+//     dispatch(requestClips());
+//     axios
+//       .get(
+//         `/clips/game/${gameId}?page=${pageIndex}` +
+//           (streamer ? `&streamer=${streamer}` : "") +
+//           (title ? `&title=${title}` : "") +
+//           `&automatic=1`
+//       )
+//       .then(response => {
+//         dispatch(setSelectedGame(response.data.game));
+//         dispatch(fetchClipsSuccess(response.data.clips));
+//       })
+//       .catch(err => console.log("This should be a dispatched error"));
+//   };
+// };
+
+exports.default = clips;
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.setAutomaticCheckboxValue = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _index = __webpack_require__(7);
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+var initialState = { automaticCheckbox: false, time: "week" };
+
+var ui = function ui() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _index.SET_SELECTED_STREAMER:
+      return _extends({}, state, {
+        selectedStreamer: action.payload
+      });
+    case _index.SET_SELECTED_GAME:
+      return _extends({}, state, {
+        selectedGame: action.payload
+      });
+    case _index.SET_AUTOMATIC_CHECKBOX:
+      return _extends({}, state, {
+        automaticCheckbox: action.payload
+      });
+    case _index.SET_TIME_FILTER:
+      return _extends({}, state, {
+        time: action.payload
+      });
+    default:
+      return state;
+  }
+};
+
+var setAutomaticCheckboxValue = exports.setAutomaticCheckboxValue = function setAutomaticCheckboxValue(value) {
+  return function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch, getState, api) {
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              dispatch((0, _index.setAutomaticCheckbox)(value));
+
+            case 1:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, undefined);
+    }));
+
+    return function (_x2, _x3, _x4) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+};
+
+exports.default = ui;
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports) {
+
+module.exports = require("redux");
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(21);
+
+var _express = __webpack_require__(22);
 
 var _express2 = _interopRequireDefault(_express);
 
 var _reactRouterConfig = __webpack_require__(5);
 
-var _routes = __webpack_require__(7);
+var _routes = __webpack_require__(8);
 
 var _routes2 = _interopRequireDefault(_routes);
 
-var _expressHttpProxy = __webpack_require__(40);
+var _expressHttpProxy = __webpack_require__(44);
 
 var _expressHttpProxy2 = _interopRequireDefault(_expressHttpProxy);
 
-var _renderer = __webpack_require__(41);
+var _renderer = __webpack_require__(45);
 
 var _renderer2 = _interopRequireDefault(_renderer);
 
-var _createStore = __webpack_require__(44);
+var _createStore = __webpack_require__(48);
 
 var _createStore2 = _interopRequireDefault(_createStore);
 
@@ -591,13 +858,23 @@ app.use("/api", (0, _expressHttpProxy2.default)("http://localhost:3001", {
   }
 }));
 app.use(_express2.default.static("public"));
+
+app.get("/streamer/:id", function (req, res) {
+  renderContent(req, res);
+});
+
 app.get("*", function (req, res) {
+  renderContent(req, res);
+});
+
+function renderContent(req, res) {
   var store = (0, _createStore2.default)(req);
 
+  console.log(req.path);
   var promises = (0, _reactRouterConfig.matchRoutes)(_routes2.default, req.path).map(function (_ref) {
     var route = _ref.route;
 
-    return route.loadData ? route.loadData(store) : null;
+    return route.loadData ? route.loadData(store, { id: req.params.id || null }) : null;
   }).map(function (promise) {
     if (promise) {
       return new Promise(function (resolve, reject) {
@@ -620,26 +897,26 @@ app.get("*", function (req, res) {
 
     res.send(content);
   });
-});
+}
 
 app.listen(3000, function () {
   console.log("Listening on port 3000");
 });
 
 /***/ }),
-/* 17 */
+/* 21 */
 /***/ (function(module, exports) {
 
 module.exports = require("babel-polyfill");
 
 /***/ }),
-/* 18 */
+/* 22 */
 /***/ (function(module, exports) {
 
 module.exports = require("express");
 
 /***/ }),
-/* 19 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -659,7 +936,7 @@ var _reactRedux = __webpack_require__(2);
 
 var _actions = __webpack_require__(3);
 
-var _reactHelmet = __webpack_require__(8);
+var _reactHelmet = __webpack_require__(9);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -748,7 +1025,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 20 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -768,7 +1045,7 @@ var _reactRouterConfig = __webpack_require__(5);
 
 var _index = __webpack_require__(3);
 
-var _TopMenu = __webpack_require__(21);
+var _TopMenu = __webpack_require__(25);
 
 var _TopMenu2 = _interopRequireDefault(_TopMenu);
 
@@ -815,7 +1092,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 21 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -910,7 +1187,7 @@ var TopMenu = function (_Component) {
 exports.default = TopMenu;
 
 /***/ }),
-/* 22 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -941,7 +1218,7 @@ var NotFoundPage = function NotFoundPage(_ref) {
 exports.default = { component: NotFoundPage };
 
 /***/ }),
-/* 23 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -961,7 +1238,7 @@ var _reactRedux = __webpack_require__(2);
 
 var _actions = __webpack_require__(3);
 
-var _requireAuth = __webpack_require__(24);
+var _requireAuth = __webpack_require__(28);
 
 var _requireAuth2 = _interopRequireDefault(_requireAuth);
 
@@ -1036,7 +1313,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 24 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1048,7 +1325,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _React = __webpack_require__(25);
+var _React = __webpack_require__(29);
 
 var _React2 = _interopRequireDefault(_React);
 
@@ -1105,21 +1382,21 @@ exports.default = function (ChildComponent) {
 };
 
 /***/ }),
-/* 25 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 if (process.env.NODE_ENV === 'production') {
-  module.exports = __webpack_require__(26);
+  module.exports = __webpack_require__(30);
 } else {
-  module.exports = __webpack_require__(27);
+  module.exports = __webpack_require__(31);
 }
 
 
 /***/ }),
-/* 26 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1132,7 +1409,7 @@ if (process.env.NODE_ENV === 'production') {
  This source code is licensed under the MIT license found in the
  LICENSE file in the root directory of this source tree.
 */
-var f=__webpack_require__(9),p=__webpack_require__(10);__webpack_require__(11);var r=__webpack_require__(12);
+var f=__webpack_require__(10),p=__webpack_require__(11);__webpack_require__(12);var r=__webpack_require__(13);
 function t(a){for(var b=arguments.length-1,d="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,e=0;e<b;e++)d+="\x26args[]\x3d"+encodeURIComponent(arguments[e+1]);b=Error(d+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}
 var u={isMounted:function(){return!1},enqueueForceUpdate:function(){},enqueueReplaceState:function(){},enqueueSetState:function(){}};function v(a,b,d){this.props=a;this.context=b;this.refs=p;this.updater=d||u}v.prototype.isReactComponent={};v.prototype.setState=function(a,b){"object"!==typeof a&&"function"!==typeof a&&null!=a?t("85"):void 0;this.updater.enqueueSetState(this,a,b,"setState")};v.prototype.forceUpdate=function(a){this.updater.enqueueForceUpdate(this,a,"forceUpdate")};
 function w(a,b,d){this.props=a;this.context=b;this.refs=p;this.updater=d||u}function x(){}x.prototype=v.prototype;var y=w.prototype=new x;y.constructor=w;f(y,v.prototype);y.isPureReactComponent=!0;function z(a,b,d){this.props=a;this.context=b;this.refs=p;this.updater=d||u}var A=z.prototype=new x;A.constructor=z;f(A,v.prototype);A.unstable_isAsyncReactComponent=!0;A.render=function(){return this.props.children};
@@ -1149,7 +1426,7 @@ module.exports={Children:{map:S.map,forEach:S.forEach,count:S.count,toArray:S.to
 
 
 /***/ }),
-/* 27 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1169,12 +1446,12 @@ if (process.env.NODE_ENV !== "production") {
 
 'use strict';
 
-var objectAssign$1 = __webpack_require__(9);
-var require$$0 = __webpack_require__(28);
-var emptyObject = __webpack_require__(10);
-var invariant = __webpack_require__(11);
-var emptyFunction = __webpack_require__(12);
-var checkPropTypes = __webpack_require__(29);
+var objectAssign$1 = __webpack_require__(10);
+var require$$0 = __webpack_require__(32);
+var emptyObject = __webpack_require__(11);
+var invariant = __webpack_require__(12);
+var emptyFunction = __webpack_require__(13);
+var checkPropTypes = __webpack_require__(33);
 
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -2854,19 +3131,19 @@ module.exports = ReactEntry;
 
 
 /***/ }),
-/* 28 */
+/* 32 */
 /***/ (function(module, exports) {
 
 module.exports = require("fbjs/lib/warning");
 
 /***/ }),
-/* 29 */
+/* 33 */
 /***/ (function(module, exports) {
 
 module.exports = require("prop-types/checkPropTypes");
 
 /***/ }),
-/* 30 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2886,21 +3163,21 @@ var _semanticUiReact = __webpack_require__(1);
 
 var _reactRedux = __webpack_require__(2);
 
-var _streamers = __webpack_require__(13);
+var _streamers = __webpack_require__(14);
 
-var _StreamersItem = __webpack_require__(31);
+var _StreamersItem = __webpack_require__(35);
 
 var _StreamersItem2 = _interopRequireDefault(_StreamersItem);
 
-var _StreamerGridFilter = __webpack_require__(32);
+var _StreamerGridFilter = __webpack_require__(36);
 
 var _StreamerGridFilter2 = _interopRequireDefault(_StreamerGridFilter);
 
-var _index = __webpack_require__(14);
+var _index = __webpack_require__(15);
 
 var _activity = __webpack_require__(6);
 
-var _ActivityFeed = __webpack_require__(34);
+var _ActivityFeed = __webpack_require__(38);
 
 var _ActivityFeed2 = _interopRequireDefault(_ActivityFeed);
 
@@ -3066,7 +3343,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 31 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3154,7 +3431,7 @@ var StreamersItem = function StreamersItem(_ref) {
 exports.default = StreamersItem;
 
 /***/ }),
-/* 32 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3241,7 +3518,7 @@ var StreamerGridFilter = function (_Component) {
 exports.default = StreamerGridFilter;
 
 /***/ }),
-/* 33 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3275,7 +3552,7 @@ var appendActivity = exports.appendActivity = function appendActivity(activity) 
 };
 
 /***/ }),
-/* 34 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3295,15 +3572,15 @@ var _semanticUiReact = __webpack_require__(1);
 
 var _reactRedux = __webpack_require__(2);
 
-var _reactTimeago = __webpack_require__(35);
+var _reactTimeago = __webpack_require__(39);
 
 var _reactTimeago2 = _interopRequireDefault(_reactTimeago);
 
-var _languageUtils = __webpack_require__(36);
+var _languageUtils = __webpack_require__(40);
 
 var _index = __webpack_require__(6);
 
-var _ActivityModal = __webpack_require__(37);
+var _ActivityModal = __webpack_require__(41);
 
 var _ActivityModal2 = _interopRequireDefault(_ActivityModal);
 
@@ -3481,13 +3758,13 @@ function mapStateToProps(_ref) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, { getActivity: _index.getActivity, fetchMoreActivity: _index.fetchMoreActivity })(ActivityFeed);
 
 /***/ }),
-/* 35 */
+/* 39 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-timeago");
 
 /***/ }),
-/* 36 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3521,7 +3798,7 @@ var mapToFlag = exports.mapToFlag = function mapToFlag(language) {
 };
 
 /***/ }),
-/* 37 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3539,7 +3816,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _VideoPlayer = __webpack_require__(38);
+var _VideoPlayer = __webpack_require__(42);
 
 var _VideoPlayer2 = _interopRequireDefault(_VideoPlayer);
 
@@ -3608,7 +3885,7 @@ var ActivityModal = function (_Component) {
 exports.default = ActivityModal;
 
 /***/ }),
-/* 38 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3645,7 +3922,7 @@ function VideoPlayer(_ref) {
 exports.default = VideoPlayer;
 
 /***/ }),
-/* 39 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3665,6 +3942,14 @@ var _semanticUiReact = __webpack_require__(1);
 
 var _reactRedux = __webpack_require__(2);
 
+var _index = __webpack_require__(7);
+
+var _index2 = __webpack_require__(16);
+
+var _index3 = __webpack_require__(17);
+
+var _index4 = __webpack_require__(18);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -3672,7 +3957,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 // import { fetchClips } from "./../../redux/clips/clipsReducer";
 // import StreamerVideoPlayer from "./StreamerVideoPlayer";
 // import StreamerClipTable from "./StreamerClipTable";
@@ -3682,6 +3966,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 // import StreamerArchiveTable from "./page/StreamerArchiveTable";
 // import { setAutomaticCheckbox, setTimeFilter } from "../../redux/ui/uiActions";
 
+
 var StreamerDetailPage = function (_Component) {
   _inherits(StreamerDetailPage, _Component);
 
@@ -3689,6 +3974,15 @@ var StreamerDetailPage = function (_Component) {
     _classCallCheck(this, StreamerDetailPage);
 
     var _this = _possibleConstructorReturn(this, (StreamerDetailPage.__proto__ || Object.getPrototypeOf(StreamerDetailPage)).call(this, props));
+
+    _this.setClip = function () {
+      _this.setState({
+        active: true,
+        url: clip.embedClipURL,
+        activeClip: clip,
+        modalOpen: true
+      });
+    };
 
     _this.handleTabChange = function (e, _ref) {
       var activeIndex = _ref.activeIndex;
@@ -3708,16 +4002,6 @@ var StreamerDetailPage = function (_Component) {
   }
 
   _createClass(StreamerDetailPage, [{
-    key: "setClip",
-    value: function setClip() {
-      this.setState({
-        active: true,
-        url: clip.embedClipURL,
-        activeClip: clip,
-        modalOpen: true
-      });
-    }
-  }, {
     key: "componentWillMount",
     value: function componentWillMount() {
       var _props = this.props,
@@ -3730,91 +4014,95 @@ var StreamerDetailPage = function (_Component) {
       setAutomaticCheckbox(false);
       setTimeFilter("week");
       setClips([]);
-      fetchClips(match.params.streamerId, 0);
+      // fetchClips(match.params.id, 0);
     }
-  }, {
-    key: "handleScroll",
-    value: function handleScroll() {
-      this.setState(function (prevState) {
-        return {
-          clipPageIndex: prevState.clipPageIndex + 1
-        };
-      });
-      var _props2 = this.props,
-          fetchClips = _props2.fetchClips,
-          match = _props2.match,
-          ui = _props2.ui;
 
-      console.log("I will fetch page " + this.state.clipPageIndex);
-      fetchClips(match.params.streamerId, this.state.clipPageIndex, this.state.gameSearchValue, this.state.titleSearchValue, ui.automaticCheckbox, ui.time);
-    }
-  }, {
-    key: "gameSearchValueChanged",
-    value: function gameSearchValueChanged() {
-      this.setState({
-        clipPageIndex: 1,
-        gameSearchValue: value
-      });
-      var _props3 = this.props,
-          match = _props3.match,
-          setClips = _props3.setClips,
-          fetchClips = _props3.fetchClips,
-          ui = _props3.ui;
+    //   handleScroll = () => {
+    //     this.setState(prevState => ({
+    //       clipPageIndex: prevState.clipPageIndex + 1
+    //     }));
+    //     const { fetchClips, match, ui } = this.props;
+    //     console.log("I will fetch page " + this.state.clipPageIndex);
+    //     fetchClips(
+    //       match.params.id,
+    //       this.state.clipPageIndex,
+    //       this.state.gameSearchValue,
+    //       this.state.titleSearchValue,
+    //       ui.automaticCheckbox,
+    //       ui.time
+    //     );
+    //   };
 
-      setClips([]);
-      fetchClips(match.params.streamerId, 0, value, this.state.titleSearchValue, ui.automaticCheckbox, ui.time);
-    }
-  }, {
-    key: "titleSearchValueChanged",
-    value: function titleSearchValueChanged() {
-      this.setState({
-        clipPageIndex: 1,
-        titleSearchValue: value
-      });
-      var _props4 = this.props,
-          match = _props4.match,
-          setClips = _props4.setClips,
-          fetchClips = _props4.fetchClips,
-          ui = _props4.ui;
+    //   gameSearchValueChanged = () => {
+    //     this.setState({
+    //       clipPageIndex: 1,
+    //       gameSearchValue: value
+    //     });
+    //     const { match, setClips, fetchClips, ui } = this.props;
+    //     setClips([]);
+    //     fetchClips(
+    //       match.params.id,
+    //       0,
+    //       value,
+    //       this.state.titleSearchValue,
+    //       ui.automaticCheckbox,
+    //       ui.time
+    //     );
+    //   };
 
-      setClips([]);
-      fetchClips(match.params.streamerId, 0, this.state.gameSearchValue, value, ui.automaticCheckbox, ui.time);
-    }
-  }, {
-    key: "checkBoxChanged",
-    value: function checkBoxChanged() {
-      var _props5 = this.props,
-          match = _props5.match,
-          setClips = _props5.setClips,
-          fetchClips = _props5.fetchClips,
-          ui = _props5.ui;
+    //   titleSearchValueChanged = () => {
+    //     this.setState({
+    //       clipPageIndex: 1,
+    //       titleSearchValue: value
+    //     });
+    //     const { match, setClips, fetchClips, ui } = this.props;
+    //     setClips([]);
+    //     fetchClips(
+    //       match.params.id,
+    //       0,
+    //       this.state.gameSearchValue,
+    //       value,
+    //       ui.automaticCheckbox,
+    //       ui.time
+    //     );
+    //   };
 
-      setClips([]);
-      fetchClips(match.params.streamerId, 0, this.state.gameSearchValue, this.state.titleSearchValue, !ui.automaticCheckbox, ui.time);
-    }
-  }, {
-    key: "timeChanged",
-    value: function timeChanged() {
-      var _props6 = this.props,
-          match = _props6.match,
-          setClips = _props6.setClips,
-          fetchClips = _props6.fetchClips,
-          ui = _props6.ui;
+    //   checkBoxChanged = () => {
+    //     const { match, setClips, fetchClips, ui } = this.props;
+    //     setClips([]);
+    //     fetchClips(
+    //       match.params.id,
+    //       0,
+    //       this.state.gameSearchValue,
+    //       this.state.titleSearchValue,
+    //       !ui.automaticCheckbox,
+    //       ui.time
+    //     );
+    //   };
 
-      setClips([]);
-      fetchClips(match.params.streamerId, 0, this.state.gameSearchValue, this.state.titleSearchValue, ui.automaticCheckbox, timeValue);
-    }
-  }, {
-    key: "close",
-    value: function close() {
-      this.setState({ modalOpen: false });
-    }
+    //   timeChanged = () => {
+    //     const { match, setClips, fetchClips, ui } = this.props;
+    //     setClips([]);
+    //     fetchClips(
+    //       match.params.id,
+    //       0,
+    //       this.state.gameSearchValue,
+    //       this.state.titleSearchValue,
+    //       ui.automaticCheckbox,
+    //       timeValue
+    //     );
+    //   };
+
+    //   close = () => {
+    //     this.setState({ modalOpen: false });
+    //   };
+
   }, {
     key: "render",
     value: function render() {
-      var _props7 = this.props,
-          clips = _props7.clips,
-          match = _props7.match;
+      var _props2 = this.props,
+          clips = _props2.clips,
+          match = _props2.match;
       var activeIndex = this.state.activeIndex;
 
       return _react2.default.createElement(
@@ -3823,77 +4111,7 @@ var StreamerDetailPage = function (_Component) {
         _react2.default.createElement(
           _semanticUiReact.Grid,
           null,
-          _react2.default.createElement(
-            _semanticUiReact.Grid.Column,
-            { width: 16 },
-            _react2.default.createElement(_semanticUiReact.Tab, {
-              activeIndex: activeIndex,
-              onTabChange: this.handleTabChange,
-              panes: [{
-                menuItem: {
-                  key: "clips",
-                  icon: "rocket large",
-                  content: "Clips"
-                },
-                render: function render() {
-                  return _react2.default.createElement(_react2.default.Fragment, null);
-                }
-              }, {
-                menuItem: {
-                  key: "archives",
-                  icon: "film large",
-                  content: "Archives"
-                },
-                render: function render() {
-                  return _react2.default.createElement(_react2.default.Fragment, null);
-                }
-              }]
-            })
-          ),
-          _react2.default.createElement(
-            _semanticUiReact.Modal,
-            {
-              dimmer: "blurring",
-              closeOnEscape: true,
-              closeOnDimmerClick: true,
-              open: this.state.modalOpen,
-              size: "small"
-            },
-            _react2.default.createElement(
-              _semanticUiReact.Modal.Content,
-              null,
-              this.state.activeClip && this.state.activeClip.archive && this.state.activeClip.archive[0] ? _react2.default.createElement("div", null)
-              // <StreamerVideoArchive
-              //   archive={this.state.activeClip.archive[0]}
-              //   creatorName={this.state.activeClip.creatorName}
-              //   automatic={this.state.activeClip.automatic}
-              // />
-              : _react2.default.createElement(
-                _semanticUiReact.Message,
-                { warning: true, icon: true },
-                _react2.default.createElement(_semanticUiReact.Icon, { name: "file video outline" }),
-                _react2.default.createElement(
-                  _semanticUiReact.Message.Content,
-                  null,
-                  _react2.default.createElement(
-                    _semanticUiReact.Message.Header,
-                    null,
-                    "No Archive Yet"
-                  ),
-                  "The archive will be available soon."
-                )
-              )
-            ),
-            _react2.default.createElement(
-              _semanticUiReact.Modal.Actions,
-              null,
-              _react2.default.createElement(
-                _semanticUiReact.Button,
-                { color: "grey", onClick: this.close },
-                "Close"
-              )
-            )
-          )
+          _react2.default.createElement(_semanticUiReact.Grid.Column, { width: 16 })
         )
       );
     }
@@ -3910,17 +4128,23 @@ function mapStateToProps(_ref2) {
 }
 
 exports.default = {
-  component: (0, _reactRedux.connect)()(StreamerDetailPage)
+  component: (0, _reactRedux.connect)(mapStateToProps, { setAutomaticCheckbox: _index.setAutomaticCheckbox, setTimeFilter: _index.setTimeFilter, setClips: _index2.setClips, fetchClips: _index3.fetchClips })(StreamerDetailPage),
+  loadData: function loadData(_ref3, _ref4) {
+    var dispatch = _ref3.dispatch;
+    var id = _ref4.id;
+
+    return dispatch((0, _index3.fetchClips)(id, 0));
+  }
 };
 
 /***/ }),
-/* 40 */
+/* 44 */
 /***/ (function(module, exports) {
 
 module.exports = require("express-http-proxy");
 
 /***/ }),
-/* 41 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3934,7 +4158,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _server = __webpack_require__(42);
+var _server = __webpack_require__(46);
 
 var _reactRouterDom = __webpack_require__(4);
 
@@ -3942,15 +4166,15 @@ var _reactRedux = __webpack_require__(2);
 
 var _reactRouterConfig = __webpack_require__(5);
 
-var _routes = __webpack_require__(7);
+var _routes = __webpack_require__(8);
 
 var _routes2 = _interopRequireDefault(_routes);
 
-var _serializeJavascript = __webpack_require__(43);
+var _serializeJavascript = __webpack_require__(47);
 
 var _serializeJavascript2 = _interopRequireDefault(_serializeJavascript);
 
-var _reactHelmet = __webpack_require__(8);
+var _reactHelmet = __webpack_require__(9);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3971,23 +4195,23 @@ exports.default = function (req, store, context) {
 
   var helmet = _reactHelmet.Helmet.renderStatic();
 
-  return "\n    <html>\n        <head>\n          " + helmet.title.toString() + "\n          " + helmet.meta.toString() + "\n          <link rel=\"stylesheet\" href=\"//cdn.jsdelivr.net/npm/semantic-ui@2.4.0/dist/semantic.min.css\"></link>\n          <link rel=\"stylesheet\" href=\"assets/style.css\">\n        </head>\n        <body>\n            <div id=\"root\">" + content + "</div>\n            <script>window.INITIAL_STATE = " + (0, _serializeJavascript2.default)(store.getState()) + "</script>\n            <script src=\"bundle.js\"></script>\n        </body>\n    </html>\n  ";
+  return "\n    <html>\n        <head>\n          " + helmet.title.toString() + "\n          " + helmet.meta.toString() + "\n          <link rel=\"stylesheet\" href=\"//cdn.jsdelivr.net/npm/semantic-ui@2.4.0/dist/semantic.min.css\">\n          <link rel=\"stylesheet\" href=\"/assets/style.css\">\n        </head>\n        <body>\n            <div id=\"root\">" + content + "</div>\n            <script>window.INITIAL_STATE = " + (0, _serializeJavascript2.default)(store.getState()) + "</script>\n            <script src=\"/bundle.js\"></script>\n        </body>\n    </html>\n  ";
 };
 
 /***/ }),
-/* 42 */
+/* 46 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 43 */
+/* 47 */
 /***/ (function(module, exports) {
 
 module.exports = require("serialize-javascript");
 
 /***/ }),
-/* 44 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3997,17 +4221,17 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _redux = __webpack_require__(15);
+var _redux = __webpack_require__(19);
 
-var _reduxThunk = __webpack_require__(45);
+var _reduxThunk = __webpack_require__(49);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _index = __webpack_require__(46);
+var _index = __webpack_require__(50);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _axios = __webpack_require__(50);
+var _axios = __webpack_require__(54);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -4023,13 +4247,13 @@ exports.default = function (req) {
 };
 
 /***/ }),
-/* 45 */
+/* 49 */
 /***/ (function(module, exports) {
 
 module.exports = require("redux-thunk");
 
 /***/ }),
-/* 46 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4039,27 +4263,35 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _redux = __webpack_require__(15);
+var _redux = __webpack_require__(19);
 
-var _usersReducer = __webpack_require__(47);
+var _usersReducer = __webpack_require__(51);
 
 var _usersReducer2 = _interopRequireDefault(_usersReducer);
 
-var _authReducer = __webpack_require__(48);
+var _authReducer = __webpack_require__(52);
 
 var _authReducer2 = _interopRequireDefault(_authReducer);
 
-var _adminsReducer = __webpack_require__(49);
+var _adminsReducer = __webpack_require__(53);
 
 var _adminsReducer2 = _interopRequireDefault(_adminsReducer);
 
-var _index = __webpack_require__(13);
+var _index = __webpack_require__(14);
 
 var _index2 = _interopRequireDefault(_index);
 
 var _index3 = __webpack_require__(6);
 
 var _index4 = _interopRequireDefault(_index3);
+
+var _index5 = __webpack_require__(17);
+
+var _index6 = _interopRequireDefault(_index5);
+
+var _index7 = __webpack_require__(18);
+
+var _index8 = _interopRequireDefault(_index7);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4068,11 +4300,13 @@ exports.default = (0, _redux.combineReducers)({
   auth: _authReducer2.default,
   admins: _adminsReducer2.default,
   streamers: _index2.default,
-  activity: _index4.default
+  activity: _index4.default,
+  clips: _index6.default,
+  ui: _index8.default
 });
 
 /***/ }),
-/* 47 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4097,7 +4331,7 @@ exports.default = function () {
 };
 
 /***/ }),
-/* 48 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4122,7 +4356,7 @@ exports.default = function () {
 var _index = __webpack_require__(3);
 
 /***/ }),
-/* 49 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4147,7 +4381,7 @@ exports.default = function () {
 };
 
 /***/ }),
-/* 50 */
+/* 54 */
 /***/ (function(module, exports) {
 
 module.exports = require("axios");

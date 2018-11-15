@@ -23,15 +23,15 @@ export default (req, store, context) => {
         <head>
           ${helmet.title.toString()}
           ${helmet.meta.toString()}
-          <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.0/dist/semantic.min.css"></link>
-          <link rel="stylesheet" href="assets/style.css">
+          <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.0/dist/semantic.min.css">
+          <link rel="stylesheet" href="/assets/style.css">
         </head>
         <body>
             <div id="root">${content}</div>
             <script>window.INITIAL_STATE = ${serialize(
               store.getState()
             )}</script>
-            <script src="bundle.js"></script>
+            <script src="/bundle.js"></script>
         </body>
     </html>
   `;

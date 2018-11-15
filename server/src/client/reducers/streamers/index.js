@@ -38,11 +38,11 @@ export const getStreamers = (pageIndex, streamerFilter) => async (
   getState,
   api
 ) => {
-  console.log(pageIndex, streamerFilter);
   const res = await api.get(
     `/streamers?page=${pageIndex}` +
       (streamerFilter ? `&q=${streamerFilter}` : "")
   );
+  // Error handling maybe?
   dispatch(fetchStreamers(res.data.streamers));
 };
 

@@ -19,12 +19,24 @@ app.use(
   })
 );
 app.use(express.static("public"));
+
+app.get("/streamer/:id", (req, res) => {
+  renderContent(req, res);
+});
+
 app.get("*", (req, res) => {
+  renderContent(req, res);
+});
+
+function renderContent(req, res) {
   const store = createStore(req);
 
+  console.log(req.path);
   const promises = matchRoutes(Routes, req.path)
     .map(({ route }) => {
-      return route.loadData ? route.loadData(store) : null;
+      return route.loadData
+        ? route.loadData(store, { id: req.params.id || null })
+        : null;
     })
     .map(promise => {
       if (promise) {
@@ -48,7 +60,7 @@ app.get("*", (req, res) => {
 
     res.send(content);
   });
-});
+}
 
 app.listen(3000, () => {
   console.log("Listening on port 3000");

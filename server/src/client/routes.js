@@ -14,8 +14,9 @@ export default [
         path: "/",
         exact: true
       },
-      { path: '/streamer/:id',
-        ...StreamerDetailPage
+      {
+        ...StreamerDetailPage,
+        path: "/streamer/:id",
       },
       {
         path: "/users",
