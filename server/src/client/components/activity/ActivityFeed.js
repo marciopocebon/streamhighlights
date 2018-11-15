@@ -27,8 +27,6 @@ class ActivityFeed extends Component {
       url: "",
       streamerId: 0
     };
-    this.closeModal = this.closeModal.bind(this);
-    this.handleScroll = this.handleScroll.bind(this);
   }
 
   componentWillMount() {
@@ -36,7 +34,7 @@ class ActivityFeed extends Component {
     getActivity(0);
   }
 
-  handleScroll() {
+  handleScroll = () => {
     if (this.scroller) {
       if (
         this.scroller.scrollHeight - this.scroller.scrollTop ===
@@ -47,13 +45,13 @@ class ActivityFeed extends Component {
         fetchMoreActivity(this.state.pageIndex);
       }
     }
-  }
+  };
 
-  closeModal() {
+  closeModal = () => {
     this.setState({
       modalOpen: false
     });
-  }
+  };
 
   render() {
     const { activity } = this.props;

@@ -15,8 +15,6 @@ class StreamersPage extends Component {
       pageIndex: 1,
       searchValue: ""
     };
-    this.handleScroll = this.handleScroll.bind(this);
-    this.searchValueChanged = this.searchValueChanged.bind(this);
   }
 
   componentWillMount() {
@@ -25,7 +23,7 @@ class StreamersPage extends Component {
     getStreamers(0);
   }
 
-  handleScroll() {
+  handleScroll = () => {
     if (this.scroller) {
       if (
         this.scroller.scrollHeight - this.scroller.scrollTop ===
@@ -36,9 +34,9 @@ class StreamersPage extends Component {
         fetchMoreStreamers(this.state.pageIndex, this.state.searchValue);
       }
     }
-  }
+  };
 
-  searchValueChanged(value) {
+  searchValueChanged = value => {
     this.setState({
       pageIndex: 1,
       searchValue: value
@@ -46,7 +44,7 @@ class StreamersPage extends Component {
     const { getStreamers, requestStreamers } = this.props;
     requestStreamers();
     getStreamers(0, value);
-  }
+  };
 
   render() {
     const { streamers } = this.props;

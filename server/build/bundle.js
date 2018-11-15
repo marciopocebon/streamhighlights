@@ -73,10 +73,16 @@ module.exports = require("react");
 /* 1 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-redux");
+module.exports = require("semantic-ui-react");
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-redux");
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -189,12 +195,6 @@ var fetchAdmins = exports.fetchAdmins = function fetchAdmins() {
     };
   }();
 };
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports) {
-
-module.exports = require("semantic-ui-react");
 
 /***/ }),
 /* 4 */
@@ -350,13 +350,18 @@ var _StreamersPage = __webpack_require__(30);
 
 var _StreamersPage2 = _interopRequireDefault(_StreamersPage);
 
+var _StreamerDetailPage = __webpack_require__(39);
+
+var _StreamerDetailPage2 = _interopRequireDefault(_StreamerDetailPage);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = [_extends({}, _App2.default, {
   routes: [_extends({}, _StreamersPage2.default, {
     path: "/",
     exact: true
-  }), _extends({
+  }), _extends({ path: '/streamer/:id'
+  }, _StreamerDetailPage2.default), _extends({
     path: "/users"
   }, _UsersListPage2.default), _extends({
     path: "/admins"
@@ -562,15 +567,15 @@ var _routes = __webpack_require__(7);
 
 var _routes2 = _interopRequireDefault(_routes);
 
-var _expressHttpProxy = __webpack_require__(37);
+var _expressHttpProxy = __webpack_require__(40);
 
 var _expressHttpProxy2 = _interopRequireDefault(_expressHttpProxy);
 
-var _renderer = __webpack_require__(38);
+var _renderer = __webpack_require__(41);
 
 var _renderer2 = _interopRequireDefault(_renderer);
 
-var _createStore = __webpack_require__(41);
+var _createStore = __webpack_require__(44);
 
 var _createStore2 = _interopRequireDefault(_createStore);
 
@@ -650,9 +655,9 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(1);
+var _reactRedux = __webpack_require__(2);
 
-var _actions = __webpack_require__(2);
+var _actions = __webpack_require__(3);
 
 var _reactHelmet = __webpack_require__(8);
 
@@ -761,7 +766,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterConfig = __webpack_require__(5);
 
-var _index = __webpack_require__(2);
+var _index = __webpack_require__(3);
 
 var _TopMenu = __webpack_require__(21);
 
@@ -826,7 +831,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _semanticUiReact = __webpack_require__(3);
+var _semanticUiReact = __webpack_require__(1);
 
 var _reactRouterDom = __webpack_require__(4);
 
@@ -846,21 +851,19 @@ var TopMenu = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (TopMenu.__proto__ || Object.getPrototypeOf(TopMenu)).call(this, props));
 
+    _this.handleItemClick = function (e, _ref) {
+      var name = _ref.name;
+
+      _this.setState({ activeItem: name });
+    };
+
     _this.state = {
       activeItem: {}
     };
-    _this.handleItemClick = _this.handleItemClick.bind(_this);
     return _this;
   }
 
   _createClass(TopMenu, [{
-    key: "handleItemClick",
-    value: function handleItemClick(e, _ref) {
-      var name = _ref.name;
-
-      this.setState({ activeItem: name });
-    }
-  }, {
     key: "render",
     value: function render() {
       var activeItem = this.state.activeItem;
@@ -954,9 +957,9 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(1);
+var _reactRedux = __webpack_require__(2);
 
-var _actions = __webpack_require__(2);
+var _actions = __webpack_require__(3);
 
 var _requireAuth = __webpack_require__(24);
 
@@ -1049,7 +1052,7 @@ var _React = __webpack_require__(25);
 
 var _React2 = _interopRequireDefault(_React);
 
-var _reactRedux = __webpack_require__(1);
+var _reactRedux = __webpack_require__(2);
 
 var _reactRouterDom = __webpack_require__(4);
 
@@ -2879,9 +2882,9 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _semanticUiReact = __webpack_require__(3);
+var _semanticUiReact = __webpack_require__(1);
 
-var _reactRedux = __webpack_require__(1);
+var _reactRedux = __webpack_require__(2);
 
 var _streamers = __webpack_require__(13);
 
@@ -2917,12 +2920,36 @@ var StreamersPage = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (StreamersPage.__proto__ || Object.getPrototypeOf(StreamersPage)).call(this, props));
 
+    _this.handleScroll = function () {
+      if (_this.scroller) {
+        if (_this.scroller.scrollHeight - _this.scroller.scrollTop === _this.scroller.clientHeight) {
+          _this.setState(function (prevState) {
+            return { pageIndex: prevState.pageIndex + 1 };
+          });
+          var _fetchMoreStreamers = _this.props.fetchMoreStreamers;
+
+          _fetchMoreStreamers(_this.state.pageIndex, _this.state.searchValue);
+        }
+      }
+    };
+
+    _this.searchValueChanged = function (value) {
+      _this.setState({
+        pageIndex: 1,
+        searchValue: value
+      });
+      var _this$props = _this.props,
+          getStreamers = _this$props.getStreamers,
+          requestStreamers = _this$props.requestStreamers;
+
+      requestStreamers();
+      getStreamers(0, value);
+    };
+
     _this.state = {
       pageIndex: 1,
       searchValue: ""
     };
-    _this.handleScroll = _this.handleScroll.bind(_this);
-    _this.searchValueChanged = _this.searchValueChanged.bind(_this);
     return _this;
   }
 
@@ -2933,34 +2960,6 @@ var StreamersPage = function (_Component) {
       // Client side rendering of the streamers
 
       getStreamers(0);
-    }
-  }, {
-    key: "handleScroll",
-    value: function handleScroll() {
-      if (this.scroller) {
-        if (this.scroller.scrollHeight - this.scroller.scrollTop === this.scroller.clientHeight) {
-          this.setState(function (prevState) {
-            return { pageIndex: prevState.pageIndex + 1 };
-          });
-          var _fetchMoreStreamers = this.props.fetchMoreStreamers;
-
-          _fetchMoreStreamers(this.state.pageIndex, this.state.searchValue);
-        }
-      }
-    }
-  }, {
-    key: "searchValueChanged",
-    value: function searchValueChanged(value) {
-      this.setState({
-        pageIndex: 1,
-        searchValue: value
-      });
-      var _props = this.props,
-          getStreamers = _props.getStreamers,
-          requestStreamers = _props.requestStreamers;
-
-      requestStreamers();
-      getStreamers(0, value);
     }
   }, {
     key: "render",
@@ -3081,7 +3080,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _semanticUiReact = __webpack_require__(3);
+var _semanticUiReact = __webpack_require__(1);
 
 var _reactRouterDom = __webpack_require__(4);
 
@@ -3171,7 +3170,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _semanticUiReact = __webpack_require__(3);
+var _semanticUiReact = __webpack_require__(1);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3292,9 +3291,9 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _semanticUiReact = __webpack_require__(3);
+var _semanticUiReact = __webpack_require__(1);
 
-var _reactRedux = __webpack_require__(1);
+var _reactRedux = __webpack_require__(2);
 
 var _reactTimeago = __webpack_require__(35);
 
@@ -3304,7 +3303,7 @@ var _languageUtils = __webpack_require__(36);
 
 var _index = __webpack_require__(6);
 
-var _ActivityModal = __webpack_require__(48);
+var _ActivityModal = __webpack_require__(37);
 
 var _ActivityModal2 = _interopRequireDefault(_ActivityModal);
 
@@ -3326,14 +3325,31 @@ var ActivityFeed = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (ActivityFeed.__proto__ || Object.getPrototypeOf(ActivityFeed)).call(this, props));
 
+    _this.handleScroll = function () {
+      if (_this.scroller) {
+        if (_this.scroller.scrollHeight - _this.scroller.scrollTop === _this.scroller.clientHeight) {
+          _this.setState(function (prevState) {
+            return { pageIndex: prevState.pageIndex + 1 };
+          });
+          var _fetchMoreActivity = _this.props.fetchMoreActivity;
+
+          _fetchMoreActivity(_this.state.pageIndex);
+        }
+      }
+    };
+
+    _this.closeModal = function () {
+      _this.setState({
+        modalOpen: false
+      });
+    };
+
     _this.state = {
       pageIndex: 1,
       modalOpen: false,
       url: "",
       streamerId: 0
     };
-    _this.closeModal = _this.closeModal.bind(_this);
-    _this.handleScroll = _this.handleScroll.bind(_this);
     return _this;
   }
 
@@ -3343,27 +3359,6 @@ var ActivityFeed = function (_Component) {
       var getActivity = this.props.getActivity;
 
       getActivity(0);
-    }
-  }, {
-    key: "handleScroll",
-    value: function handleScroll() {
-      if (this.scroller) {
-        if (this.scroller.scrollHeight - this.scroller.scrollTop === this.scroller.clientHeight) {
-          this.setState(function (prevState) {
-            return { pageIndex: prevState.pageIndex + 1 };
-          });
-          var _fetchMoreActivity = this.props.fetchMoreActivity;
-
-          _fetchMoreActivity(this.state.pageIndex);
-        }
-      }
-    }
-  }, {
-    key: "closeModal",
-    value: function closeModal() {
-      this.setState({
-        modalOpen: false
-      });
     }
   }, {
     key: "render",
@@ -3527,245 +3522,6 @@ var mapToFlag = exports.mapToFlag = function mapToFlag(language) {
 
 /***/ }),
 /* 37 */
-/***/ (function(module, exports) {
-
-module.exports = require("express-http-proxy");
-
-/***/ }),
-/* 38 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _server = __webpack_require__(39);
-
-var _reactRouterDom = __webpack_require__(4);
-
-var _reactRedux = __webpack_require__(1);
-
-var _reactRouterConfig = __webpack_require__(5);
-
-var _routes = __webpack_require__(7);
-
-var _routes2 = _interopRequireDefault(_routes);
-
-var _serializeJavascript = __webpack_require__(40);
-
-var _serializeJavascript2 = _interopRequireDefault(_serializeJavascript);
-
-var _reactHelmet = __webpack_require__(8);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = function (req, store, context) {
-  var content = (0, _server.renderToString)(_react2.default.createElement(
-    _reactRedux.Provider,
-    { store: store },
-    _react2.default.createElement(
-      _reactRouterDom.StaticRouter,
-      { location: req.path, context: context },
-      _react2.default.createElement(
-        "div",
-        null,
-        (0, _reactRouterConfig.renderRoutes)(_routes2.default)
-      )
-    )
-  ));
-
-  var helmet = _reactHelmet.Helmet.renderStatic();
-
-  return "\n    <html>\n        <head>\n          " + helmet.title.toString() + "\n          " + helmet.meta.toString() + "\n          <link rel=\"stylesheet\" href=\"//cdn.jsdelivr.net/npm/semantic-ui@2.4.0/dist/semantic.min.css\"></link>\n          <link rel=\"stylesheet\" href=\"assets/style.css\">\n        </head>\n        <body>\n            <div id=\"root\">" + content + "</div>\n            <script>window.INITIAL_STATE = " + (0, _serializeJavascript2.default)(store.getState()) + "</script>\n            <script src=\"bundle.js\"></script>\n        </body>\n    </html>\n  ";
-};
-
-/***/ }),
-/* 39 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-dom/server");
-
-/***/ }),
-/* 40 */
-/***/ (function(module, exports) {
-
-module.exports = require("serialize-javascript");
-
-/***/ }),
-/* 41 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _redux = __webpack_require__(15);
-
-var _reduxThunk = __webpack_require__(42);
-
-var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
-
-var _index = __webpack_require__(43);
-
-var _index2 = _interopRequireDefault(_index);
-
-var _axios = __webpack_require__(47);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = function (req) {
-  var axiosInstance = _axios2.default.create({
-    baseURL: "http://localhost:3001",
-    headers: { cookie: req.get("cookie") || "" }
-  });
-  var store = (0, _redux.createStore)(_index2.default, {}, (0, _redux.applyMiddleware)(_reduxThunk2.default.withExtraArgument(axiosInstance)));
-  return store;
-};
-
-/***/ }),
-/* 42 */
-/***/ (function(module, exports) {
-
-module.exports = require("redux-thunk");
-
-/***/ }),
-/* 43 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _redux = __webpack_require__(15);
-
-var _usersReducer = __webpack_require__(44);
-
-var _usersReducer2 = _interopRequireDefault(_usersReducer);
-
-var _authReducer = __webpack_require__(45);
-
-var _authReducer2 = _interopRequireDefault(_authReducer);
-
-var _adminsReducer = __webpack_require__(46);
-
-var _adminsReducer2 = _interopRequireDefault(_adminsReducer);
-
-var _index = __webpack_require__(13);
-
-var _index2 = _interopRequireDefault(_index);
-
-var _index3 = __webpack_require__(6);
-
-var _index4 = _interopRequireDefault(_index3);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = (0, _redux.combineReducers)({
-  users: _usersReducer2.default,
-  auth: _authReducer2.default,
-  admins: _adminsReducer2.default,
-  streamers: _index2.default,
-  activity: _index4.default
-});
-
-/***/ }),
-/* 44 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _index = __webpack_require__(2);
-
-exports.default = function () {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-  var action = arguments[1];
-
-  switch (action.type) {
-    case _index.FETCH_USERS:
-      return action.payload.data;
-    default:
-      return state;
-  }
-};
-
-/***/ }),
-/* 45 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-exports.default = function () {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-  var action = arguments[1];
-
-  switch (action.type) {
-    case _index.FETCH_CURRENT_USER:
-      return action.payload.data || false;
-    default:
-      return state;
-  }
-};
-
-var _index = __webpack_require__(2);
-
-/***/ }),
-/* 46 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _index = __webpack_require__(2);
-
-exports.default = function () {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-  var action = arguments[1];
-
-  switch (action.type) {
-    case _index.FETCH_ADMINS:
-      return action.payload.data;
-    default:
-      return state;
-  }
-};
-
-/***/ }),
-/* 47 */
-/***/ (function(module, exports) {
-
-module.exports = require("axios");
-
-/***/ }),
-/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3781,9 +3537,9 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _semanticUiReact = __webpack_require__(3);
+var _semanticUiReact = __webpack_require__(1);
 
-var _VideoPlayer = __webpack_require__(49);
+var _VideoPlayer = __webpack_require__(38);
 
 var _VideoPlayer2 = _interopRequireDefault(_VideoPlayer);
 
@@ -3852,7 +3608,7 @@ var ActivityModal = function (_Component) {
 exports.default = ActivityModal;
 
 /***/ }),
-/* 49 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3866,7 +3622,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _semanticUiReact = __webpack_require__(3);
+var _semanticUiReact = __webpack_require__(1);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3887,6 +3643,514 @@ function VideoPlayer(_ref) {
 }
 
 exports.default = VideoPlayer;
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(1);
+
+var _reactRedux = __webpack_require__(2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+// import { fetchClips } from "./../../redux/clips/clipsReducer";
+// import StreamerVideoPlayer from "./StreamerVideoPlayer";
+// import StreamerClipTable from "./StreamerClipTable";
+// import StreamerPageHeader from "./StreamerPageHeader";
+// import { setClips } from "./../../redux/clips/clipsActions";
+// import StreamerVideoArchive from "./page/StreamerVideoArchive";
+// import StreamerArchiveTable from "./page/StreamerArchiveTable";
+// import { setAutomaticCheckbox, setTimeFilter } from "../../redux/ui/uiActions";
+
+var StreamerDetailPage = function (_Component) {
+  _inherits(StreamerDetailPage, _Component);
+
+  function StreamerDetailPage(props) {
+    _classCallCheck(this, StreamerDetailPage);
+
+    var _this = _possibleConstructorReturn(this, (StreamerDetailPage.__proto__ || Object.getPrototypeOf(StreamerDetailPage)).call(this, props));
+
+    _this.handleTabChange = function (e, _ref) {
+      var activeIndex = _ref.activeIndex;
+      return _this.setState({ activeIndex: activeIndex });
+    };
+
+    _this.state = {
+      active: false,
+      url: "",
+      clipPageIndex: 1,
+      gameSearchValue: "",
+      titleSearchValue: "",
+      activeIndex: 0,
+      modalOpen: false
+    };
+    return _this;
+  }
+
+  _createClass(StreamerDetailPage, [{
+    key: "setClip",
+    value: function setClip() {
+      this.setState({
+        active: true,
+        url: clip.embedClipURL,
+        activeClip: clip,
+        modalOpen: true
+      });
+    }
+  }, {
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      var _props = this.props,
+          fetchClips = _props.fetchClips,
+          match = _props.match,
+          setClips = _props.setClips,
+          setAutomaticCheckbox = _props.setAutomaticCheckbox,
+          setTimeFilter = _props.setTimeFilter;
+
+      setAutomaticCheckbox(false);
+      setTimeFilter("week");
+      setClips([]);
+      fetchClips(match.params.streamerId, 0);
+    }
+  }, {
+    key: "handleScroll",
+    value: function handleScroll() {
+      this.setState(function (prevState) {
+        return {
+          clipPageIndex: prevState.clipPageIndex + 1
+        };
+      });
+      var _props2 = this.props,
+          fetchClips = _props2.fetchClips,
+          match = _props2.match,
+          ui = _props2.ui;
+
+      console.log("I will fetch page " + this.state.clipPageIndex);
+      fetchClips(match.params.streamerId, this.state.clipPageIndex, this.state.gameSearchValue, this.state.titleSearchValue, ui.automaticCheckbox, ui.time);
+    }
+  }, {
+    key: "gameSearchValueChanged",
+    value: function gameSearchValueChanged() {
+      this.setState({
+        clipPageIndex: 1,
+        gameSearchValue: value
+      });
+      var _props3 = this.props,
+          match = _props3.match,
+          setClips = _props3.setClips,
+          fetchClips = _props3.fetchClips,
+          ui = _props3.ui;
+
+      setClips([]);
+      fetchClips(match.params.streamerId, 0, value, this.state.titleSearchValue, ui.automaticCheckbox, ui.time);
+    }
+  }, {
+    key: "titleSearchValueChanged",
+    value: function titleSearchValueChanged() {
+      this.setState({
+        clipPageIndex: 1,
+        titleSearchValue: value
+      });
+      var _props4 = this.props,
+          match = _props4.match,
+          setClips = _props4.setClips,
+          fetchClips = _props4.fetchClips,
+          ui = _props4.ui;
+
+      setClips([]);
+      fetchClips(match.params.streamerId, 0, this.state.gameSearchValue, value, ui.automaticCheckbox, ui.time);
+    }
+  }, {
+    key: "checkBoxChanged",
+    value: function checkBoxChanged() {
+      var _props5 = this.props,
+          match = _props5.match,
+          setClips = _props5.setClips,
+          fetchClips = _props5.fetchClips,
+          ui = _props5.ui;
+
+      setClips([]);
+      fetchClips(match.params.streamerId, 0, this.state.gameSearchValue, this.state.titleSearchValue, !ui.automaticCheckbox, ui.time);
+    }
+  }, {
+    key: "timeChanged",
+    value: function timeChanged() {
+      var _props6 = this.props,
+          match = _props6.match,
+          setClips = _props6.setClips,
+          fetchClips = _props6.fetchClips,
+          ui = _props6.ui;
+
+      setClips([]);
+      fetchClips(match.params.streamerId, 0, this.state.gameSearchValue, this.state.titleSearchValue, ui.automaticCheckbox, timeValue);
+    }
+  }, {
+    key: "close",
+    value: function close() {
+      this.setState({ modalOpen: false });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _props7 = this.props,
+          clips = _props7.clips,
+          match = _props7.match;
+      var activeIndex = this.state.activeIndex;
+
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          _semanticUiReact.Grid,
+          null,
+          _react2.default.createElement(
+            _semanticUiReact.Grid.Column,
+            { width: 16 },
+            _react2.default.createElement(_semanticUiReact.Tab, {
+              activeIndex: activeIndex,
+              onTabChange: this.handleTabChange,
+              panes: [{
+                menuItem: {
+                  key: "clips",
+                  icon: "rocket large",
+                  content: "Clips"
+                },
+                render: function render() {
+                  return _react2.default.createElement(_react2.default.Fragment, null);
+                }
+              }, {
+                menuItem: {
+                  key: "archives",
+                  icon: "film large",
+                  content: "Archives"
+                },
+                render: function render() {
+                  return _react2.default.createElement(_react2.default.Fragment, null);
+                }
+              }]
+            })
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Modal,
+            {
+              dimmer: "blurring",
+              closeOnEscape: true,
+              closeOnDimmerClick: true,
+              open: this.state.modalOpen,
+              size: "small"
+            },
+            _react2.default.createElement(
+              _semanticUiReact.Modal.Content,
+              null,
+              this.state.activeClip && this.state.activeClip.archive && this.state.activeClip.archive[0] ? _react2.default.createElement("div", null)
+              // <StreamerVideoArchive
+              //   archive={this.state.activeClip.archive[0]}
+              //   creatorName={this.state.activeClip.creatorName}
+              //   automatic={this.state.activeClip.automatic}
+              // />
+              : _react2.default.createElement(
+                _semanticUiReact.Message,
+                { warning: true, icon: true },
+                _react2.default.createElement(_semanticUiReact.Icon, { name: "file video outline" }),
+                _react2.default.createElement(
+                  _semanticUiReact.Message.Content,
+                  null,
+                  _react2.default.createElement(
+                    _semanticUiReact.Message.Header,
+                    null,
+                    "No Archive Yet"
+                  ),
+                  "The archive will be available soon."
+                )
+              )
+            ),
+            _react2.default.createElement(
+              _semanticUiReact.Modal.Actions,
+              null,
+              _react2.default.createElement(
+                _semanticUiReact.Button,
+                { color: "grey", onClick: this.close },
+                "Close"
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return StreamerDetailPage;
+}(_react.Component);
+
+function mapStateToProps(_ref2) {
+  var clips = _ref2.clips,
+      ui = _ref2.ui;
+
+  return { clips: clips, ui: ui };
+}
+
+exports.default = {
+  component: (0, _reactRedux.connect)()(StreamerDetailPage)
+};
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports) {
+
+module.exports = require("express-http-proxy");
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _server = __webpack_require__(42);
+
+var _reactRouterDom = __webpack_require__(4);
+
+var _reactRedux = __webpack_require__(2);
+
+var _reactRouterConfig = __webpack_require__(5);
+
+var _routes = __webpack_require__(7);
+
+var _routes2 = _interopRequireDefault(_routes);
+
+var _serializeJavascript = __webpack_require__(43);
+
+var _serializeJavascript2 = _interopRequireDefault(_serializeJavascript);
+
+var _reactHelmet = __webpack_require__(8);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (req, store, context) {
+  var content = (0, _server.renderToString)(_react2.default.createElement(
+    _reactRedux.Provider,
+    { store: store },
+    _react2.default.createElement(
+      _reactRouterDom.StaticRouter,
+      { location: req.path, context: context },
+      _react2.default.createElement(
+        "div",
+        null,
+        (0, _reactRouterConfig.renderRoutes)(_routes2.default)
+      )
+    )
+  ));
+
+  var helmet = _reactHelmet.Helmet.renderStatic();
+
+  return "\n    <html>\n        <head>\n          " + helmet.title.toString() + "\n          " + helmet.meta.toString() + "\n          <link rel=\"stylesheet\" href=\"//cdn.jsdelivr.net/npm/semantic-ui@2.4.0/dist/semantic.min.css\"></link>\n          <link rel=\"stylesheet\" href=\"assets/style.css\">\n        </head>\n        <body>\n            <div id=\"root\">" + content + "</div>\n            <script>window.INITIAL_STATE = " + (0, _serializeJavascript2.default)(store.getState()) + "</script>\n            <script src=\"bundle.js\"></script>\n        </body>\n    </html>\n  ";
+};
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-dom/server");
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports) {
+
+module.exports = require("serialize-javascript");
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _redux = __webpack_require__(15);
+
+var _reduxThunk = __webpack_require__(45);
+
+var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
+
+var _index = __webpack_require__(46);
+
+var _index2 = _interopRequireDefault(_index);
+
+var _axios = __webpack_require__(50);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (req) {
+  var axiosInstance = _axios2.default.create({
+    baseURL: "http://localhost:3001",
+    headers: { cookie: req.get("cookie") || "" }
+  });
+  var store = (0, _redux.createStore)(_index2.default, {}, (0, _redux.applyMiddleware)(_reduxThunk2.default.withExtraArgument(axiosInstance)));
+  return store;
+};
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports) {
+
+module.exports = require("redux-thunk");
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _redux = __webpack_require__(15);
+
+var _usersReducer = __webpack_require__(47);
+
+var _usersReducer2 = _interopRequireDefault(_usersReducer);
+
+var _authReducer = __webpack_require__(48);
+
+var _authReducer2 = _interopRequireDefault(_authReducer);
+
+var _adminsReducer = __webpack_require__(49);
+
+var _adminsReducer2 = _interopRequireDefault(_adminsReducer);
+
+var _index = __webpack_require__(13);
+
+var _index2 = _interopRequireDefault(_index);
+
+var _index3 = __webpack_require__(6);
+
+var _index4 = _interopRequireDefault(_index3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = (0, _redux.combineReducers)({
+  users: _usersReducer2.default,
+  auth: _authReducer2.default,
+  admins: _adminsReducer2.default,
+  streamers: _index2.default,
+  activity: _index4.default
+});
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _index = __webpack_require__(3);
+
+exports.default = function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _index.FETCH_USERS:
+      return action.payload.data;
+    default:
+      return state;
+  }
+};
+
+/***/ }),
+/* 48 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _index.FETCH_CURRENT_USER:
+      return action.payload.data || false;
+    default:
+      return state;
+  }
+};
+
+var _index = __webpack_require__(3);
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _index = __webpack_require__(3);
+
+exports.default = function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _index.FETCH_ADMINS:
+      return action.payload.data;
+    default:
+      return state;
+  }
+};
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports) {
+
+module.exports = require("axios");
 
 /***/ })
 /******/ ]);

@@ -8,10 +8,9 @@ class TopMenu extends Component {
     this.state = {
       activeItem: {}
     };
-    this.handleItemClick = this.handleItemClick.bind(this);
   }
 
-  handleItemClick(e, { name }) {
+  handleItemClick = (e, { name }) => {
     this.setState({ activeItem: name });
   }
 

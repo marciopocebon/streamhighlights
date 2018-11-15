@@ -3,6 +3,7 @@ import App from "./App";
 import NotFoundPage from "./pages/NotFoundPage";
 import AdminsListPage from "./pages/AdminsListPage";
 import StreamersPage from "./pages/StreamersPage";
+import StreamerDetailPage from "./pages/StreamerDetailPage";
 
 export default [
   {
@@ -12,6 +13,9 @@ export default [
         ...StreamersPage,
         path: "/",
         exact: true
+      },
+      { path: '/streamer/:id',
+        ...StreamerDetailPage
       },
       {
         path: "/users",
