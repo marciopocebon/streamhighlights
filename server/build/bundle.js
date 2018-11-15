@@ -2914,7 +2914,6 @@ var StreamersPage = function (_Component) {
           });
           var _fetchMoreStreamers = this.props.fetchMoreStreamers;
 
-          console.log("I will fetch page " + this.state.pageIndex);
           _fetchMoreStreamers(this.state.pageIndex, this.state.searchValue);
         }
       }
@@ -2934,7 +2933,7 @@ var StreamersPage = function (_Component) {
           { width: 10 },
           _react2.default.createElement(
             _semanticUiReact.Segment,
-            { className: "streamer-segment" },
+            { className: "streamer-segment", loading: streamers.fetching },
             _react2.default.createElement(
               _semanticUiReact.Label,
               { attached: "top", size: "big", className: "colored-label" },
@@ -2973,7 +2972,7 @@ var StreamersPage = function (_Component) {
                   _react2.default.createElement(
                     _semanticUiReact.Grid.Row,
                     null,
-                    streamers && streamers.map(function (streamer, index) {
+                    streamers.items && streamers.items.map(function (streamer, index) {
                       return streamer && _react2.default.createElement(
                         _semanticUiReact.Grid.Column,
                         { width: 4, key: index },
@@ -3025,23 +3024,35 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.fetchMoreStreamers = exports.getStreamers = undefined;
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _index = __webpack_require__(42);
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-var initialState = [];
+var initialState = { items: [], fetching: false };
 
 var streamers = function streamers() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments[1];
 
   switch (action.type) {
+    case _index.REQUEST_STREAMERS:
+      return _extends({}, state, {
+        fetching: true
+      });
     case _index.FETCH_STREAMERS:
-      return action.payload;
+      return _extends({}, state, {
+        items: action.payload,
+        fetching: false
+      });
     case _index.APPEND_STREAMERS:
-      return [].concat(_toConsumableArray(state), _toConsumableArray(action.payload));
+      return _extends({}, state, {
+        items: [].concat(_toConsumableArray(state.items), _toConsumableArray(action.payload)),
+        fetching: false
+      });
     default:
       return state;
   }
@@ -3086,15 +3097,16 @@ var fetchMoreStreamers = exports.fetchMoreStreamers = function fetchMoreStreamer
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              _context2.next = 2;
+              dispatch((0, _index.requestStreamers)());
+              _context2.next = 3;
               return api.get("/streamers?page=" + pageIndex + (streamerFilter ? "&q=" + streamerFilter : ""));
 
-            case 2:
+            case 3:
               res = _context2.sent;
 
               dispatch((0, _index.appendStreamers)(res.data.streamers));
 
-            case 4:
+            case 5:
             case "end":
               return _context2.stop();
           }
@@ -3122,11 +3134,18 @@ Object.defineProperty(exports, "__esModule", {
 });
 var FETCH_STREAMERS = exports.FETCH_STREAMERS = "FETCH_STREAMERS";
 var APPEND_STREAMERS = exports.APPEND_STREAMERS = "APPEND_STREAMERS";
+var REQUEST_STREAMERS = exports.REQUEST_STREAMERS = "REQUEST_STREAMERS";
 
 var fetchStreamers = exports.fetchStreamers = function fetchStreamers(streamers) {
   return {
     type: FETCH_STREAMERS,
     payload: streamers
+  };
+};
+
+var requestStreamers = exports.requestStreamers = function requestStreamers() {
+  return {
+    type: REQUEST_STREAMERS
   };
 };
 

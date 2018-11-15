@@ -28,7 +28,6 @@ class StreamersPage extends Component {
       ) {
         this.setState(prevState => ({ pageIndex: prevState.pageIndex + 1 }));
         const { fetchMoreStreamers } = this.props;
-        console.log("I will fetch page " + this.state.pageIndex);
         fetchMoreStreamers(this.state.pageIndex, this.state.searchValue);
       }
     }
@@ -39,7 +38,7 @@ class StreamersPage extends Component {
     return (
       <Grid>
         <Grid.Column width={10}>
-          <Segment className="streamer-segment">
+          <Segment className="streamer-segment" loading={streamers.fetching}>
             <Label attached="top" size="big" className="colored-label">
               <Icon name="user" />
               Streamers
@@ -68,8 +67,8 @@ class StreamersPage extends Component {
                   className="streamer-grid animated fadeIn"
                 >
                   <Grid.Row>
-                    {streamers &&
-                      streamers.map((streamer, index) => {
+                    {streamers.items &&
+                      streamers.items.map((streamer, index) => {
                         return (
                           streamer && (
                             <Grid.Column width={4} key={index}>
