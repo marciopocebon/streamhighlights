@@ -81708,6 +81708,10 @@ var _languageUtils = __webpack_require__(1120);
 
 var _index = __webpack_require__(287);
 
+var _ActivityModal = __webpack_require__(1144);
+
+var _ActivityModal2 = _interopRequireDefault(_ActivityModal);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -81811,6 +81815,7 @@ var ActivityFeed = function (_Component) {
               return _react2.default.createElement(
                 _semanticUiReact.Feed.Event,
                 {
+                  key: clip.clipId,
                   onClick: function onClick() {
                     return _this2.setState({
                       modalOpen: true,
@@ -81861,7 +81866,13 @@ var ActivityFeed = function (_Component) {
                 )
               );
             })
-          )
+          ),
+          _react2.default.createElement(_ActivityModal2.default, {
+            modalOpen: this.state.modalOpen,
+            url: this.state.url,
+            close: this.closeModal,
+            streamerId: this.state.streamerId
+          })
         )
       );
     }
@@ -83143,6 +83154,130 @@ module.exports = function spread(callback) {
   };
 };
 
+
+/***/ }),
+/* 1144 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(113);
+
+var _VideoPlayer = __webpack_require__(1145);
+
+var _VideoPlayer2 = _interopRequireDefault(_VideoPlayer);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ActivityModal = function (_Component) {
+  _inherits(ActivityModal, _Component);
+
+  function ActivityModal() {
+    _classCallCheck(this, ActivityModal);
+
+    return _possibleConstructorReturn(this, (ActivityModal.__proto__ || Object.getPrototypeOf(ActivityModal)).apply(this, arguments));
+  }
+
+  _createClass(ActivityModal, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      return _react2.default.createElement(
+        _semanticUiReact.Modal,
+        {
+          dimmer: "blurring",
+          closeOnEscape: true,
+          closeOnDimmerClick: true,
+          open: this.props.modalOpen,
+          size: "small"
+        },
+        _react2.default.createElement(
+          _semanticUiReact.Modal.Content,
+          null,
+          _react2.default.createElement(_VideoPlayer2.default, { url: this.props.url })
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Modal.Actions,
+          null,
+          _react2.default.createElement(
+            _semanticUiReact.Button,
+            {
+              className: "inverted-button",
+              onClick: function onClick() {
+                return _this2.props.history.push("/streamer/" + _this2.props.streamerId);
+              }
+            },
+            "Go to Streamer Page"
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Button,
+            { color: "grey", onClick: this.props.close },
+            "Close"
+          )
+        )
+      );
+    }
+  }]);
+
+  return ActivityModal;
+}(_react.Component);
+
+exports.default = ActivityModal;
+
+/***/ }),
+/* 1145 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(113);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function VideoPlayer(_ref) {
+  var active = _ref.active,
+      url = _ref.url;
+
+  return _react2.default.createElement(
+    _semanticUiReact.Segment,
+    null,
+    _react2.default.createElement(
+      _semanticUiReact.Label,
+      { attached: "top", size: "big", className: "colored-label" },
+      "Video Player"
+    ),
+    _react2.default.createElement(_semanticUiReact.Embed, { active: true, icon: "play", placeholder: "", url: url })
+  );
+}
+
+exports.default = VideoPlayer;
 
 /***/ })
 /******/ ]);

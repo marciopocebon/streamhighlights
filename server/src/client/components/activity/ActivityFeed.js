@@ -15,6 +15,7 @@ import {
   getActivity,
   fetchMoreActivity
 } from "./../../reducers/activity/index";
+import ActivityModal from "./ActivityModal";
 const image = "https://image.flaticon.com/icons/svg/843/843273.svg";
 
 class ActivityFeed extends Component {
@@ -82,6 +83,7 @@ class ActivityFeed extends Component {
               activity.items.map(clip => {
                 return (
                   <Feed.Event
+                    key={clip.clipId}
                     onClick={() =>
                       this.setState({
                         modalOpen: true,
@@ -125,12 +127,12 @@ class ActivityFeed extends Component {
                 );
               })}
           </Feed>
-          {/* <ActivityModal
+          <ActivityModal
             modalOpen={this.state.modalOpen}
             url={this.state.url}
             close={this.closeModal}
             streamerId={this.state.streamerId}
-          /> */}
+          />
         </div>
       </Segment>
     );
