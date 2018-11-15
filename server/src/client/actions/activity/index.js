@@ -17,7 +17,7 @@ export const requestActivity = () => {
 
 export const appendActivity = activity => {
   return {
-    type: APPEND_STREAMERS,
+    type: APPEND_ACTIVITY,
     payload: activity
   };
 };

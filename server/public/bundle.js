@@ -81674,7 +81674,7 @@ var requestActivity = exports.requestActivity = function requestActivity() {
 
 var appendActivity = exports.appendActivity = function appendActivity(activity) {
   return {
-    type: APPEND_STREAMERS,
+    type: APPEND_ACTIVITY,
     payload: activity
   };
 };
