@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Modal, Button } from "semantic-ui-react";
-import VideoPlayer from './../video/VideoPlayer';
+import VideoPlayer from "./../video/VideoPlayer";
+import { withRouter } from "react-router-dom";
 
 class ActivityModal extends Component {
   render() {
@@ -33,4 +34,4 @@ class ActivityModal extends Component {
   }
 }
 
-export default ActivityModal;
+export default withRouter(ActivityModal);

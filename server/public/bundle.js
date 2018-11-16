@@ -85076,6 +85076,8 @@ var _VideoPlayer = __webpack_require__(525);
 
 var _VideoPlayer2 = _interopRequireDefault(_VideoPlayer);
 
+var _reactRouterDom = __webpack_require__(108);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -85138,7 +85140,7 @@ var ActivityModal = function (_Component) {
   return ActivityModal;
 }(_react.Component);
 
-exports.default = ActivityModal;
+exports.default = (0, _reactRouterDom.withRouter)(ActivityModal);
 
 /***/ }),
 /* 1139 */
