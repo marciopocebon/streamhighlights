@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 22);
+/******/ 	return __webpack_require__(__webpack_require__.s = 25);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -83,6 +83,46 @@ module.exports = require("react-redux");
 
 /***/ }),
 /* 3 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-router-dom");
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+// Maps a twitch language to a flag
+var mapToFlag = exports.mapToFlag = function mapToFlag(language) {
+  switch (language) {
+    case "en":
+      return "us";
+    case "pt-br":
+      return "br";
+    case "ko":
+      return "kr";
+    case "zh-tw":
+      return "tw";
+    case "en-gb":
+      return "gb";
+    case "zh":
+      return "cn";
+    case "ja":
+      return "jp";
+    case "da":
+      return "dk";
+    default:
+      return language;
+  }
+};
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -197,47 +237,13 @@ var fetchAdmins = exports.fetchAdmins = function fetchAdmins() {
 };
 
 /***/ }),
-/* 4 */
+/* 6 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-router-dom");
+module.exports = require("react-timeago");
 
 /***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-// Maps a twitch language to a flag
-var mapToFlag = exports.mapToFlag = function mapToFlag(language) {
-  switch (language) {
-    case "en":
-      return "us";
-    case "pt-br":
-      return "br";
-    case "ko":
-      return "kr";
-    case "zh-tw":
-      return "tw";
-    case "en-gb":
-      return "gb";
-    case "zh":
-      return "cn";
-    case "ja":
-      return "jp";
-    case "da":
-      return "dk";
-    default:
-      return language;
-  }
-};
-
-/***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -280,185 +286,7 @@ var setTimeFilter = exports.setTimeFilter = function setTimeFilter(time) {
 };
 
 /***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.fetchMoreArchive = exports.fetchMoreArchiveByStreamer = exports.getArchiveByStreamerId = exports.getArchive = undefined;
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _index = __webpack_require__(48);
-
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-var initialState = { items: [], fetching: false };
-
-var archives = function archives() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-  var action = arguments[1];
-
-  switch (action.type) {
-    case _index.FETCH_ARCHIVE:
-      return _extends({}, state, {
-        items: action.payload
-      });
-    case _index.REQUEST_ARCHIVE:
-      return _extends({}, state, {
-        fetching: true
-      });
-    case _index.APPEND_ARCHIVE:
-      return _extends({}, state, {
-        items: [].concat(_toConsumableArray(state.items), _toConsumableArray(action.payload)),
-        fetching: false
-      });
-    default:
-      return state;
-  }
-};
-
-var getArchive = exports.getArchive = function getArchive(archiveId, pageIndex) {
-  return function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch, getState, api) {
-      var res;
-      return regeneratorRuntime.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return api.get("/archives/" + archiveId + "?page=" + pageIndex);
-
-            case 2:
-              res = _context.sent;
-
-              console.log(res.data.archives);
-              dispatch((0, _index.fetchArchive)(res.data.archives));
-
-            case 5:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee, undefined);
-    }));
-
-    return function (_x2, _x3, _x4) {
-      return _ref.apply(this, arguments);
-    };
-  }();
-};
-
-var getArchiveByStreamerId = exports.getArchiveByStreamerId = function getArchiveByStreamerId(streamerId, pageIndex) {
-  return function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(dispatch, getState, api) {
-      var res;
-      return regeneratorRuntime.wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              console.log("/archives/streamer/" + streamerId + "?page=" + pageIndex);
-              _context2.next = 3;
-              return api.get("/archives/streamer/" + streamerId + "?page=" + pageIndex);
-
-            case 3:
-              res = _context2.sent;
-
-              console.log(res.data.archives);
-              dispatch((0, _index.fetchArchive)(res.data.archives));
-
-            case 6:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2, undefined);
-    }));
-
-    return function (_x5, _x6, _x7) {
-      return _ref2.apply(this, arguments);
-    };
-  }();
-};
-
-var fetchMoreArchiveByStreamer = exports.fetchMoreArchiveByStreamer = function fetchMoreArchiveByStreamer(streamerId, pageIndex) {
-  return function () {
-    var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(dispatch, getState, api) {
-      var res;
-      return regeneratorRuntime.wrap(function _callee3$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              dispatch((0, _index.requestArchive)());
-              _context3.next = 3;
-              return api.get("/archives/streamer/" + streamerId + "?page=" + pageIndex);
-
-            case 3:
-              res = _context3.sent;
-
-              dispatch((0, _index.appendArchive)(res.data.archives));
-
-            case 5:
-            case "end":
-              return _context3.stop();
-          }
-        }
-      }, _callee3, undefined);
-    }));
-
-    return function (_x8, _x9, _x10) {
-      return _ref3.apply(this, arguments);
-    };
-  }();
-};
-
-var fetchMoreArchive = exports.fetchMoreArchive = function fetchMoreArchive(archiveId, pageIndex) {
-  return function () {
-    var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(dispatch, getState, api) {
-      var res;
-      return regeneratorRuntime.wrap(function _callee4$(_context4) {
-        while (1) {
-          switch (_context4.prev = _context4.next) {
-            case 0:
-              dispatch((0, _index.requestArchive)());
-              _context4.next = 3;
-              return api.get("/archives/" + archiveId + "?page=" + pageIndex);
-
-            case 3:
-              res = _context4.sent;
-
-              dispatch((0, _index.appendArchive)(res.data.archives));
-
-            case 5:
-            case "end":
-              return _context4.stop();
-          }
-        }
-      }, _callee4, undefined);
-    }));
-
-    return function (_x11, _x12, _x13) {
-      return _ref4.apply(this, arguments);
-    };
-  }();
-};
-
-exports.default = archives;
-
-/***/ }),
 /* 8 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-router-config");
-
-/***/ }),
-/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -471,7 +299,7 @@ exports.fetchMoreActivity = exports.getActivity = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _index = __webpack_require__(39);
+var _index = __webpack_require__(42);
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
@@ -567,13 +395,7 @@ var fetchMoreActivity = exports.fetchMoreActivity = function fetchMoreActivity(p
 exports.default = activity;
 
 /***/ }),
-/* 10 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-timeago");
-
-/***/ }),
-/* 11 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -582,105 +404,11 @@ module.exports = require("react-timeago");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.fetchMoreArchive = exports.fetchMoreArchiveByStreamer = exports.getArchiveByStreamerId = exports.getArchive = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _UsersListPage = __webpack_require__(25);
-
-var _UsersListPage2 = _interopRequireDefault(_UsersListPage);
-
-var _App = __webpack_require__(26);
-
-var _App2 = _interopRequireDefault(_App);
-
-var _NotFoundPage = __webpack_require__(28);
-
-var _NotFoundPage2 = _interopRequireDefault(_NotFoundPage);
-
-var _AdminsListPage = __webpack_require__(29);
-
-var _AdminsListPage2 = _interopRequireDefault(_AdminsListPage);
-
-var _StreamersPage = __webpack_require__(36);
-
-var _StreamersPage2 = _interopRequireDefault(_StreamersPage);
-
-var _StreamerDetailPage = __webpack_require__(42);
-
-var _StreamerDetailPage2 = _interopRequireDefault(_StreamerDetailPage);
-
-var _SessionPage = __webpack_require__(51);
-
-var _SessionPage2 = _interopRequireDefault(_SessionPage);
-
-var _GamesPage = __webpack_require__(72);
-
-var _GamesPage2 = _interopRequireDefault(_GamesPage);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = [_extends({}, _App2.default, {
-  routes: [_extends({}, _StreamersPage2.default, {
-    path: "/",
-    exact: true
-  }), _extends({}, _GamesPage2.default, {
-    path: "/games"
-  }), _extends({}, _StreamerDetailPage2.default, {
-    path: "/streamer/:id"
-  }), _extends({}, _SessionPage2.default, {
-    path: "/session/:id"
-  }), _extends({
-    path: "/users"
-  }, _UsersListPage2.default), _extends({
-    path: "/admins"
-  }, _AdminsListPage2.default), _extends({}, _NotFoundPage2.default)]
-})];
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-helmet");
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports) {
-
-module.exports = require("object-assign");
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports) {
-
-module.exports = require("fbjs/lib/emptyObject");
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports) {
-
-module.exports = require("fbjs/lib/invariant");
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports) {
-
-module.exports = require("fbjs/lib/emptyFunction");
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.fetchMoreStreamers = exports.getStreamers = undefined;
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _index = __webpack_require__(18);
+var _index = __webpack_require__(51);
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
@@ -688,21 +416,20 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 var initialState = { items: [], fetching: false };
 
-var streamers = function streamers() {
+var archives = function archives() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments[1];
 
   switch (action.type) {
-    case _index.REQUEST_STREAMERS:
+    case _index.FETCH_ARCHIVE:
+      return _extends({}, state, {
+        items: action.payload
+      });
+    case _index.REQUEST_ARCHIVE:
       return _extends({}, state, {
         fetching: true
       });
-    case _index.FETCH_STREAMERS:
-      return _extends({}, state, {
-        items: action.payload,
-        fetching: false
-      });
-    case _index.APPEND_STREAMERS:
+    case _index.APPEND_ARCHIVE:
       return _extends({}, state, {
         items: [].concat(_toConsumableArray(state.items), _toConsumableArray(action.payload)),
         fetching: false
@@ -712,7 +439,7 @@ var streamers = function streamers() {
   }
 };
 
-var getStreamers = exports.getStreamers = function getStreamers(pageIndex, streamerFilter) {
+var getArchive = exports.getArchive = function getArchive(archiveId, pageIndex) {
   return function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch, getState, api) {
       var res;
@@ -721,13 +448,12 @@ var getStreamers = exports.getStreamers = function getStreamers(pageIndex, strea
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return api.get("/streamers?page=" + pageIndex + (streamerFilter ? "&q=" + streamerFilter : ""));
+              return api.get("/archives/" + archiveId + "?page=" + pageIndex);
 
             case 2:
               res = _context.sent;
 
-              // Error handling maybe?
-              dispatch((0, _index.fetchStreamers)(res.data.streamers));
+              dispatch((0, _index.fetchArchive)(res.data.archives));
 
             case 4:
             case "end":
@@ -743,7 +469,7 @@ var getStreamers = exports.getStreamers = function getStreamers(pageIndex, strea
   }();
 };
 
-var fetchMoreStreamers = exports.fetchMoreStreamers = function fetchMoreStreamers(pageIndex, streamerFilter) {
+var getArchiveByStreamerId = exports.getArchiveByStreamerId = function getArchiveByStreamerId(streamerId, pageIndex) {
   return function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(dispatch, getState, api) {
       var res;
@@ -751,16 +477,15 @@ var fetchMoreStreamers = exports.fetchMoreStreamers = function fetchMoreStreamer
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              dispatch((0, _index.requestStreamers)());
-              _context2.next = 3;
-              return api.get("/streamers?page=" + pageIndex + (streamerFilter ? "&q=" + streamerFilter : ""));
+              _context2.next = 2;
+              return api.get("/archives/streamer/" + streamerId + "?page=" + pageIndex);
 
-            case 3:
+            case 2:
               res = _context2.sent;
 
-              dispatch((0, _index.appendStreamers)(res.data.streamers));
+              dispatch((0, _index.fetchArchive)(res.data.archives));
 
-            case 5:
+            case 4:
             case "end":
               return _context2.stop();
           }
@@ -774,10 +499,72 @@ var fetchMoreStreamers = exports.fetchMoreStreamers = function fetchMoreStreamer
   }();
 };
 
-exports.default = streamers;
+var fetchMoreArchiveByStreamer = exports.fetchMoreArchiveByStreamer = function fetchMoreArchiveByStreamer(streamerId, pageIndex) {
+  return function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(dispatch, getState, api) {
+      var res;
+      return regeneratorRuntime.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              dispatch((0, _index.requestArchive)());
+              _context3.next = 3;
+              return api.get("/archives/streamer/" + streamerId + "?page=" + pageIndex);
+
+            case 3:
+              res = _context3.sent;
+
+              dispatch((0, _index.appendArchive)(res.data.archives));
+
+            case 5:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, undefined);
+    }));
+
+    return function (_x8, _x9, _x10) {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+};
+
+var fetchMoreArchive = exports.fetchMoreArchive = function fetchMoreArchive(archiveId, pageIndex) {
+  return function () {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(dispatch, getState, api) {
+      var res;
+      return regeneratorRuntime.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              dispatch((0, _index.requestArchive)());
+              _context4.next = 3;
+              return api.get("/archives/" + archiveId + "?page=" + pageIndex);
+
+            case 3:
+              res = _context4.sent;
+
+              dispatch((0, _index.appendArchive)(res.data.archives));
+
+            case 5:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, undefined);
+    }));
+
+    return function (_x11, _x12, _x13) {
+      return _ref4.apply(this, arguments);
+    };
+  }();
+};
+
+exports.default = archives;
 
 /***/ }),
-/* 18 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -786,84 +573,13 @@ exports.default = streamers;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var FETCH_STREAMERS = exports.FETCH_STREAMERS = "FETCH_STREAMERS";
-var APPEND_STREAMERS = exports.APPEND_STREAMERS = "APPEND_STREAMERS";
-var REQUEST_STREAMERS = exports.REQUEST_STREAMERS = "REQUEST_STREAMERS";
-
-var fetchStreamers = exports.fetchStreamers = function fetchStreamers(streamers) {
-  return {
-    type: FETCH_STREAMERS,
-    payload: streamers
-  };
-};
-
-var requestStreamers = exports.requestStreamers = function requestStreamers() {
-  return {
-    type: REQUEST_STREAMERS
-  };
-};
-
-var appendStreamers = exports.appendStreamers = function appendStreamers(streamers) {
-  return {
-    type: APPEND_STREAMERS,
-    payload: streamers
-  };
-};
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _semanticUiReact = __webpack_require__(1);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function VideoPlayer(_ref) {
-  var active = _ref.active,
-      url = _ref.url;
-
-  return _react2.default.createElement(
-    _semanticUiReact.Segment,
-    null,
-    _react2.default.createElement(
-      _semanticUiReact.Label,
-      { attached: "top", size: "big", className: "colored-label" },
-      "Video Player"
-    ),
-    _react2.default.createElement(_semanticUiReact.Embed, { active: true, icon: "play", placeholder: "", url: url })
-  );
-}
-
-exports.default = VideoPlayer;
-
-/***/ }),
-/* 20 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.fetchMoreClipsByArchive = exports.getClipsByArchive = exports.fetchMoreClips = exports.getClips = undefined;
+exports.fetchMoreClipsByGame = exports.getClipsByGame = exports.fetchMoreClipsByArchive = exports.getClipsByArchive = exports.fetchMoreClips = exports.getClips = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _index = __webpack_require__(49);
+var _index = __webpack_require__(52);
 
-var _ui = __webpack_require__(6);
+var _ui = __webpack_require__(7);
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
@@ -902,17 +618,16 @@ var getClips = exports.getClips = function getClips(userId, pageIndex, game, tit
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              console.log("/clips/" + userId + "?page=" + pageIndex + (time ? "&time=" + time : "&time=week") + (game ? "&game=" + game : "") + (title ? "&title=" + title : "") + "&automatic=1");
-              _context.next = 3;
+              _context.next = 2;
               return api.get("/clips/" + userId + "?page=" + pageIndex + (time ? "&time=" + time : "&time=week") + (game ? "&game=" + game : "") + (title ? "&title=" + title : "") + "&automatic=1");
 
-            case 3:
+            case 2:
               res = _context.sent;
 
               dispatch((0, _ui.setSelectedStreamer)(res.data.streamer));
               dispatch((0, _index.fetchClips)(res.data.clips));
 
-            case 6:
+            case 5:
             case "end":
               return _context.stop();
           }
@@ -1019,37 +734,504 @@ var fetchMoreClipsByArchive = exports.fetchMoreClipsByArchive = function fetchMo
   }();
 };
 
-// export const fetchClipsByGame = (
-//   gameId,
-//   pageIndex,
-//   streamer,
-//   title,
-//   automatic
-// ) => {
-//   return dispatch => {
-//     dispatch(requestClips());
-//     axios
-//       .get(
-//         `/clips/game/${gameId}?page=${pageIndex}` +
-//           (streamer ? `&streamer=${streamer}` : "") +
-//           (title ? `&title=${title}` : "") +
-//           `&automatic=1`
-//       )
-//       .then(response => {
-//         dispatch(setSelectedGame(response.data.game));
-//         dispatch(fetchClipsSuccess(response.data.clips));
-//       })
-//       .catch(err => console.log("This should be a dispatched error"));
-//   };
-// };
+var getClipsByGame = exports.getClipsByGame = function getClipsByGame(gameId, pageIndex, streamer, title, automatic) {
+  return function () {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(dispatch, getState, api) {
+      var res;
+      return regeneratorRuntime.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              _context5.next = 2;
+              return api.get("/clips/game/" + gameId + "?page=" + pageIndex + (streamer ? "&streamer=" + streamer : "") + (title ? "&title=" + title : "") + "&automatic=1");
+
+            case 2:
+              res = _context5.sent;
+
+
+              dispatch((0, _ui.setSelectedGame)(res.data.game));
+              dispatch((0, _index.fetchClips)(res.data.clips));
+
+            case 5:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5, undefined);
+    }));
+
+    return function (_x14, _x15, _x16) {
+      return _ref5.apply(this, arguments);
+    };
+  }();
+};
+
+var fetchMoreClipsByGame = exports.fetchMoreClipsByGame = function fetchMoreClipsByGame(gameId, pageIndex, streamer, title, automatic) {
+  return function () {
+    var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(dispatch, getState, api) {
+      var res;
+      return regeneratorRuntime.wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              dispatch((0, _index.requestClips)());
+              _context6.next = 3;
+              return api.get("/clips/game/" + gameId + "?page=" + pageIndex + (streamer ? "&streamer=" + streamer : "") + (title ? "&title=" + title : "") + "&automatic=1");
+
+            case 3:
+              res = _context6.sent;
+
+              dispatch((0, _index.appendClips)(res.data.clips));
+
+            case 5:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6, undefined);
+    }));
+
+    return function (_x17, _x18, _x19) {
+      return _ref6.apply(this, arguments);
+    };
+  }();
+};
 
 exports.default = clips;
 
 /***/ }),
-/* 21 */
+/* 11 */
 /***/ (function(module, exports) {
 
-module.exports = require("redux");
+module.exports = require("react-router-config");
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(1);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function VideoPlayer(_ref) {
+  var active = _ref.active,
+      url = _ref.url;
+
+  return _react2.default.createElement(
+    _semanticUiReact.Segment,
+    null,
+    _react2.default.createElement(
+      _semanticUiReact.Label,
+      { attached: "top", size: "big", className: "colored-label" },
+      "Video Player"
+    ),
+    _react2.default.createElement(_semanticUiReact.Embed, { active: true, icon: "play", placeholder: "", url: url })
+  );
+}
+
+exports.default = VideoPlayer;
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _UsersListPage = __webpack_require__(28);
+
+var _UsersListPage2 = _interopRequireDefault(_UsersListPage);
+
+var _App = __webpack_require__(29);
+
+var _App2 = _interopRequireDefault(_App);
+
+var _NotFoundPage = __webpack_require__(31);
+
+var _NotFoundPage2 = _interopRequireDefault(_NotFoundPage);
+
+var _AdminsListPage = __webpack_require__(32);
+
+var _AdminsListPage2 = _interopRequireDefault(_AdminsListPage);
+
+var _StreamersPage = __webpack_require__(39);
+
+var _StreamersPage2 = _interopRequireDefault(_StreamersPage);
+
+var _StreamerDetailPage = __webpack_require__(45);
+
+var _StreamerDetailPage2 = _interopRequireDefault(_StreamerDetailPage);
+
+var _SessionPage = __webpack_require__(53);
+
+var _SessionPage2 = _interopRequireDefault(_SessionPage);
+
+var _GamesPage = __webpack_require__(62);
+
+var _GamesPage2 = _interopRequireDefault(_GamesPage);
+
+var _GamesDetailPage = __webpack_require__(66);
+
+var _GamesDetailPage2 = _interopRequireDefault(_GamesDetailPage);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = [_extends({}, _App2.default, {
+  routes: [_extends({}, _StreamersPage2.default, {
+    path: "/",
+    exact: true
+  }), _extends({}, _GamesPage2.default, {
+    path: "/games"
+  }), _extends({}, _GamesDetailPage2.default, {
+    path: "/game/:id"
+  }), _extends({}, _StreamerDetailPage2.default, {
+    path: "/streamer/:id"
+  }), _extends({}, _SessionPage2.default, {
+    path: "/session/:id"
+  }), _extends({
+    path: "/users"
+  }, _UsersListPage2.default), _extends({
+    path: "/admins"
+  }, _AdminsListPage2.default), _extends({}, _NotFoundPage2.default)]
+})];
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-helmet");
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports) {
+
+module.exports = require("object-assign");
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports) {
+
+module.exports = require("fbjs/lib/emptyObject");
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports) {
+
+module.exports = require("fbjs/lib/invariant");
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports) {
+
+module.exports = require("fbjs/lib/emptyFunction");
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.fetchMoreStreamers = exports.getStreamers = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _index = __webpack_require__(20);
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+var initialState = { items: [], fetching: false };
+
+var streamers = function streamers() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _index.REQUEST_STREAMERS:
+      return _extends({}, state, {
+        fetching: true
+      });
+    case _index.FETCH_STREAMERS:
+      return _extends({}, state, {
+        items: action.payload,
+        fetching: false
+      });
+    case _index.APPEND_STREAMERS:
+      return _extends({}, state, {
+        items: [].concat(_toConsumableArray(state.items), _toConsumableArray(action.payload)),
+        fetching: false
+      });
+    default:
+      return state;
+  }
+};
+
+var getStreamers = exports.getStreamers = function getStreamers(pageIndex, streamerFilter) {
+  return function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch, getState, api) {
+      var res;
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return api.get("/streamers?page=" + pageIndex + (streamerFilter ? "&q=" + streamerFilter : ""));
+
+            case 2:
+              res = _context.sent;
+
+              // Error handling maybe?
+              dispatch((0, _index.fetchStreamers)(res.data.streamers));
+
+            case 4:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, undefined);
+    }));
+
+    return function (_x2, _x3, _x4) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+};
+
+var fetchMoreStreamers = exports.fetchMoreStreamers = function fetchMoreStreamers(pageIndex, streamerFilter) {
+  return function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(dispatch, getState, api) {
+      var res;
+      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              dispatch((0, _index.requestStreamers)());
+              _context2.next = 3;
+              return api.get("/streamers?page=" + pageIndex + (streamerFilter ? "&q=" + streamerFilter : ""));
+
+            case 3:
+              res = _context2.sent;
+
+              dispatch((0, _index.appendStreamers)(res.data.streamers));
+
+            case 5:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, undefined);
+    }));
+
+    return function (_x5, _x6, _x7) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+};
+
+exports.default = streamers;
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var FETCH_STREAMERS = exports.FETCH_STREAMERS = "FETCH_STREAMERS";
+var APPEND_STREAMERS = exports.APPEND_STREAMERS = "APPEND_STREAMERS";
+var REQUEST_STREAMERS = exports.REQUEST_STREAMERS = "REQUEST_STREAMERS";
+
+var fetchStreamers = exports.fetchStreamers = function fetchStreamers(streamers) {
+  return {
+    type: FETCH_STREAMERS,
+    payload: streamers
+  };
+};
+
+var requestStreamers = exports.requestStreamers = function requestStreamers() {
+  return {
+    type: REQUEST_STREAMERS
+  };
+};
+
+var appendStreamers = exports.appendStreamers = function appendStreamers(streamers) {
+  return {
+    type: APPEND_STREAMERS,
+    payload: streamers
+  };
+};
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(1);
+
+var _reactRouterDom = __webpack_require__(3);
+
+var _languageUtils = __webpack_require__(4);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var StreamerVideoArchive = function (_Component) {
+  _inherits(StreamerVideoArchive, _Component);
+
+  function StreamerVideoArchive() {
+    _classCallCheck(this, StreamerVideoArchive);
+
+    return _possibleConstructorReturn(this, (StreamerVideoArchive.__proto__ || Object.getPrototypeOf(StreamerVideoArchive)).apply(this, arguments));
+  }
+
+  _createClass(StreamerVideoArchive, [{
+    key: "render",
+    value: function render() {
+      var _props = this.props,
+          archive = _props.archive,
+          creatorName = _props.creatorName,
+          automatic = _props.automatic;
+
+      return _react2.default.createElement(
+        _semanticUiReact.Segment.Group,
+        null,
+        automatic ? _react2.default.createElement(
+          _semanticUiReact.Message,
+          { attached: "top", info: true },
+          _react2.default.createElement(_semanticUiReact.Icon, { name: "help" }),
+          "Did we miss the action?\xA0 Jump to the source and replay this epic moment."
+        ) : _react2.default.createElement(
+          _semanticUiReact.Message,
+          { attached: "top", info: true },
+          "This clip was created by ",
+          _react2.default.createElement(
+            "b",
+            null,
+            creatorName
+          )
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Segment,
+          null,
+          _react2.default.createElement(
+            _semanticUiReact.Label,
+            { attached: "top", size: "big", className: "colored-label" },
+            _react2.default.createElement(_semanticUiReact.Icon, { name: "linkify" }),
+            "Linked Archive"
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Item.Group,
+            null,
+            _react2.default.createElement(
+              _semanticUiReact.Item,
+              null,
+              _react2.default.createElement(_semanticUiReact.Item.Image, {
+                size: "tiny",
+                src: archive.thumbnailURL ? archive.thumbnailURL.replace("%{width}", "200").replace("%{height}", "200") : "https://cdn.logojoy.com/wp-content/uploads/2018/07/30093609/twitch9-768x591.png"
+              }),
+              _react2.default.createElement(
+                _semanticUiReact.Item.Content,
+                null,
+                _react2.default.createElement(
+                  _semanticUiReact.Item.Header,
+                  { as: "a" },
+                  archive.title
+                ),
+                _react2.default.createElement(
+                  _semanticUiReact.Item.Meta,
+                  null,
+                  archive.description
+                ),
+                _react2.default.createElement(
+                  _semanticUiReact.Item.Extra,
+                  null,
+                  _react2.default.createElement(_semanticUiReact.Icon, { name: "eye" }),
+                  archive.viewCount,
+                  " views"
+                ),
+                _react2.default.createElement(
+                  _semanticUiReact.Item.Extra,
+                  null,
+                  _react2.default.createElement(_semanticUiReact.Flag, { name: (0, _languageUtils.mapToFlag)(archive.language) }),
+                  archive.language
+                ),
+                _react2.default.createElement(
+                  _semanticUiReact.Item.Extra,
+                  null,
+                  "Duration : ",
+                  archive.duration
+                )
+              )
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Segment,
+          null,
+          _react2.default.createElement(
+            _semanticUiReact.Button,
+            null,
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              {
+                to: {
+                  pathname: "/session/" + archive.archiveId
+                }
+              },
+              "Jump To Source"
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return StreamerVideoArchive;
+}(_react.Component);
+
+exports.default = StreamerVideoArchive;
 
 /***/ }),
 /* 22 */
@@ -1058,27 +1240,180 @@ module.exports = require("redux");
 "use strict";
 
 
-__webpack_require__(23);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.fetchMoreGames = exports.getGames = undefined;
 
-var _express = __webpack_require__(24);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _games = __webpack_require__(23);
+
+var _index = __webpack_require__(23);
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+var initialState = { items: [], fetching: false };
+
+var games = function games() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _games.FETCH_GAMES:
+      {
+        return _extends({}, state, {
+          items: action.payload
+        });
+      }
+    case _games.REQUEST_GAMES:
+      return _extends({}, state, {
+        fetching: true
+      });
+    case _index.APPEND_GAMES:
+      return _extends({}, state, {
+        items: [].concat(_toConsumableArray(state.items), _toConsumableArray(action.payload)),
+        fetching: false
+      });
+    default:
+      return state;
+  }
+};
+
+var getGames = exports.getGames = function getGames(pageIndex, gameFilter) {
+  return function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch, getState, api) {
+      var res;
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return api.get("/games?page=" + pageIndex + (gameFilter ? "&q=" + gameFilter : ""));
+
+            case 2:
+              res = _context.sent;
+
+              // Error handling maybe?
+              dispatch((0, _games.fetchGames)(res.data.games));
+
+            case 4:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, undefined);
+    }));
+
+    return function (_x2, _x3, _x4) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+};
+
+var fetchMoreGames = exports.fetchMoreGames = function fetchMoreGames(pageIndex, gameFilter) {
+  return function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(dispatch, getState, api) {
+      var res;
+      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              dispatch((0, _games.requestGames)());
+              _context2.next = 3;
+              return api.get("/games?page=" + pageIndex + (gameFilter ? "&q=" + gameFilter : ""));
+
+            case 3:
+              res = _context2.sent;
+
+              dispatch((0, _games.appendGames)(res.data.games));
+
+            case 5:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, undefined);
+    }));
+
+    return function (_x5, _x6, _x7) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+};
+
+exports.default = games;
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var REQUEST_GAMES = exports.REQUEST_GAMES = "REQUEST_GAMES";
+var FETCH_GAMES = exports.FETCH_GAMES = "FETCH_GAMES";
+var APPEND_GAMES = exports.APPEND_GAMES = "APPEND_GAMES";
+
+var requestGames = exports.requestGames = function requestGames() {
+  return {
+    type: REQUEST_GAMES
+  };
+};
+
+var fetchGames = exports.fetchGames = function fetchGames(games) {
+  return {
+    type: FETCH_GAMES,
+    payload: games
+  };
+};
+
+var appendGames = exports.appendGames = function appendGames(games) {
+  return {
+    type: APPEND_GAMES,
+    payload: games
+  };
+};
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports) {
+
+module.exports = require("redux");
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(26);
+
+var _express = __webpack_require__(27);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _reactRouterConfig = __webpack_require__(8);
+var _reactRouterConfig = __webpack_require__(11);
 
-var _routes = __webpack_require__(11);
+var _routes = __webpack_require__(13);
 
 var _routes2 = _interopRequireDefault(_routes);
 
-var _expressHttpProxy = __webpack_require__(58);
+var _expressHttpProxy = __webpack_require__(70);
 
 var _expressHttpProxy2 = _interopRequireDefault(_expressHttpProxy);
 
-var _renderer = __webpack_require__(59);
+var _renderer = __webpack_require__(71);
 
 var _renderer2 = _interopRequireDefault(_renderer);
 
-var _createStore = __webpack_require__(62);
+var _createStore = __webpack_require__(74);
 
 var _createStore2 = _interopRequireDefault(_createStore);
 
@@ -1103,14 +1438,16 @@ app.get("/session/:id", function (req, res) {
   renderContent(req, res);
 });
 
+app.get("/game/:id", function (req, res) {
+  renderContent(req, res);
+});
+
 app.get("*", function (req, res) {
   renderContent(req, res);
 });
 
 function renderContent(req, res) {
   var store = (0, _createStore2.default)(req);
-
-  console.log(req.path);
   var promises = (0, _reactRouterConfig.matchRoutes)(_routes2.default, req.path).map(function (_ref) {
     var route = _ref.route;
 
@@ -1144,19 +1481,19 @@ app.listen(3000, function () {
 });
 
 /***/ }),
-/* 23 */
+/* 26 */
 /***/ (function(module, exports) {
 
 module.exports = require("babel-polyfill");
 
 /***/ }),
-/* 24 */
+/* 27 */
 /***/ (function(module, exports) {
 
 module.exports = require("express");
 
 /***/ }),
-/* 25 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1174,9 +1511,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(2);
 
-var _actions = __webpack_require__(3);
+var _actions = __webpack_require__(5);
 
-var _reactHelmet = __webpack_require__(12);
+var _reactHelmet = __webpack_require__(14);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1265,7 +1602,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 26 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1281,11 +1618,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterConfig = __webpack_require__(8);
+var _reactRouterConfig = __webpack_require__(11);
 
-var _index = __webpack_require__(3);
+var _index = __webpack_require__(5);
 
-var _TopMenu = __webpack_require__(27);
+var _TopMenu = __webpack_require__(30);
 
 var _TopMenu2 = _interopRequireDefault(_TopMenu);
 
@@ -1332,7 +1669,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 27 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1350,7 +1687,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _reactRouterDom = __webpack_require__(4);
+var _reactRouterDom = __webpack_require__(3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1427,7 +1764,7 @@ var TopMenu = function (_Component) {
 exports.default = TopMenu;
 
 /***/ }),
-/* 28 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1458,7 +1795,7 @@ var NotFoundPage = function NotFoundPage(_ref) {
 exports.default = { component: NotFoundPage };
 
 /***/ }),
-/* 29 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1476,9 +1813,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(2);
 
-var _actions = __webpack_require__(3);
+var _actions = __webpack_require__(5);
 
-var _requireAuth = __webpack_require__(30);
+var _requireAuth = __webpack_require__(33);
 
 var _requireAuth2 = _interopRequireDefault(_requireAuth);
 
@@ -1553,7 +1890,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 30 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1565,13 +1902,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _React = __webpack_require__(31);
+var _React = __webpack_require__(34);
 
 var _React2 = _interopRequireDefault(_React);
 
 var _reactRedux = __webpack_require__(2);
 
-var _reactRouterDom = __webpack_require__(4);
+var _reactRouterDom = __webpack_require__(3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1622,21 +1959,21 @@ exports.default = function (ChildComponent) {
 };
 
 /***/ }),
-/* 31 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 if (process.env.NODE_ENV === 'production') {
-  module.exports = __webpack_require__(32);
+  module.exports = __webpack_require__(35);
 } else {
-  module.exports = __webpack_require__(33);
+  module.exports = __webpack_require__(36);
 }
 
 
 /***/ }),
-/* 32 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1649,7 +1986,7 @@ if (process.env.NODE_ENV === 'production') {
  This source code is licensed under the MIT license found in the
  LICENSE file in the root directory of this source tree.
 */
-var f=__webpack_require__(13),p=__webpack_require__(14);__webpack_require__(15);var r=__webpack_require__(16);
+var f=__webpack_require__(15),p=__webpack_require__(16);__webpack_require__(17);var r=__webpack_require__(18);
 function t(a){for(var b=arguments.length-1,d="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,e=0;e<b;e++)d+="\x26args[]\x3d"+encodeURIComponent(arguments[e+1]);b=Error(d+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}
 var u={isMounted:function(){return!1},enqueueForceUpdate:function(){},enqueueReplaceState:function(){},enqueueSetState:function(){}};function v(a,b,d){this.props=a;this.context=b;this.refs=p;this.updater=d||u}v.prototype.isReactComponent={};v.prototype.setState=function(a,b){"object"!==typeof a&&"function"!==typeof a&&null!=a?t("85"):void 0;this.updater.enqueueSetState(this,a,b,"setState")};v.prototype.forceUpdate=function(a){this.updater.enqueueForceUpdate(this,a,"forceUpdate")};
 function w(a,b,d){this.props=a;this.context=b;this.refs=p;this.updater=d||u}function x(){}x.prototype=v.prototype;var y=w.prototype=new x;y.constructor=w;f(y,v.prototype);y.isPureReactComponent=!0;function z(a,b,d){this.props=a;this.context=b;this.refs=p;this.updater=d||u}var A=z.prototype=new x;A.constructor=z;f(A,v.prototype);A.unstable_isAsyncReactComponent=!0;A.render=function(){return this.props.children};
@@ -1666,7 +2003,7 @@ module.exports={Children:{map:S.map,forEach:S.forEach,count:S.count,toArray:S.to
 
 
 /***/ }),
-/* 33 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1686,12 +2023,12 @@ if (process.env.NODE_ENV !== "production") {
 
 'use strict';
 
-var objectAssign$1 = __webpack_require__(13);
-var require$$0 = __webpack_require__(34);
-var emptyObject = __webpack_require__(14);
-var invariant = __webpack_require__(15);
-var emptyFunction = __webpack_require__(16);
-var checkPropTypes = __webpack_require__(35);
+var objectAssign$1 = __webpack_require__(15);
+var require$$0 = __webpack_require__(37);
+var emptyObject = __webpack_require__(16);
+var invariant = __webpack_require__(17);
+var emptyFunction = __webpack_require__(18);
+var checkPropTypes = __webpack_require__(38);
 
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -3371,19 +3708,19 @@ module.exports = ReactEntry;
 
 
 /***/ }),
-/* 34 */
+/* 37 */
 /***/ (function(module, exports) {
 
 module.exports = require("fbjs/lib/warning");
 
 /***/ }),
-/* 35 */
+/* 38 */
 /***/ (function(module, exports) {
 
 module.exports = require("prop-types/checkPropTypes");
 
 /***/ }),
-/* 36 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3403,21 +3740,21 @@ var _semanticUiReact = __webpack_require__(1);
 
 var _reactRedux = __webpack_require__(2);
 
-var _streamers = __webpack_require__(17);
+var _streamers = __webpack_require__(19);
 
-var _StreamersItem = __webpack_require__(37);
+var _StreamersItem = __webpack_require__(40);
 
 var _StreamersItem2 = _interopRequireDefault(_StreamersItem);
 
-var _StreamerGridFilter = __webpack_require__(38);
+var _StreamerGridFilter = __webpack_require__(41);
 
 var _StreamerGridFilter2 = _interopRequireDefault(_StreamerGridFilter);
 
-var _index = __webpack_require__(18);
+var _index = __webpack_require__(20);
 
-var _activity = __webpack_require__(9);
+var _activity = __webpack_require__(8);
 
-var _ActivityFeed = __webpack_require__(40);
+var _ActivityFeed = __webpack_require__(43);
 
 var _ActivityFeed2 = _interopRequireDefault(_ActivityFeed);
 
@@ -3583,7 +3920,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 37 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3599,7 +3936,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _reactRouterDom = __webpack_require__(4);
+var _reactRouterDom = __webpack_require__(3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3671,7 +4008,7 @@ var StreamersItem = function StreamersItem(_ref) {
 exports.default = StreamersItem;
 
 /***/ }),
-/* 38 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3758,7 +4095,7 @@ var StreamerGridFilter = function (_Component) {
 exports.default = StreamerGridFilter;
 
 /***/ }),
-/* 39 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3792,7 +4129,7 @@ var appendActivity = exports.appendActivity = function appendActivity(activity) 
 };
 
 /***/ }),
-/* 40 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3812,15 +4149,15 @@ var _semanticUiReact = __webpack_require__(1);
 
 var _reactRedux = __webpack_require__(2);
 
-var _reactTimeago = __webpack_require__(10);
+var _reactTimeago = __webpack_require__(6);
 
 var _reactTimeago2 = _interopRequireDefault(_reactTimeago);
 
-var _languageUtils = __webpack_require__(5);
+var _languageUtils = __webpack_require__(4);
 
-var _index = __webpack_require__(9);
+var _index = __webpack_require__(8);
 
-var _ActivityModal = __webpack_require__(41);
+var _ActivityModal = __webpack_require__(44);
 
 var _ActivityModal2 = _interopRequireDefault(_ActivityModal);
 
@@ -3998,7 +4335,7 @@ function mapStateToProps(_ref) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, { getActivity: _index.getActivity, fetchMoreActivity: _index.fetchMoreActivity })(ActivityFeed);
 
 /***/ }),
-/* 41 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4016,11 +4353,11 @@ var _react2 = _interopRequireDefault(_react);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _VideoPlayer = __webpack_require__(19);
+var _VideoPlayer = __webpack_require__(12);
 
 var _VideoPlayer2 = _interopRequireDefault(_VideoPlayer);
 
-var _reactRouterDom = __webpack_require__(4);
+var _reactRouterDom = __webpack_require__(3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4087,7 +4424,7 @@ var ActivityModal = function (_Component) {
 exports.default = (0, _reactRouterDom.withRouter)(ActivityModal);
 
 /***/ }),
-/* 42 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4107,27 +4444,27 @@ var _semanticUiReact = __webpack_require__(1);
 
 var _reactRedux = __webpack_require__(2);
 
-var _index = __webpack_require__(6);
+var _index = __webpack_require__(7);
 
-var _StreamerPageHeader = __webpack_require__(43);
+var _StreamerPageHeader = __webpack_require__(46);
 
 var _StreamerPageHeader2 = _interopRequireDefault(_StreamerPageHeader);
 
-var _StreamerClipTable = __webpack_require__(44);
+var _StreamerClipTable = __webpack_require__(47);
 
 var _StreamerClipTable2 = _interopRequireDefault(_StreamerClipTable);
 
-var _StreamerArchiveTable = __webpack_require__(47);
+var _StreamerArchiveTable = __webpack_require__(50);
 
 var _StreamerArchiveTable2 = _interopRequireDefault(_StreamerArchiveTable);
 
-var _index2 = __webpack_require__(20);
+var _index2 = __webpack_require__(10);
 
-var _VideoPlayer = __webpack_require__(19);
+var _VideoPlayer = __webpack_require__(12);
 
 var _VideoPlayer2 = _interopRequireDefault(_VideoPlayer);
 
-var _StreamerVideoArchive = __webpack_require__(50);
+var _StreamerVideoArchive = __webpack_require__(21);
 
 var _StreamerVideoArchive2 = _interopRequireDefault(_StreamerVideoArchive);
 
@@ -4167,7 +4504,6 @@ var StreamerDetailPage = function (_Component) {
           match = _this$props.match,
           ui = _this$props.ui;
 
-      console.log("I will fetch page " + _this.state.clipPageIndex);
       fetchMoreClips(match.params.id, _this.state.clipPageIndex, _this.state.gameSearchValue, _this.state.titleSearchValue, ui.automaticCheckbox, ui.time);
     };
 
@@ -4383,7 +4719,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 43 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4482,7 +4818,7 @@ var StreamerPageHeader = function StreamerPageHeader(_ref) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(StreamerPageHeader);
 
 /***/ }),
-/* 44 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4500,17 +4836,17 @@ var _react2 = _interopRequireDefault(_react);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _reactTimeago = __webpack_require__(10);
+var _reactTimeago = __webpack_require__(6);
 
 var _reactTimeago2 = _interopRequireDefault(_reactTimeago);
 
-var _languageUtils = __webpack_require__(5);
+var _languageUtils = __webpack_require__(4);
 
-var _NoResultsSegment = __webpack_require__(45);
+var _NoResultsSegment = __webpack_require__(48);
 
 var _NoResultsSegment2 = _interopRequireDefault(_NoResultsSegment);
 
-var _StreamerClipFilter = __webpack_require__(46);
+var _StreamerClipFilter = __webpack_require__(49);
 
 var _StreamerClipFilter2 = _interopRequireDefault(_StreamerClipFilter);
 
@@ -4546,25 +4882,25 @@ var StreamerClipTable = function (_Component) {
       if (score < 2) {
         return _react2.default.createElement(
           _semanticUiReact.Label,
-          { inverted: true },
-          _react2.default.createElement(_semanticUiReact.Icon, { name: "lightning green" }),
+          null,
+          _react2.default.createElement(_semanticUiReact.Icon, { name: "lightning", color: "green" }),
           "Moderately Epic"
         );
       } else if (score > 2 && score < 4) {
         return _react2.default.createElement(
           _semanticUiReact.Label,
-          { inverted: true },
-          _react2.default.createElement(_semanticUiReact.Icon, { name: "lightning yellow" }),
-          _react2.default.createElement(_semanticUiReact.Icon, { name: "lightning yellow" }),
+          null,
+          _react2.default.createElement(_semanticUiReact.Icon, { name: "lightning", color: "yellow" }),
+          _react2.default.createElement(_semanticUiReact.Icon, { name: "lightning", color: "yellow" }),
           "Very Epic"
         );
       } else {
         return _react2.default.createElement(
           _semanticUiReact.Label,
-          { inverted: true },
-          _react2.default.createElement(_semanticUiReact.Icon, { name: "lightning red" }),
-          _react2.default.createElement(_semanticUiReact.Icon, { name: "lightning red" }),
-          _react2.default.createElement(_semanticUiReact.Icon, { name: "lightning red" }),
+          null,
+          _react2.default.createElement(_semanticUiReact.Icon, { name: "lightning", color: "red" }),
+          _react2.default.createElement(_semanticUiReact.Icon, { name: "lightning", color: "red" }),
+          _react2.default.createElement(_semanticUiReact.Icon, { name: "lightning", color: "red" }),
           "OMG!"
         );
       }
@@ -4582,7 +4918,6 @@ var StreamerClipTable = function (_Component) {
           fetching = _props.fetching,
           checkBoxChanged = _props.checkBoxChanged;
 
-      console.log(clips);
       return _react2.default.createElement(
         _semanticUiReact.Segment,
         { loading: fetching },
@@ -4668,7 +5003,7 @@ var StreamerClipTable = function (_Component) {
               clips && clips.map(function (clip) {
                 return _react2.default.createElement(
                   _semanticUiReact.Table.Row,
-                  null,
+                  { key: clip.clipId },
                   _react2.default.createElement(
                     _semanticUiReact.Table.Cell,
                     null,
@@ -4775,7 +5110,7 @@ var StreamerClipTable = function (_Component) {
 exports.default = StreamerClipTable;
 
 /***/ }),
-/* 45 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4852,7 +5187,7 @@ var NoResultsSegment = function (_Component) {
 exports.default = NoResultsSegment;
 
 /***/ }),
-/* 46 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4872,7 +5207,7 @@ var _semanticUiReact = __webpack_require__(1);
 
 var _reactRedux = __webpack_require__(2);
 
-var _index = __webpack_require__(6);
+var _index = __webpack_require__(7);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5045,7 +5380,7 @@ var StreamerClipFilter = function (_Component) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(StreamerClipFilter);
 
 /***/ }),
-/* 47 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5063,19 +5398,19 @@ var _react2 = _interopRequireDefault(_react);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _reactRouterDom = __webpack_require__(4);
+var _reactRouterDom = __webpack_require__(3);
 
-var _reactTimeago = __webpack_require__(10);
+var _reactTimeago = __webpack_require__(6);
 
 var _reactTimeago2 = _interopRequireDefault(_reactTimeago);
 
 var _reactRedux = __webpack_require__(2);
 
-var _archives = __webpack_require__(7);
+var _archives = __webpack_require__(9);
 
-var _index = __webpack_require__(7);
+var _index = __webpack_require__(9);
 
-var _languageUtils = __webpack_require__(5);
+var _languageUtils = __webpack_require__(4);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5221,7 +5556,7 @@ var StreamerArchiveTable = function (_Component) {
               archives.items && archives.items.map(function (archive) {
                 return _react2.default.createElement(
                   _semanticUiReact.Table.Row,
-                  null,
+                  { key: archive.archiveId },
                   _react2.default.createElement(
                     _semanticUiReact.Table.Cell,
                     null,
@@ -5282,7 +5617,7 @@ var StreamerArchiveTable = function (_Component) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(StreamerArchiveTable);
 
 /***/ }),
-/* 48 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5316,7 +5651,7 @@ var appendArchive = exports.appendArchive = function appendArchive(archive) {
 };
 
 /***/ }),
-/* 49 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5350,154 +5685,7 @@ var appendClips = exports.appendClips = function appendClips(clips) {
 };
 
 /***/ }),
-/* 50 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _semanticUiReact = __webpack_require__(1);
-
-var _reactRouterDom = __webpack_require__(4);
-
-var _languageUtils = __webpack_require__(5);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var StreamerVideoArchive = function (_Component) {
-  _inherits(StreamerVideoArchive, _Component);
-
-  function StreamerVideoArchive() {
-    _classCallCheck(this, StreamerVideoArchive);
-
-    return _possibleConstructorReturn(this, (StreamerVideoArchive.__proto__ || Object.getPrototypeOf(StreamerVideoArchive)).apply(this, arguments));
-  }
-
-  _createClass(StreamerVideoArchive, [{
-    key: "render",
-    value: function render() {
-      var _props = this.props,
-          archive = _props.archive,
-          creatorName = _props.creatorName,
-          automatic = _props.automatic;
-
-      return _react2.default.createElement(
-        _semanticUiReact.Segment.Group,
-        null,
-        automatic ? _react2.default.createElement(
-          _semanticUiReact.Message,
-          { attached: "top", info: true },
-          _react2.default.createElement(_semanticUiReact.Icon, { name: "help" }),
-          "Did we miss the action?\xA0 Jump to the source and replay this epic moment."
-        ) : _react2.default.createElement(
-          _semanticUiReact.Message,
-          { attached: "top", info: true },
-          "This clip was created by ",
-          _react2.default.createElement(
-            "b",
-            null,
-            creatorName
-          )
-        ),
-        _react2.default.createElement(
-          _semanticUiReact.Segment,
-          null,
-          _react2.default.createElement(
-            _semanticUiReact.Label,
-            { attached: "top", size: "big", className: "colored-label" },
-            _react2.default.createElement(_semanticUiReact.Icon, { name: "linkify" }),
-            "Linked Archive"
-          ),
-          _react2.default.createElement(
-            _semanticUiReact.Item.Group,
-            null,
-            _react2.default.createElement(
-              _semanticUiReact.Item,
-              null,
-              _react2.default.createElement(_semanticUiReact.Item.Image, {
-                size: "tiny",
-                src: archive.thumbnailURL ? archive.thumbnailURL.replace("%{width}", "200").replace("%{height}", "200") : "https://cdn.logojoy.com/wp-content/uploads/2018/07/30093609/twitch9-768x591.png"
-              }),
-              _react2.default.createElement(
-                _semanticUiReact.Item.Content,
-                null,
-                _react2.default.createElement(
-                  _semanticUiReact.Item.Header,
-                  { as: "a" },
-                  archive.title
-                ),
-                _react2.default.createElement(
-                  _semanticUiReact.Item.Meta,
-                  null,
-                  archive.description
-                ),
-                _react2.default.createElement(
-                  _semanticUiReact.Item.Extra,
-                  null,
-                  _react2.default.createElement(_semanticUiReact.Icon, { name: "eye" }),
-                  archive.viewCount,
-                  " views"
-                ),
-                _react2.default.createElement(
-                  _semanticUiReact.Item.Extra,
-                  null,
-                  _react2.default.createElement(_semanticUiReact.Flag, { name: (0, _languageUtils.mapToFlag)(archive.language) }),
-                  archive.language
-                ),
-                _react2.default.createElement(
-                  _semanticUiReact.Item.Extra,
-                  null,
-                  "Duration : ",
-                  archive.duration
-                )
-              )
-            )
-          )
-        ),
-        _react2.default.createElement(
-          _semanticUiReact.Segment,
-          null,
-          _react2.default.createElement(
-            _semanticUiReact.Button,
-            null,
-            _react2.default.createElement(
-              _reactRouterDom.Link,
-              {
-                to: {
-                  pathname: "/session/" + archive.archiveId
-                }
-              },
-              "Jump To Source"
-            )
-          )
-        )
-      );
-    }
-  }]);
-
-  return StreamerVideoArchive;
-}(_react.Component);
-
-exports.default = StreamerVideoArchive;
-
-/***/ }),
-/* 51 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5517,29 +5705,29 @@ var _reactRedux = __webpack_require__(2);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _index = __webpack_require__(7);
+var _index = __webpack_require__(9);
 
-var _SessionPageHeader = __webpack_require__(52);
+var _SessionPageHeader = __webpack_require__(54);
 
 var _SessionPageHeader2 = _interopRequireDefault(_SessionPageHeader);
 
-var _SessionAvailabilityMessage = __webpack_require__(53);
+var _SessionAvailabilityMessage = __webpack_require__(55);
 
 var _SessionAvailabilityMessage2 = _interopRequireDefault(_SessionAvailabilityMessage);
 
-var _SessionPlayer = __webpack_require__(56);
+var _SessionPlayer = __webpack_require__(58);
 
 var _SessionPlayer2 = _interopRequireDefault(_SessionPlayer);
 
-var _SessionMessage = __webpack_require__(70);
+var _SessionMessage = __webpack_require__(60);
 
 var _SessionMessage2 = _interopRequireDefault(_SessionMessage);
 
-var _SessionClipTable = __webpack_require__(71);
+var _SessionClipTable = __webpack_require__(61);
 
 var _SessionClipTable2 = _interopRequireDefault(_SessionClipTable);
 
-var _clips = __webpack_require__(20);
+var _clips = __webpack_require__(10);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5652,7 +5840,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 52 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5672,7 +5860,7 @@ var _reactRedux = __webpack_require__(2);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _languageUtils = __webpack_require__(5);
+var _languageUtils = __webpack_require__(4);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5771,7 +5959,7 @@ var SessionPageHeader = function (_Component) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(SessionPageHeader);
 
 /***/ }),
-/* 53 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5791,11 +5979,11 @@ var _semanticUiReact = __webpack_require__(1);
 
 var _reactRedux = __webpack_require__(2);
 
-var _format = __webpack_require__(54);
+var _format = __webpack_require__(56);
 
 var _format2 = _interopRequireDefault(_format);
 
-var _add_days = __webpack_require__(55);
+var _add_days = __webpack_require__(57);
 
 var _add_days2 = _interopRequireDefault(_add_days);
 
@@ -5861,19 +6049,19 @@ var SessionAvailabilityMessage = function (_Component) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(SessionAvailabilityMessage);
 
 /***/ }),
-/* 54 */
+/* 56 */
 /***/ (function(module, exports) {
 
 module.exports = require("date-fns/format");
 
 /***/ }),
-/* 55 */
+/* 57 */
 /***/ (function(module, exports) {
 
 module.exports = require("date-fns/add_days");
 
 /***/ }),
-/* 56 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5889,7 +6077,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactPlayer = __webpack_require__(57);
+var _reactPlayer = __webpack_require__(59);
 
 var _reactPlayer2 = _interopRequireDefault(_reactPlayer);
 
@@ -5964,343 +6152,13 @@ var SessionPlayer = function (_React$Component) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(SessionPlayer);
 
 /***/ }),
-/* 57 */
+/* 59 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-player");
 
 /***/ }),
-/* 58 */
-/***/ (function(module, exports) {
-
-module.exports = require("express-http-proxy");
-
-/***/ }),
-/* 59 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _server = __webpack_require__(60);
-
-var _reactRouterDom = __webpack_require__(4);
-
-var _reactRedux = __webpack_require__(2);
-
-var _reactRouterConfig = __webpack_require__(8);
-
-var _routes = __webpack_require__(11);
-
-var _routes2 = _interopRequireDefault(_routes);
-
-var _serializeJavascript = __webpack_require__(61);
-
-var _serializeJavascript2 = _interopRequireDefault(_serializeJavascript);
-
-var _reactHelmet = __webpack_require__(12);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = function (req, store, context) {
-  var content = (0, _server.renderToString)(_react2.default.createElement(
-    _reactRedux.Provider,
-    { store: store },
-    _react2.default.createElement(
-      _reactRouterDom.StaticRouter,
-      { location: req.path, context: context },
-      _react2.default.createElement(
-        "div",
-        null,
-        (0, _reactRouterConfig.renderRoutes)(_routes2.default)
-      )
-    )
-  ));
-
-  var helmet = _reactHelmet.Helmet.renderStatic();
-
-  return "\n    <html>\n        <head>\n          " + helmet.title.toString() + "\n          " + helmet.meta.toString() + "\n          <link rel=\"stylesheet\" href=\"//cdn.jsdelivr.net/npm/semantic-ui@2.4.0/dist/semantic.min.css\">\n          <link rel=\"stylesheet\" href=\"/assets/style.css\">\n        </head>\n        <body>\n            <div id=\"root\">" + content + "</div>\n            <script>window.INITIAL_STATE = " + (0, _serializeJavascript2.default)(store.getState()) + "</script>\n            <script src=\"/bundle.js\"></script>\n        </body>\n    </html>\n  ";
-};
-
-/***/ }),
 /* 60 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-dom/server");
-
-/***/ }),
-/* 61 */
-/***/ (function(module, exports) {
-
-module.exports = require("serialize-javascript");
-
-/***/ }),
-/* 62 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _redux = __webpack_require__(21);
-
-var _reduxThunk = __webpack_require__(63);
-
-var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
-
-var _index = __webpack_require__(64);
-
-var _index2 = _interopRequireDefault(_index);
-
-var _axios = __webpack_require__(69);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = function (req) {
-  var axiosInstance = _axios2.default.create({
-    baseURL: "http://localhost:3001",
-    headers: { cookie: req.get("cookie") || "" }
-  });
-  var store = (0, _redux.createStore)(_index2.default, {}, (0, _redux.applyMiddleware)(_reduxThunk2.default.withExtraArgument(axiosInstance)));
-  return store;
-};
-
-/***/ }),
-/* 63 */
-/***/ (function(module, exports) {
-
-module.exports = require("redux-thunk");
-
-/***/ }),
-/* 64 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _redux = __webpack_require__(21);
-
-var _usersReducer = __webpack_require__(65);
-
-var _usersReducer2 = _interopRequireDefault(_usersReducer);
-
-var _authReducer = __webpack_require__(66);
-
-var _authReducer2 = _interopRequireDefault(_authReducer);
-
-var _adminsReducer = __webpack_require__(67);
-
-var _adminsReducer2 = _interopRequireDefault(_adminsReducer);
-
-var _index = __webpack_require__(17);
-
-var _index2 = _interopRequireDefault(_index);
-
-var _index3 = __webpack_require__(9);
-
-var _index4 = _interopRequireDefault(_index3);
-
-var _index5 = __webpack_require__(20);
-
-var _index6 = _interopRequireDefault(_index5);
-
-var _index7 = __webpack_require__(68);
-
-var _index8 = _interopRequireDefault(_index7);
-
-var _index9 = __webpack_require__(7);
-
-var _index10 = _interopRequireDefault(_index9);
-
-var _index11 = __webpack_require__(74);
-
-var _index12 = _interopRequireDefault(_index11);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = (0, _redux.combineReducers)({
-  users: _usersReducer2.default,
-  auth: _authReducer2.default,
-  admins: _adminsReducer2.default,
-  streamers: _index2.default,
-  activity: _index4.default,
-  clips: _index6.default,
-  ui: _index8.default,
-  archives: _index10.default,
-  games: _index12.default
-});
-
-/***/ }),
-/* 65 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _index = __webpack_require__(3);
-
-exports.default = function () {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-  var action = arguments[1];
-
-  switch (action.type) {
-    case _index.FETCH_USERS:
-      return action.payload.data;
-    default:
-      return state;
-  }
-};
-
-/***/ }),
-/* 66 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-exports.default = function () {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-  var action = arguments[1];
-
-  switch (action.type) {
-    case _index.FETCH_CURRENT_USER:
-      return action.payload.data || false;
-    default:
-      return state;
-  }
-};
-
-var _index = __webpack_require__(3);
-
-/***/ }),
-/* 67 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _index = __webpack_require__(3);
-
-exports.default = function () {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-  var action = arguments[1];
-
-  switch (action.type) {
-    case _index.FETCH_ADMINS:
-      return action.payload.data;
-    default:
-      return state;
-  }
-};
-
-/***/ }),
-/* 68 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.setAutomaticCheckboxValue = undefined;
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _index = __webpack_require__(6);
-
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-var initialState = { automaticCheckbox: false, time: "week" };
-
-var ui = function ui() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-  var action = arguments[1];
-
-  switch (action.type) {
-    case _index.SET_SELECTED_STREAMER:
-      return _extends({}, state, {
-        selectedStreamer: action.payload
-      });
-    case _index.SET_SELECTED_GAME:
-      return _extends({}, state, {
-        selectedGame: action.payload
-      });
-    case _index.SET_AUTOMATIC_CHECKBOX:
-      return _extends({}, state, {
-        automaticCheckbox: action.payload
-      });
-    case _index.SET_TIME_FILTER:
-      return _extends({}, state, {
-        time: action.payload
-      });
-    default:
-      return state;
-  }
-};
-
-var setAutomaticCheckboxValue = exports.setAutomaticCheckboxValue = function setAutomaticCheckboxValue(value) {
-  return function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch, getState, api) {
-      return regeneratorRuntime.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              dispatch((0, _index.setAutomaticCheckbox)(value));
-
-            case 1:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee, undefined);
-    }));
-
-    return function (_x2, _x3, _x4) {
-      return _ref.apply(this, arguments);
-    };
-  }();
-};
-
-exports.default = ui;
-
-/***/ }),
-/* 69 */
-/***/ (function(module, exports) {
-
-module.exports = require("axios");
-
-/***/ }),
-/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6370,7 +6228,7 @@ var SessionMessage = function (_Component) {
 exports.default = SessionMessage;
 
 /***/ }),
-/* 71 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6388,13 +6246,13 @@ var _react2 = _interopRequireDefault(_react);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _reactTimeago = __webpack_require__(10);
+var _reactTimeago = __webpack_require__(6);
 
 var _reactTimeago2 = _interopRequireDefault(_reactTimeago);
 
 var _reactRedux = __webpack_require__(2);
 
-var _languageUtils = __webpack_require__(5);
+var _languageUtils = __webpack_require__(4);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -6516,7 +6374,7 @@ var SessionClipTable = function (_Component) {
               clips.items && clips.items.map(function (clip) {
                 return _react2.default.createElement(
                   _semanticUiReact.Table.Row,
-                  null,
+                  { key: clip.clipId },
                   _react2.default.createElement(
                     _semanticUiReact.Table.Cell,
                     {
@@ -6611,7 +6469,7 @@ var SessionClipTable = function (_Component) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(SessionClipTable);
 
 /***/ }),
-/* 72 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6631,17 +6489,17 @@ var _semanticUiReact = __webpack_require__(1);
 
 var _reactRedux = __webpack_require__(2);
 
-var _GameItem = __webpack_require__(75);
+var _GameItem = __webpack_require__(63);
 
 var _GameItem2 = _interopRequireDefault(_GameItem);
 
-var _index = __webpack_require__(74);
+var _index = __webpack_require__(22);
 
-var _GameGridFilter = __webpack_require__(76);
+var _GameGridFilter = __webpack_require__(64);
 
 var _GameGridFilter2 = _interopRequireDefault(_GameGridFilter);
 
-var _GameActivityFeed = __webpack_require__(77);
+var _GameActivityFeed = __webpack_require__(65);
 
 var _GameActivityFeed2 = _interopRequireDefault(_GameActivityFeed);
 
@@ -6692,6 +6550,13 @@ var GamesPage = function (_Component) {
   }
 
   _createClass(GamesPage, [{
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      var getGames = this.props.getGames;
+
+      getGames(0);
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this2 = this;
@@ -6791,155 +6656,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 73 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var REQUEST_GAMES = exports.REQUEST_GAMES = "REQUEST_GAMES";
-var FETCH_GAMES = exports.FETCH_GAMES = "FETCH_GAMES";
-var APPEND_GAMES = exports.APPEND_GAMES = "APPEND_GAMES";
-
-var requestGames = exports.requestGames = function requestGames() {
-  return {
-    type: REQUEST_GAMES
-  };
-};
-
-var fetchGames = exports.fetchGames = function fetchGames(games) {
-  return {
-    type: FETCH_GAMES,
-    payload: games
-  };
-};
-
-var appendGames = exports.appendGames = function appendGames(games) {
-  return {
-    type: APPEND_GAMES,
-    payload: games
-  };
-};
-
-/***/ }),
-/* 74 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.fetchMoreGames = exports.getGames = undefined;
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _games = __webpack_require__(73);
-
-var _index = __webpack_require__(73);
-
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-var initialState = { items: [], fetching: false };
-
-var games = function games() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-  var action = arguments[1];
-
-  switch (action.type) {
-    case _games.FETCH_GAMES:
-      {
-        return _extends({}, state, {
-          items: action.payload
-        });
-      }
-    case _games.REQUEST_GAMES:
-      return _extends({}, state, {
-        fetching: true
-      });
-    case _index.APPEND_GAMES:
-      return _extends({}, state, {
-        items: [].concat(_toConsumableArray(state.items), _toConsumableArray(action.payload)),
-        fetching: false
-      });
-    default:
-      return state;
-  }
-};
-
-var getGames = exports.getGames = function getGames(pageIndex, gameFilter) {
-  return function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch, getState, api) {
-      var res;
-      return regeneratorRuntime.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return api.get("/games?page=" + pageIndex + (gameFilter ? "&q=" + gameFilter : ""));
-
-            case 2:
-              res = _context.sent;
-
-              // Error handling maybe?
-              dispatch((0, _games.fetchGames)(res.data.games));
-
-            case 4:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee, undefined);
-    }));
-
-    return function (_x2, _x3, _x4) {
-      return _ref.apply(this, arguments);
-    };
-  }();
-};
-
-var fetchMoreGames = exports.fetchMoreGames = function fetchMoreGames(pageIndex, gameFilter) {
-  return function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(dispatch, getState, api) {
-      var res;
-      return regeneratorRuntime.wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              dispatch((0, _games.requestGames)());
-              console.log("/games?page=" + pageIndex + (gameFilter ? "&q=" + gameFilter : ""));
-              _context2.next = 4;
-              return api.get("/games?page=" + pageIndex + (gameFilter ? "&q=" + gameFilter : ""));
-
-            case 4:
-              res = _context2.sent;
-
-              dispatch((0, _games.appendGames)(res.data.games));
-
-            case 6:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2, undefined);
-    }));
-
-    return function (_x5, _x6, _x7) {
-      return _ref2.apply(this, arguments);
-    };
-  }();
-};
-
-exports.default = games;
-
-/***/ }),
-/* 75 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6955,7 +6672,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _reactRouterDom = __webpack_require__(4);
+var _reactRouterDom = __webpack_require__(3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -7018,7 +6735,7 @@ var GameItem = function GameItem(_ref) {
 exports.default = GameItem;
 
 /***/ }),
-/* 76 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7102,7 +6819,7 @@ var GameGridFilter = function (_Component) {
 exports.default = GameGridFilter;
 
 /***/ }),
-/* 77 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7122,15 +6839,15 @@ var _semanticUiReact = __webpack_require__(1);
 
 var _reactRedux = __webpack_require__(2);
 
-var _reactTimeago = __webpack_require__(10);
+var _reactTimeago = __webpack_require__(6);
 
 var _reactTimeago2 = _interopRequireDefault(_reactTimeago);
 
-var _languageUtils = __webpack_require__(5);
+var _languageUtils = __webpack_require__(4);
 
-var _index = __webpack_require__(9);
+var _index = __webpack_require__(8);
 
-var _reactRouterDom = __webpack_require__(4);
+var _reactRouterDom = __webpack_require__(3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -7286,6 +7003,1075 @@ function mapStateToProps(_ref) {
 }
 
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, { getActivity: _index.getActivity, fetchMoreActivity: _index.fetchMoreActivity })(GameActivityFeed));
+
+/***/ }),
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _clips = __webpack_require__(10);
+
+var _semanticUiReact = __webpack_require__(1);
+
+var _reactRedux = __webpack_require__(2);
+
+var _GamePageHeader = __webpack_require__(67);
+
+var _GamePageHeader2 = _interopRequireDefault(_GamePageHeader);
+
+var _GameClipTable = __webpack_require__(68);
+
+var _GameClipTable2 = _interopRequireDefault(_GameClipTable);
+
+var _StreamerVideoArchive = __webpack_require__(21);
+
+var _StreamerVideoArchive2 = _interopRequireDefault(_StreamerVideoArchive);
+
+var _VideoPlayer = __webpack_require__(12);
+
+var _VideoPlayer2 = _interopRequireDefault(_VideoPlayer);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var GamesDetailPage = function (_Component) {
+  _inherits(GamesDetailPage, _Component);
+
+  function GamesDetailPage(props) {
+    _classCallCheck(this, GamesDetailPage);
+
+    var _this = _possibleConstructorReturn(this, (GamesDetailPage.__proto__ || Object.getPrototypeOf(GamesDetailPage)).call(this, props));
+
+    _this.setClip = function (clip) {
+      _this.setState({
+        active: true,
+        url: clip.embedClipURL,
+        activeClip: clip,
+        modalOpen: true
+      });
+    };
+
+    _this.handleScroll = function () {
+      _this.setState(function (prevState) {
+        return {
+          clipPageIndex: prevState.clipPageIndex + 1
+        };
+      });
+      var _this$props = _this.props,
+          fetchMoreClipsByGame = _this$props.fetchMoreClipsByGame,
+          match = _this$props.match,
+          ui = _this$props.ui;
+
+      fetchMoreClipsByGame(match.params.id, _this.state.clipPageIndex, _this.state.streamerSearchValue, _this.state.titleSearchValue, ui.automaticCheckbox);
+    };
+
+    _this.streamerSearchValueChanged = function (value) {
+      _this.setState({
+        clipPageIndex: 1,
+        streamerSearchValue: value
+      });
+      var _this$props2 = _this.props,
+          match = _this$props2.match,
+          getClipsByGame = _this$props2.getClipsByGame,
+          ui = _this$props2.ui;
+
+      getClipsByGame(match.params.id, 0, value, _this.state.titleSearchValue, ui.automaticCheckbox);
+    };
+
+    _this.titleSearchValueChanged = function (value) {
+      _this.setState({
+        clipPageIndex: 1,
+        titleSearchValue: value
+      });
+      var _this$props3 = _this.props,
+          match = _this$props3.match,
+          getClipsByGame = _this$props3.getClipsByGame,
+          ui = _this$props3.ui;
+
+      getClipsByGame(match.params.id, 0, _this.state.streamerSearchValue, value, ui.automaticCheckbox);
+    };
+
+    _this.checkBoxChanged = function () {
+      var _this$props4 = _this.props,
+          match = _this$props4.match,
+          getClipsByGame = _this$props4.getClipsByGame,
+          ui = _this$props4.ui;
+
+      getClipsByGame(match.params.id, 0, _this.state.streamerSearchValue, _this.state.titleSearchValue, !ui.automaticCheckbox);
+    };
+
+    _this.close = function () {
+      return _this.setState({ modalOpen: false });
+    };
+
+    _this.handleTabChange = function (e, _ref) {
+      var activeIndex = _ref.activeIndex;
+      return _this.setState({ activeIndex: activeIndex });
+    };
+
+    _this.state = {
+      active: false,
+      url: "",
+      clipPageIndex: 1,
+      streamerSearchValue: "",
+      titleSearchValue: "",
+      activeIndex: 0,
+      modalOpen: false
+    };
+    return _this;
+  }
+
+  _createClass(GamesDetailPage, [{
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      var _props = this.props,
+          match = _props.match,
+          getClipsByGame = _props.getClipsByGame;
+
+      getClipsByGame(match.params.id, 0);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var clips = this.props.clips;
+      var activeIndex = this.state.activeIndex;
+
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          _semanticUiReact.Grid,
+          null,
+          _react2.default.createElement(
+            _semanticUiReact.Grid.Column,
+            { width: 4 },
+            _react2.default.createElement(_GamePageHeader2.default, { numberOfClips: clips.items && clips.items.length })
+          )
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Grid,
+          null,
+          _react2.default.createElement(
+            _semanticUiReact.Grid.Column,
+            { width: 16 },
+            _react2.default.createElement(_semanticUiReact.Tab, {
+              activeIndex: activeIndex,
+              onTabChange: this.handleTabChange,
+              panes: [{
+                menuItem: {
+                  key: "clips",
+                  icon: "rocket",
+                  content: "Clips"
+                },
+                render: function render() {
+                  return _react2.default.createElement(
+                    "div",
+                    null,
+                    clips && clips.items && _react2.default.createElement(_GameClipTable2.default, {
+                      fetching: clips.fetching,
+                      clips: clips.items,
+                      setClip: _this2.setClip,
+                      handleScroll: _this2.handleScroll,
+                      streamerSearchValueChanged: _this2.streamerSearchValueChanged,
+                      titleSearchValueChanged: _this2.titleSearchValueChanged,
+                      checkBoxChanged: _this2.checkBoxChanged
+                    })
+                  );
+                }
+              }]
+            })
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Modal,
+            {
+              dimmer: "blurring",
+              closeOnEscape: true,
+              closeOnDimmerClick: true,
+              open: this.state.modalOpen,
+              size: "small"
+            },
+            _react2.default.createElement(
+              _semanticUiReact.Modal.Content,
+              null,
+              _react2.default.createElement(_VideoPlayer2.default, { active: this.state.active, url: this.state.url }),
+              this.state.activeClip && this.state.activeClip.archive && this.state.activeClip.archive[0] && _react2.default.createElement(_StreamerVideoArchive2.default, {
+                archive: this.state.activeClip.archive[0],
+                creatorName: this.state.activeClip.creatorName,
+                automatic: this.state.activeClip.automatic
+              })
+            ),
+            _react2.default.createElement(
+              _semanticUiReact.Modal.Actions,
+              null,
+              _react2.default.createElement(
+                _semanticUiReact.Button,
+                { color: "grey", onClick: this.close },
+                "Close"
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return GamesDetailPage;
+}(_react.Component);
+
+function mapStateToProps(_ref2) {
+  var clips = _ref2.clips,
+      ui = _ref2.ui;
+
+  return { clips: clips, ui: ui };
+}
+
+exports.default = {
+  component: (0, _reactRedux.connect)(mapStateToProps, { getClipsByGame: _clips.getClipsByGame, fetchMoreClipsByGame: _clips.fetchMoreClipsByGame })(GamesDetailPage),
+  loadData: function loadData(_ref3, _ref4) {
+    var dispatch = _ref3.dispatch;
+    var id = _ref4.id;
+
+    return dispatch((0, _clips.getClipsByGame)(id, 0));
+  }
+};
+
+/***/ }),
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(1);
+
+var _reactRedux = __webpack_require__(2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    game: state.ui.selectedGame
+  };
+};
+
+var GamePageHeader = function GamePageHeader(_ref) {
+  var game = _ref.game,
+      numberOfClips = _ref.numberOfClips;
+
+  return _react2.default.createElement(
+    _semanticUiReact.Segment,
+    { className: "bordered-segment" },
+    game && _react2.default.createElement(
+      _semanticUiReact.Item.Group,
+      null,
+      _react2.default.createElement(
+        _semanticUiReact.Item,
+        null,
+        _react2.default.createElement(_semanticUiReact.Item.Image, {
+          size: "tiny",
+          src: game.boxArtURL.replace("{width}", "285").replace("{height}", "380")
+        }),
+        _react2.default.createElement(
+          _semanticUiReact.Item.Content,
+          null,
+          _react2.default.createElement(
+            _semanticUiReact.Item.Header,
+            null,
+            game.name
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Item.Meta,
+            null,
+            numberOfClips,
+            " clips"
+          )
+        )
+      )
+    )
+  );
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(GamePageHeader);
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(1);
+
+var _reactTimeago = __webpack_require__(6);
+
+var _reactTimeago2 = _interopRequireDefault(_reactTimeago);
+
+var _languageUtils = __webpack_require__(4);
+
+var _GameClipFilter = __webpack_require__(69);
+
+var _GameClipFilter2 = _interopRequireDefault(_GameClipFilter);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var GameClipTable = function (_Component) {
+  _inherits(GameClipTable, _Component);
+
+  function GameClipTable() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, GameClipTable);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = GameClipTable.__proto__ || Object.getPrototypeOf(GameClipTable)).call.apply(_ref, [this].concat(args))), _this), _this.handleScroll = function () {
+      if (_this.scroller) {
+        if (_this.scroller.scrollHeight - _this.scroller.scrollTop === _this.scroller.clientHeight) {
+          _this.props.handleScroll();
+        }
+      }
+    }, _this.mapToScore = function (score) {
+      if (score < 2) {
+        return _react2.default.createElement(
+          _semanticUiReact.Label,
+          { inverted: true },
+          _react2.default.createElement(_semanticUiReact.Icon, { name: "lightning green" }),
+          "Moderately Epic"
+        );
+      } else if (score > 2 && score < 4) {
+        return _react2.default.createElement(
+          _semanticUiReact.Label,
+          { inverted: true },
+          _react2.default.createElement(_semanticUiReact.Icon, { name: "lightning yellow" }),
+          _react2.default.createElement(_semanticUiReact.Icon, { name: "lightning yellow" }),
+          "Very Epic"
+        );
+      } else {
+        return _react2.default.createElement(
+          _semanticUiReact.Label,
+          { inverted: true },
+          _react2.default.createElement(_semanticUiReact.Icon, { name: "lightning red" }),
+          _react2.default.createElement(_semanticUiReact.Icon, { name: "lightning red" }),
+          _react2.default.createElement(_semanticUiReact.Icon, { name: "lightning red" }),
+          "OMG!"
+        );
+      }
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(GameClipTable, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var _props = this.props,
+          clips = _props.clips,
+          setClip = _props.setClip,
+          fetching = _props.fetching,
+          checkBoxChanged = _props.checkBoxChanged;
+
+      return _react2.default.createElement(
+        _semanticUiReact.Segment,
+        { loading: fetching },
+        _react2.default.createElement(
+          _semanticUiReact.Label,
+          { attached: "top", size: "big", className: "colored-label" },
+          "Clips"
+        ),
+        _react2.default.createElement(_GameClipFilter2.default, {
+          streamerSearchValueChanged: this.props.streamerSearchValueChanged,
+          titleSearchValueChanged: this.props.titleSearchValueChanged,
+          checkBoxChanged: this.props.checkBoxChanged
+        }),
+        _react2.default.createElement(
+          _semanticUiReact.Divider,
+          { horizontal: true },
+          "Results (",
+          clips && clips.length,
+          ")"
+        ),
+        _react2.default.createElement(
+          "div",
+          {
+            style: {
+              height: "50vh",
+              overflowY: "auto"
+            },
+            ref: function ref(scroller) {
+              _this2.scroller = scroller;
+            },
+            onScroll: this.handleScroll
+          },
+          _react2.default.createElement(
+            _semanticUiReact.Table,
+            { celled: true, padded: true, fixed: true, size: "small" },
+            _react2.default.createElement(
+              _semanticUiReact.Table.Header,
+              null,
+              _react2.default.createElement(
+                _semanticUiReact.Table.Row,
+                null,
+                _react2.default.createElement(
+                  _semanticUiReact.Table.HeaderCell,
+                  { style: { width: "300px" } },
+                  "Stream Title"
+                ),
+                _react2.default.createElement(
+                  _semanticUiReact.Table.HeaderCell,
+                  null,
+                  "Streamer"
+                ),
+                _react2.default.createElement(
+                  _semanticUiReact.Table.HeaderCell,
+                  null,
+                  "Language"
+                ),
+                _react2.default.createElement(
+                  _semanticUiReact.Table.HeaderCell,
+                  null,
+                  "Score"
+                ),
+                _react2.default.createElement(
+                  _semanticUiReact.Table.HeaderCell,
+                  null,
+                  "Views"
+                ),
+                _react2.default.createElement(
+                  _semanticUiReact.Table.HeaderCell,
+                  null,
+                  "Created At"
+                ),
+                _react2.default.createElement(
+                  _semanticUiReact.Table.HeaderCell,
+                  null,
+                  "Action"
+                )
+              )
+            ),
+            _react2.default.createElement(
+              _semanticUiReact.Table.Body,
+              null,
+              clips && clips.map(function (clip) {
+                return _react2.default.createElement(
+                  _semanticUiReact.Table.Row,
+                  null,
+                  _react2.default.createElement(
+                    _semanticUiReact.Table.Cell,
+                    null,
+                    clip.title,
+                    " ",
+                    _react2.default.createElement("br", null),
+                    " by ",
+                    _react2.default.createElement(
+                      "b",
+                      null,
+                      clip.creatorName
+                    )
+                  ),
+                  _react2.default.createElement(
+                    _semanticUiReact.Table.Cell,
+                    null,
+                    _react2.default.createElement(
+                      _semanticUiReact.Header,
+                      { as: "h4", image: true },
+                      _react2.default.createElement(_semanticUiReact.Image, {
+                        src: clip.streamer && clip.streamer.profileImageURL.replace("{width}", "300").replace("{height}", "300"),
+                        rounded: true,
+                        size: "big"
+                      }),
+                      _react2.default.createElement(
+                        _semanticUiReact.Header.Content,
+                        null,
+                        _react2.default.createElement(
+                          _semanticUiReact.Header.Subheader,
+                          null,
+                          clip.streamer && clip.streamer.displayName
+                        )
+                      )
+                    )
+                  ),
+                  _react2.default.createElement(
+                    _semanticUiReact.Table.Cell,
+                    null,
+                    _react2.default.createElement(_semanticUiReact.Flag, { name: (0, _languageUtils.mapToFlag)(clip.language) }),
+                    clip.language
+                  ),
+                  _react2.default.createElement(
+                    _semanticUiReact.Table.Cell,
+                    null,
+                    _react2.default.createElement(
+                      _semanticUiReact.Label,
+                      { className: "clip-rating" },
+                      _react2.default.createElement(_semanticUiReact.Rating, {
+                        icon: "star",
+                        defaultRating: clip.score,
+                        maxRating: 5,
+                        disabled: true
+                      }),
+                      " "
+                    ),
+                    " ",
+                    _react2.default.createElement("br", null),
+                    _this2.mapToScore(clip.score)
+                  ),
+                  _react2.default.createElement(
+                    _semanticUiReact.Table.Cell,
+                    null,
+                    _react2.default.createElement(
+                      _semanticUiReact.Label,
+                      { size: "small" },
+                      _react2.default.createElement(_semanticUiReact.Icon, { name: "eye" }),
+                      clip.viewCount
+                    )
+                  ),
+                  _react2.default.createElement(
+                    _semanticUiReact.Table.Cell,
+                    null,
+                    _react2.default.createElement(_reactTimeago2.default, { date: clip.created_at })
+                  ),
+                  _react2.default.createElement(
+                    _semanticUiReact.Table.Cell,
+                    null,
+                    _react2.default.createElement(
+                      _semanticUiReact.Button,
+                      {
+                        size: "small",
+                        icon: true,
+                        labelPosition: "left",
+                        onClick: function onClick() {
+                          setClip(clip);
+                        }
+                      },
+                      _react2.default.createElement(_semanticUiReact.Icon, { name: "play" }),
+                      "Play"
+                    )
+                  )
+                );
+              })
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return GameClipTable;
+}(_react.Component);
+
+exports.default = GameClipTable;
+
+/***/ }),
+/* 69 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(1);
+
+var _reactRedux = __webpack_require__(2);
+
+var _index = __webpack_require__(7);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    setAutomaticCheckbox: function setAutomaticCheckbox(value) {
+      return dispatch((0, _index.setAutomaticCheckbox)(value));
+    }
+  };
+};
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    ui: state.ui
+  };
+};
+
+var GameClipFilter = function (_Component) {
+  _inherits(GameClipFilter, _Component);
+
+  function GameClipFilter(props) {
+    _classCallCheck(this, GameClipFilter);
+
+    var _this = _possibleConstructorReturn(this, (GameClipFilter.__proto__ || Object.getPrototypeOf(GameClipFilter)).call(this, props));
+
+    _this.onCheckBoxChanged = function () {
+      var _this$props = _this.props,
+          setAutomaticCheckbox = _this$props.setAutomaticCheckbox,
+          ui = _this$props.ui;
+
+      if (ui.automaticCheckbox) {
+        setAutomaticCheckbox(false);
+      } else {
+        setAutomaticCheckbox(true);
+      }
+      _this.props.checkBoxChanged();
+    };
+
+    _this.onStreamerSearchChanged = function (value) {
+      if (_this.timeout) clearTimeout(_this.timeout);
+      _this.timeout = setTimeout(function () {
+        _this.props.streamerSearchValueChanged(value);
+      }, 1000);
+    };
+
+    _this.onTitleSearchChanged = function (value) {
+      if (_this.timeout) clearTimeout(_this.timeout);
+      _this.timeout = setTimeout(function () {
+        _this.props.titleSearchValueChanged(value);
+      }, 1000);
+    };
+
+    _this.timeout = 0;
+    return _this;
+  }
+
+  _createClass(GameClipFilter, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var ui = this.props.ui;
+
+      return _react2.default.createElement(
+        _semanticUiReact.Menu,
+        { fluid: true, borderless: true, size: "large" },
+        _react2.default.createElement(
+          _semanticUiReact.Menu.Item,
+          { header: true, active: true },
+          _react2.default.createElement(_semanticUiReact.Icon, { name: "filter" }),
+          "Filters"
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Menu.Item,
+          null,
+          _react2.default.createElement(_semanticUiReact.Input, {
+            className: "icon",
+            icon: "film",
+            iconPosition: "left",
+            placeholder: "Search A Clip",
+            size: "medium",
+            style: { marginRight: "10px" },
+            onChange: function onChange(e, _ref) {
+              var value = _ref.value;
+              return _this2.onTitleSearchChanged(value);
+            }
+          }),
+          _react2.default.createElement(_semanticUiReact.Input, {
+            className: "icon",
+            icon: "user",
+            iconPosition: "left",
+            placeholder: "Search A Streamer",
+            size: "medium",
+            onChange: function onChange(e, _ref2) {
+              var value = _ref2.value;
+              return _this2.onStreamerSearchChanged(value);
+            }
+          })
+        )
+      );
+    }
+  }]);
+
+  return GameClipFilter;
+}(_react.Component);
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(GameClipFilter);
+
+/***/ }),
+/* 70 */
+/***/ (function(module, exports) {
+
+module.exports = require("express-http-proxy");
+
+/***/ }),
+/* 71 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _server = __webpack_require__(72);
+
+var _reactRouterDom = __webpack_require__(3);
+
+var _reactRedux = __webpack_require__(2);
+
+var _reactRouterConfig = __webpack_require__(11);
+
+var _routes = __webpack_require__(13);
+
+var _routes2 = _interopRequireDefault(_routes);
+
+var _serializeJavascript = __webpack_require__(73);
+
+var _serializeJavascript2 = _interopRequireDefault(_serializeJavascript);
+
+var _reactHelmet = __webpack_require__(14);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (req, store, context) {
+  var content = (0, _server.renderToString)(_react2.default.createElement(
+    _reactRedux.Provider,
+    { store: store },
+    _react2.default.createElement(
+      _reactRouterDom.StaticRouter,
+      { location: req.path, context: context },
+      _react2.default.createElement(
+        "div",
+        null,
+        (0, _reactRouterConfig.renderRoutes)(_routes2.default)
+      )
+    )
+  ));
+
+  var helmet = _reactHelmet.Helmet.renderStatic();
+
+  return "\n    <html>\n        <head>\n          " + helmet.title.toString() + "\n          " + helmet.meta.toString() + "\n          <link rel=\"stylesheet\" href=\"//cdn.jsdelivr.net/npm/semantic-ui@2.4.0/dist/semantic.min.css\">\n          <link rel=\"stylesheet\" href=\"/assets/style.css\">\n        </head>\n        <body>\n            <div id=\"root\">" + content + "</div>\n            <script>window.INITIAL_STATE = " + (0, _serializeJavascript2.default)(store.getState()) + "</script>\n            <script src=\"/bundle.js\"></script>\n        </body>\n    </html>\n  ";
+};
+
+/***/ }),
+/* 72 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-dom/server");
+
+/***/ }),
+/* 73 */
+/***/ (function(module, exports) {
+
+module.exports = require("serialize-javascript");
+
+/***/ }),
+/* 74 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _redux = __webpack_require__(24);
+
+var _reduxThunk = __webpack_require__(75);
+
+var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
+
+var _index = __webpack_require__(76);
+
+var _index2 = _interopRequireDefault(_index);
+
+var _axios = __webpack_require__(81);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (req) {
+  var axiosInstance = _axios2.default.create({
+    baseURL: "http://localhost:3001",
+    headers: { cookie: req.get("cookie") || "" }
+  });
+  var store = (0, _redux.createStore)(_index2.default, {}, (0, _redux.applyMiddleware)(_reduxThunk2.default.withExtraArgument(axiosInstance)));
+  return store;
+};
+
+/***/ }),
+/* 75 */
+/***/ (function(module, exports) {
+
+module.exports = require("redux-thunk");
+
+/***/ }),
+/* 76 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _redux = __webpack_require__(24);
+
+var _usersReducer = __webpack_require__(77);
+
+var _usersReducer2 = _interopRequireDefault(_usersReducer);
+
+var _authReducer = __webpack_require__(78);
+
+var _authReducer2 = _interopRequireDefault(_authReducer);
+
+var _adminsReducer = __webpack_require__(79);
+
+var _adminsReducer2 = _interopRequireDefault(_adminsReducer);
+
+var _index = __webpack_require__(19);
+
+var _index2 = _interopRequireDefault(_index);
+
+var _index3 = __webpack_require__(8);
+
+var _index4 = _interopRequireDefault(_index3);
+
+var _index5 = __webpack_require__(10);
+
+var _index6 = _interopRequireDefault(_index5);
+
+var _index7 = __webpack_require__(80);
+
+var _index8 = _interopRequireDefault(_index7);
+
+var _index9 = __webpack_require__(9);
+
+var _index10 = _interopRequireDefault(_index9);
+
+var _index11 = __webpack_require__(22);
+
+var _index12 = _interopRequireDefault(_index11);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = (0, _redux.combineReducers)({
+  users: _usersReducer2.default,
+  auth: _authReducer2.default,
+  admins: _adminsReducer2.default,
+  streamers: _index2.default,
+  activity: _index4.default,
+  clips: _index6.default,
+  ui: _index8.default,
+  archives: _index10.default,
+  games: _index12.default
+});
+
+/***/ }),
+/* 77 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _index = __webpack_require__(5);
+
+exports.default = function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _index.FETCH_USERS:
+      return action.payload.data;
+    default:
+      return state;
+  }
+};
+
+/***/ }),
+/* 78 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _index.FETCH_CURRENT_USER:
+      return action.payload.data || false;
+    default:
+      return state;
+  }
+};
+
+var _index = __webpack_require__(5);
+
+/***/ }),
+/* 79 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _index = __webpack_require__(5);
+
+exports.default = function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _index.FETCH_ADMINS:
+      return action.payload.data;
+    default:
+      return state;
+  }
+};
+
+/***/ }),
+/* 80 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.setAutomaticCheckboxValue = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _index = __webpack_require__(7);
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+var initialState = { automaticCheckbox: false, time: "week" };
+
+var ui = function ui() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _index.SET_SELECTED_STREAMER:
+      return _extends({}, state, {
+        selectedStreamer: action.payload
+      });
+    case _index.SET_SELECTED_GAME:
+      return _extends({}, state, {
+        selectedGame: action.payload
+      });
+    case _index.SET_AUTOMATIC_CHECKBOX:
+      return _extends({}, state, {
+        automaticCheckbox: action.payload
+      });
+    case _index.SET_TIME_FILTER:
+      return _extends({}, state, {
+        time: action.payload
+      });
+    default:
+      return state;
+  }
+};
+
+var setAutomaticCheckboxValue = exports.setAutomaticCheckboxValue = function setAutomaticCheckboxValue(value) {
+  return function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch, getState, api) {
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              dispatch((0, _index.setAutomaticCheckbox)(value));
+
+            case 1:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, undefined);
+    }));
+
+    return function (_x2, _x3, _x4) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+};
+
+exports.default = ui;
+
+/***/ }),
+/* 81 */
+/***/ (function(module, exports) {
+
+module.exports = require("axios");
 
 /***/ })
 /******/ ]);

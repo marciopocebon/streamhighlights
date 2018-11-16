@@ -15,6 +15,11 @@ class GamesPage extends Component {
     };
   }
 
+  componentWillMount() {
+    const { getGames } = this.props;
+    getGames(0);
+  }
+
   handleScroll = () => {
     if (this.scroller) {
       if (

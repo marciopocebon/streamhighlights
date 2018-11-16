@@ -51,7 +51,6 @@ export const fetchMoreGames = (pageIndex, gameFilter) => async (
   api
 ) => {
   dispatch(requestGames());
-  console.log(`/games?page=${pageIndex}` + (gameFilter ? `&q=${gameFilter}` : ""))
   const res = await api.get(
     `/games?page=${pageIndex}` + (gameFilter ? `&q=${gameFilter}` : "")
   );

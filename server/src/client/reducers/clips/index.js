@@ -6,7 +6,7 @@ import {
   fetchClips,
   appendClips
 } from "./../../actions/clips/index";
-import { setSelectedStreamer } from "../../actions/ui";
+import { setSelectedStreamer, setSelectedGame } from "../../actions/ui";
 
 const initialState = { items: [], fetching: false };
 
@@ -41,13 +41,6 @@ export const getClips = (
   automatic,
   time
 ) => async (dispatch, getState, api) => {
-  console.log(
-    `/clips/${userId}?page=${pageIndex}` +
-      (time ? `&time=${time}` : "&time=week") +
-      (game ? `&game=${game}` : "") +
-      (title ? `&title=${title}` : "") +
-      `&automatic=1`
-  );
   const res = await api.get(
     `/clips/${userId}?page=${pageIndex}` +
       (time ? `&time=${time}` : "&time=week") +
@@ -98,28 +91,39 @@ export const fetchMoreClipsByArchive = (archiveId, pageIndex) => async (
   dispatch(appendClips(res.data.clips));
 };
 
-// export const fetchClipsByGame = (
-//   gameId,
-//   pageIndex,
-//   streamer,
-//   title,
-//   automatic
-// ) => {
-//   return dispatch => {
-//     dispatch(requestClips());
-//     axios
-//       .get(
-//         `/clips/game/${gameId}?page=${pageIndex}` +
-//           (streamer ? `&streamer=${streamer}` : "") +
-//           (title ? `&title=${title}` : "") +
-//           `&automatic=1`
-//       )
-//       .then(response => {
-//         dispatch(setSelectedGame(response.data.game));
-//         dispatch(fetchClipsSuccess(response.data.clips));
-//       })
-//       .catch(err => console.log("This should be a dispatched error"));
-//   };
-// };
+export const getClipsByGame = (
+  gameId,
+  pageIndex,
+  streamer,
+  title,
+  automatic
+) => async (dispatch, getState, api) => {
+  const res = await api.get(
+    `/clips/game/${gameId}?page=${pageIndex}` +
+      (streamer ? `&streamer=${streamer}` : "") +
+      (title ? `&title=${title}` : "") +
+      `&automatic=1`
+  );
+
+  dispatch(setSelectedGame(res.data.game));
+  dispatch(fetchClips(res.data.clips));
+};
+
+export const fetchMoreClipsByGame = (
+  gameId,
+  pageIndex,
+  streamer,
+  title,
+  automatic
+) => async (dispatch, getState, api) => {
+  dispatch(requestClips());
+  const res = await api.get(
+    `/clips/game/${gameId}?page=${pageIndex}` +
+      (streamer ? `&streamer=${streamer}` : "") +
+      (title ? `&title=${title}` : "") +
+      `&automatic=1`
+  );
+  dispatch(appendClips(res.data.clips));
+};
 
 export default clips;

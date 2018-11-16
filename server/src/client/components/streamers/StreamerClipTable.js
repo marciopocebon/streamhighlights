@@ -13,7 +13,7 @@ import {
 } from "semantic-ui-react";
 import TimeAgo from "react-timeago";
 import { mapToFlag } from "./../../utils/language/languageUtils";
-import NoResultsSegment from './../general/NoResultsSegment';
+import NoResultsSegment from "./../general/NoResultsSegment";
 import StreamerClipFilter from "./StreamerClipFilter";
 
 class StreamerClipTable extends Component {
@@ -31,25 +31,25 @@ class StreamerClipTable extends Component {
   mapToScore = score => {
     if (score < 2) {
       return (
-        <Label inverted>
-          <Icon name="lightning green" />
+        <Label>
+          <Icon name="lightning" color="green" />
           Moderately Epic
         </Label>
       );
     } else if (score > 2 && score < 4) {
       return (
-        <Label inverted>
-          <Icon name="lightning yellow" />
-          <Icon name="lightning yellow" />
+        <Label>
+          <Icon name="lightning" color="yellow" />
+          <Icon name="lightning" color="yellow" />
           Very Epic
         </Label>
       );
     } else {
       return (
-        <Label inverted>
-          <Icon name="lightning red" />
-          <Icon name="lightning red" />
-          <Icon name="lightning red" />
+        <Label>
+          <Icon name="lightning" color="red" />
+          <Icon name="lightning" color="red" />
+          <Icon name="lightning" color="red" />
           OMG!
         </Label>
       );
@@ -58,7 +58,6 @@ class StreamerClipTable extends Component {
 
   render() {
     const { clips, setClip, fetching, checkBoxChanged } = this.props;
-    console.log(clips);
     return (
       <Segment loading={fetching}>
         <Label attached="top" size="big" className="colored-label">
@@ -102,7 +101,7 @@ class StreamerClipTable extends Component {
                 {clips &&
                   clips.map(clip => {
                     return (
-                      <Table.Row>
+                      <Table.Row key={clip.clipId}>
                         <Table.Cell>
                           {clip.title} <br /> by <b>{clip.creatorName}</b>
                         </Table.Cell>

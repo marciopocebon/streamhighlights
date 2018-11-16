@@ -1,34 +1,23 @@
 import React, { Component } from "react";
 import {
-  Segment,
-  Label,
   Table,
-  Header,
-  Image,
   Rating,
   Button,
+  Segment,
+  Label,
+  Header,
+  Image,
+  Divider,
   Icon,
   Flag
 } from "semantic-ui-react";
 import TimeAgo from "react-timeago";
-import { connect } from "react-redux";
 import { mapToFlag } from "../../utils/language/languageUtils";
+import GameClipFilter from "./GameClipFilter";
 
-const mapStateToProps = state => ({
-  archives: state.archives,
-  clips: state.clips
-});
 
-class SessionClipTable extends Component {
-  jumpToSource = (clip, archive) => {
-    const timeDifference =
-      (new Date(clip.created_at).getTime() -
-        new Date(archive.publishedAt).getTime()) /
-      1000;
-    const { seekTo } = this.props;
-    seekTo(timeDifference - 40);
-  };
 
+class GameClipTable extends Component {
   handleScroll = () => {
     if (this.scroller) {
       if (
@@ -40,17 +29,50 @@ class SessionClipTable extends Component {
     }
   };
 
-  render() {
-    const { archives, clips } = this.props;
+  mapToScore = score => {
+    if (score < 2) {
+      return (
+        <Label inverted>
+          <Icon name="lightning green" />
+          Moderately Epic
+        </Label>
+      );
+    } else if (score > 2 && score < 4) {
+      return (
+        <Label inverted>
+          <Icon name="lightning yellow" />
+          <Icon name="lightning yellow" />
+          Very Epic
+        </Label>
+      );
+    } else {
+      return (
+        <Label inverted>
+          <Icon name="lightning red" />
+          <Icon name="lightning red" />
+          <Icon name="lightning red" />
+          OMG!
+        </Label>
+      );
+    }
+  };
 
+  render() {
+    const { clips, setClip, fetching, checkBoxChanged } = this.props;
     return (
-      <Segment>
-        <Label attached="top" className="colored-label" size="big">
+      <Segment loading={fetching}>
+        <Label attached="top" size="big" className="colored-label">
           Clips
         </Label>
+        <GameClipFilter
+          streamerSearchValueChanged={this.props.streamerSearchValueChanged}
+          titleSearchValueChanged={this.props.titleSearchValueChanged}
+          checkBoxChanged={this.props.checkBoxChanged}
+        />
+        <Divider horizontal>Results ({clips && clips.length})</Divider>
         <div
           style={{
-            height: "55vh",
+            height: "50vh",
             overflowY: "auto"
           }}
           ref={scroller => {
@@ -58,36 +80,35 @@ class SessionClipTable extends Component {
           }}
           onScroll={this.handleScroll}
         >
-          <Table celled padded>
+          <Table celled padded fixed size="small">
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell style={{ width: "300px" }}>
                   Stream Title
                 </Table.HeaderCell>
-                <Table.HeaderCell>Game</Table.HeaderCell>
+                <Table.HeaderCell>Streamer</Table.HeaderCell>
                 <Table.HeaderCell>Language</Table.HeaderCell>
                 <Table.HeaderCell>Score</Table.HeaderCell>
+                <Table.HeaderCell>Views</Table.HeaderCell>
                 <Table.HeaderCell>Created At</Table.HeaderCell>
                 <Table.HeaderCell>Action</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
 
             <Table.Body>
-              {clips.items &&
-                clips.items.map(clip => {
+              {clips &&
+                clips.map(clip => {
                   return (
-                    <Table.Row key={clip.clipId}>
-                      <Table.Cell
-                        className={clip.automatic ? "clip-automatic" : ""}
-                      >
+                    <Table.Row>
+                      <Table.Cell>
                         {clip.title} <br /> by <b>{clip.creatorName}</b>
                       </Table.Cell>
                       <Table.Cell>
                         <Header as="h4" image>
                           <Image
                             src={
-                              clip.game &&
-                              clip.game.boxArtURL
+                              clip.streamer &&
+                              clip.streamer.profileImageURL
                                 .replace("{width}", "300")
                                 .replace("{height}", "300")
                             }
@@ -96,7 +117,7 @@ class SessionClipTable extends Component {
                           />
                           <Header.Content>
                             <Header.Subheader>
-                              {clip.game && clip.game.name}
+                              {clip.streamer && clip.streamer.displayName}
                             </Header.Subheader>
                           </Header.Content>
                         </Header>
@@ -106,13 +127,21 @@ class SessionClipTable extends Component {
                         {clip.language}
                       </Table.Cell>
                       <Table.Cell>
-                        <Label>
+                        <Label className="clip-rating">
                           <Rating
                             icon="star"
                             defaultRating={clip.score}
                             maxRating={5}
                             disabled
                           />{" "}
+                        </Label>{" "}
+                        <br />
+                        {this.mapToScore(clip.score)}
+                      </Table.Cell>
+                      <Table.Cell>
+                        <Label size="small">
+                          <Icon name="eye" />
+                          {clip.viewCount}
                         </Label>
                       </Table.Cell>
                       <Table.Cell>
@@ -120,14 +149,15 @@ class SessionClipTable extends Component {
                       </Table.Cell>
                       <Table.Cell>
                         <Button
+                          size="small"
                           icon
                           labelPosition="left"
                           onClick={() => {
-                            this.jumpToSource(clip, archives.items[0].archive);
+                            setClip(clip);
                           }}
                         >
                           <Icon name="play" />
-                          Go
+                          Play
                         </Button>
                       </Table.Cell>
                     </Table.Row>
@@ -140,5 +170,4 @@ class SessionClipTable extends Component {
     );
   }
 }
-
-export default connect(mapStateToProps)(SessionClipTable);
+export default GameClipTable;

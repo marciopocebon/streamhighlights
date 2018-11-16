@@ -38,7 +38,6 @@ export const getArchive = (archiveId, pageIndex) => async (
   api
 ) => {
   const res = await api.get(`/archives/${archiveId}?page=${pageIndex}`);
-  console.log(res.data.archives);
   dispatch(fetchArchive(res.data.archives));
 };
 
@@ -47,11 +46,9 @@ export const getArchiveByStreamerId = (streamerId, pageIndex) => async (
   getState,
   api
 ) => {
-  console.log(`/archives/streamer/${streamerId}?page=${pageIndex}`);
   const res = await api.get(
     `/archives/streamer/${streamerId}?page=${pageIndex}`
   );
-  console.log(res.data.archives)
   dispatch(fetchArchive(res.data.archives));
 };
 

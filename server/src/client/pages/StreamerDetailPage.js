@@ -50,7 +50,6 @@ class StreamerDetailPage extends Component {
       clipPageIndex: prevState.clipPageIndex + 1
     }));
     const { fetchMoreClips, match, ui } = this.props;
-    console.log("I will fetch page " + this.state.clipPageIndex);
     fetchMoreClips(
       match.params.id,
       this.state.clipPageIndex,

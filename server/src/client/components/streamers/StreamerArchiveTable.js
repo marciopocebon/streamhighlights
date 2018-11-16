@@ -90,7 +90,7 @@ class StreamerArchiveTable extends Component {
               {archives.items &&
                 archives.items.map(archive => {
                   return (
-                    <Table.Row>
+                    <Table.Row key={archive.archiveId}>
                       <Table.Cell>{archive.title}</Table.Cell>
                       <Table.Cell>
                         <Icon name="eye" />

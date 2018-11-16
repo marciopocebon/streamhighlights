@@ -28,14 +28,16 @@ app.get("/session/:id", (req, res) => {
   renderContent(req, res);
 });
 
+app.get("/game/:id", (req, res) => {
+  renderContent(req, res);
+});
+
 app.get("*", (req, res) => {
   renderContent(req, res);
 });
 
 function renderContent(req, res) {
   const store = createStore(req);
-
-  console.log(req.path);
   const promises = matchRoutes(Routes, req.path)
     .map(({ route }) => {
       return route.loadData
