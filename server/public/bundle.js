@@ -84760,6 +84760,10 @@ var _ActivityFeed = __webpack_require__(1138);
 
 var _ActivityFeed2 = _interopRequireDefault(_ActivityFeed);
 
+var _StreamersPageHelmet = __webpack_require__(1212);
+
+var _StreamersPageHelmet2 = _interopRequireDefault(_StreamersPageHelmet);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -84825,77 +84829,82 @@ var StreamersPage = function (_Component) {
       var streamers = this.props.streamers;
 
       return _react2.default.createElement(
-        _semanticUiReact.Grid,
+        "div",
         null,
+        _react2.default.createElement(_StreamersPageHelmet2.default, null),
         _react2.default.createElement(
-          _semanticUiReact.Grid.Column,
-          { width: 10 },
+          _semanticUiReact.Grid,
+          null,
           _react2.default.createElement(
-            _semanticUiReact.Segment,
-            { className: "streamer-segment", loading: streamers.fetching },
+            _semanticUiReact.Grid.Column,
+            { width: 10 },
             _react2.default.createElement(
-              _semanticUiReact.Label,
-              { attached: "top", size: "big", className: "colored-label" },
-              _react2.default.createElement(_semanticUiReact.Icon, { name: "user" }),
-              "Streamers"
-            ),
-            _react2.default.createElement(
-              "div",
-              { className: "segment-grid-filter" },
-              _react2.default.createElement(_StreamerGridFilter2.default, {
-                searchValueChanged: this.searchValueChanged
-              }),
+              _semanticUiReact.Segment,
+              { className: "streamer-segment", loading: streamers.fetching },
               _react2.default.createElement(
-                _semanticUiReact.Divider,
-                { horizontal: true },
-                "Results"
+                _semanticUiReact.Label,
+                { attached: "top", size: "big", className: "colored-label" },
+                _react2.default.createElement(_semanticUiReact.Icon, { name: "user" }),
+                "Streamers"
               ),
               _react2.default.createElement(
                 "div",
-                {
-                  ref: function ref(scroller) {
-                    _this2.scroller = scroller;
-                  },
-                  onScroll: this.handleScroll,
-                  style: {
-                    height: "75vh",
-                    overflowY: "auto",
-                    overflowX: "hidden",
-                    paddingRight: "10px"
-                  }
-                },
+                { className: "segment-grid-filter" },
+                _react2.default.createElement(_StreamerGridFilter2.default, {
+                  searchValueChanged: this.searchValueChanged
+                }),
                 _react2.default.createElement(
-                  _semanticUiReact.Grid,
+                  _semanticUiReact.Divider,
+                  { horizontal: true },
+                  "Results"
+                ),
+                _react2.default.createElement(
+                  "div",
                   {
-                    stackable: true,
-                    columns: 4,
-                    className: "streamer-grid animated fadeIn"
+                    ref: function ref(scroller) {
+                      _this2.scroller = scroller;
+                    },
+                    onScroll: this.handleScroll,
+                    style: {
+                      height: "75vh",
+                      overflowY: "auto",
+                      overflowX: "hidden",
+                      paddingRight: "10px"
+                    }
                   },
                   _react2.default.createElement(
-                    _semanticUiReact.Grid.Row,
-                    null,
-                    streamers.items && streamers.items.map(function (streamer, index) {
-                      return streamer && _react2.default.createElement(
-                        _semanticUiReact.Grid.Column,
-                        { width: 4, key: index },
-                        _react2.default.createElement(_StreamersItem2.default, {
-                          key: index,
-                          streamer: streamer,
-                          numberOfClips: streamer.numberOfClips,
-                          numberOfArchives: streamer.numberOfArchives
-                        })
-                      );
-                    })
+                    _semanticUiReact.Grid,
+                    {
+                      stackable: true,
+                      columns: 4,
+                      className: "streamer-grid animated fadeIn"
+                    },
+                    _react2.default.createElement(
+                      _semanticUiReact.Grid.Row,
+                      null,
+                      streamers.items && streamers.items.map(function (streamer, index) {
+                        return streamer && _react2.default.createElement(
+                          _semanticUiReact.Grid.Column,
+                          { width: 4, key: index },
+                          _react2.default.createElement(_StreamersItem2.default, {
+                            key: index,
+                            streamer: streamer,
+                            numberOfClips: streamer.numberOfClips,
+                            numberOfArchives: streamer.numberOfArchives
+                          })
+                        );
+                      })
+                    )
                   )
                 )
               )
             )
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Grid.Column,
+            { width: 6 },
+            _react2.default.createElement(_ActivityFeed2.default, null)
           )
-        ),
-        _react2.default.createElement(
-          _semanticUiReact.Grid.Column,
-          { width: 6 },
-          _react2.default.createElement(_ActivityFeed2.default, null)
         )
       );
     }
@@ -85797,6 +85806,10 @@ var _semanticUiReact = __webpack_require__(20);
 
 var _reactRedux = __webpack_require__(30);
 
+var _StreamerDetailPageHelmet = __webpack_require__(1213);
+
+var _StreamerDetailPageHelmet2 = _interopRequireDefault(_StreamerDetailPageHelmet);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -85810,63 +85823,68 @@ var StreamerPageHeader = function StreamerPageHeader(_ref) {
       numberOfClips = _ref.numberOfClips;
 
   return _react2.default.createElement(
-    _semanticUiReact.Segment,
-    { className: "bordered-segment" },
-    streamer && _react2.default.createElement(
-      _semanticUiReact.Item.Group,
-      null,
-      _react2.default.createElement(
-        _semanticUiReact.Item,
+    "div",
+    null,
+    _react2.default.createElement(_StreamerDetailPageHelmet2.default, { streamer: streamer.displayName }),
+    _react2.default.createElement(
+      _semanticUiReact.Segment,
+      { className: "bordered-segment" },
+      streamer && _react2.default.createElement(
+        _semanticUiReact.Item.Group,
         null,
-        _react2.default.createElement(_semanticUiReact.Item.Image, { size: "tiny", src: streamer.profileImageURL }),
         _react2.default.createElement(
-          _semanticUiReact.Item.Content,
+          _semanticUiReact.Item,
           null,
+          _react2.default.createElement(_semanticUiReact.Item.Image, { size: "tiny", src: streamer.profileImageURL }),
           _react2.default.createElement(
-            _semanticUiReact.Item.Header,
-            null,
-            streamer.displayName
-          ),
-          _react2.default.createElement(
-            _semanticUiReact.Item.Meta,
-            null,
-            streamer.description ? streamer.description : "Apparently, this streamer prefers to keep an air of mystery about them"
-          ),
-          _react2.default.createElement(
-            _semanticUiReact.Item.Meta,
-            null,
-            streamer.monitored ? _react2.default.createElement(
-              _semanticUiReact.Label,
-              null,
-              _react2.default.createElement(_semanticUiReact.Icon, {
-                name: "circle thin",
-                color: "red",
-                style: { marginRight: "10px" }
-              }),
-              "Live"
-            ) : _react2.default.createElement(
-              _semanticUiReact.Label,
-              null,
-              _react2.default.createElement(_semanticUiReact.Icon, {
-                name: "circle thin",
-                color: "grey",
-                style: { marginRight: "10px" }
-              }),
-              "Disconnected"
-            )
-          ),
-          _react2.default.createElement(
-            _semanticUiReact.Item.Meta,
+            _semanticUiReact.Item.Content,
             null,
             _react2.default.createElement(
-              _semanticUiReact.Label,
+              _semanticUiReact.Item.Header,
               null,
-              _react2.default.createElement(_semanticUiReact.Icon, {
-                name: "twitch",
-                color: "violet",
-                style: { marginRight: "10px" }
-              }),
-              streamer.broadcasterType
+              streamer.displayName
+            ),
+            _react2.default.createElement(
+              _semanticUiReact.Item.Meta,
+              null,
+              streamer.description ? streamer.description : "Apparently, this streamer prefers to keep an air of mystery about them"
+            ),
+            _react2.default.createElement(
+              _semanticUiReact.Item.Meta,
+              null,
+              streamer.monitored ? _react2.default.createElement(
+                _semanticUiReact.Label,
+                null,
+                _react2.default.createElement(_semanticUiReact.Icon, {
+                  name: "circle thin",
+                  color: "red",
+                  style: { marginRight: "10px" }
+                }),
+                "Live"
+              ) : _react2.default.createElement(
+                _semanticUiReact.Label,
+                null,
+                _react2.default.createElement(_semanticUiReact.Icon, {
+                  name: "circle thin",
+                  color: "grey",
+                  style: { marginRight: "10px" }
+                }),
+                "Disconnected"
+              )
+            ),
+            _react2.default.createElement(
+              _semanticUiReact.Item.Meta,
+              null,
+              _react2.default.createElement(
+                _semanticUiReact.Label,
+                null,
+                _react2.default.createElement(_semanticUiReact.Icon, {
+                  name: "twitch",
+                  color: "violet",
+                  style: { marginRight: "10px" }
+                }),
+                streamer.broadcasterType
+              )
             )
           )
         )
@@ -92108,6 +92126,130 @@ module.exports = function spread(callback) {
   };
 };
 
+
+/***/ }),
+/* 1212 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactHelmet = __webpack_require__(808);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var StreamersPageHelmet = function (_Component) {
+    _inherits(StreamersPageHelmet, _Component);
+
+    function StreamersPageHelmet() {
+        _classCallCheck(this, StreamersPageHelmet);
+
+        return _possibleConstructorReturn(this, (StreamersPageHelmet.__proto__ || Object.getPrototypeOf(StreamersPageHelmet)).apply(this, arguments));
+    }
+
+    _createClass(StreamersPageHelmet, [{
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement(
+                _reactHelmet.Helmet,
+                null,
+                _react2.default.createElement(
+                    "title",
+                    null,
+                    "Stream Highlights - Streamers Clips & Highlights"
+                ),
+                _react2.default.createElement("meta", { "http-equiv": "Content-Type", content: "text/html; charset=utf-8" }),
+                _react2.default.createElement("meta", { name: "viewport", content: "width=device-width, initial-scale=1" }),
+                _react2.default.createElement("meta", { name: "keywords", content: "twitch, clips, highlights, league of legends, lol, fortnite, videos" }),
+                _react2.default.createElement("meta", { property: "og:title", content: "stream highlights" }),
+                _react2.default.createElement("meta", { property: "description", content: "Streams Highlights gathers the best clips and highlights from Twitch. We provide unique clips for League of Legends, Fortnite, Counter-Strike and many more." })
+            );
+        }
+    }]);
+
+    return StreamersPageHelmet;
+}(_react.Component);
+
+exports.default = StreamersPageHelmet;
+
+/***/ }),
+/* 1213 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactHelmet = __webpack_require__(808);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var StreamerDetailPageHelmet = function (_Component) {
+    _inherits(StreamerDetailPageHelmet, _Component);
+
+    function StreamerDetailPageHelmet() {
+        _classCallCheck(this, StreamerDetailPageHelmet);
+
+        return _possibleConstructorReturn(this, (StreamerDetailPageHelmet.__proto__ || Object.getPrototypeOf(StreamerDetailPageHelmet)).apply(this, arguments));
+    }
+
+    _createClass(StreamerDetailPageHelmet, [{
+        key: "render",
+        value: function render() {
+            var streamer = this.props.streamer;
+
+            return _react2.default.createElement(
+                _reactHelmet.Helmet,
+                null,
+                _react2.default.createElement(
+                    "title",
+                    null,
+                    "Stream Highlights - Best Clips for " + streamer
+                ),
+                _react2.default.createElement("meta", { "http-equiv": "Content-Type", content: "text/html; charset=utf-8" }),
+                _react2.default.createElement("meta", { name: "viewport", content: "width=device-width, initial-scale=1" }),
+                _react2.default.createElement("meta", { name: "keywords", content: "twitch, clips, highlights, league of legends, lol, fortnite, videos, " + streamer + " " }),
+                _react2.default.createElement("meta", { property: "og:title", content: "stream highlights" }),
+                _react2.default.createElement("meta", { property: "description", content: "Streams Highlights gathers the best clips and highlights from Twitch. Find the best clips and highlights for " + streamer + " now!" })
+            );
+        }
+    }]);
+
+    return StreamerDetailPageHelmet;
+}(_react.Component);
+
+exports.default = StreamerDetailPageHelmet;
 
 /***/ })
 /******/ ]);

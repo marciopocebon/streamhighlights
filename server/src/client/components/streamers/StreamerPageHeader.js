@@ -1,6 +1,7 @@
 import React from "react";
 import { Segment, Item, Label, Icon } from "semantic-ui-react";
 import { connect } from "react-redux";
+import StreamerDetailPageHelmet from '../seo/StreamerDetailPageHelmet'
 
 const mapStateToProps = state => ({
   streamer: state.ui.selectedStreamer
@@ -8,6 +9,8 @@ const mapStateToProps = state => ({
 
 const StreamerPageHeader = ({ streamer, numberOfClips }) => {
   return (
+    <div>
+    <StreamerDetailPageHelmet streamer={streamer.displayName} />
     <Segment className="bordered-segment">
       {streamer && (
         <Item.Group>
@@ -56,6 +59,7 @@ const StreamerPageHeader = ({ streamer, numberOfClips }) => {
         </Item.Group>
       )}
     </Segment>
+    </div>
   );
 };
 

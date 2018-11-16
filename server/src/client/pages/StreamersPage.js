@@ -7,6 +7,7 @@ import StreamerGridFilter from "./../components/streamers/StreamerGridFilter";
 import { requestStreamers } from "./../actions/streamers/index";
 import { getActivity } from "../reducers/activity";
 import ActivityFeed from "../components/activity/ActivityFeed";
+import StreamersPageHelmet from '../components/seo/StreamersPageHelmet'
 
 class StreamersPage extends Component {
   constructor(props) {
@@ -46,65 +47,69 @@ class StreamersPage extends Component {
     getStreamers(0, value);
   };
 
+
   render() {
     const { streamers } = this.props;
     return (
-      <Grid>
-        <Grid.Column width={10}>
-          <Segment className="streamer-segment" loading={streamers.fetching}>
-            <Label attached="top" size="big" className="colored-label">
-              <Icon name="user" />
-              Streamers
-            </Label>
-            <div className="segment-grid-filter">
-              <StreamerGridFilter
-                searchValueChanged={this.searchValueChanged}
-              />
+      <div>
+        <StreamersPageHelmet />
+        <Grid>
+          <Grid.Column width={10}>
+            <Segment className="streamer-segment" loading={streamers.fetching}>
+              <Label attached="top" size="big" className="colored-label">
+                <Icon name="user" />
+                Streamers
+              </Label>
+              <div className="segment-grid-filter">
+                <StreamerGridFilter
+                  searchValueChanged={this.searchValueChanged}
+                />
 
-              <Divider horizontal>Results</Divider>
-              <div
-                ref={scroller => {
-                  this.scroller = scroller;
-                }}
-                onScroll={this.handleScroll}
-                style={{
-                  height: "75vh",
-                  overflowY: "auto",
-                  overflowX: "hidden",
-                  paddingRight: "10px"
-                }}
-              >
-                <Grid
-                  stackable
-                  columns={4}
-                  className="streamer-grid animated fadeIn"
+                <Divider horizontal>Results</Divider>
+                <div
+                  ref={scroller => {
+                    this.scroller = scroller;
+                  }}
+                  onScroll={this.handleScroll}
+                  style={{
+                    height: "75vh",
+                    overflowY: "auto",
+                    overflowX: "hidden",
+                    paddingRight: "10px"
+                  }}
                 >
-                  <Grid.Row>
-                    {streamers.items &&
-                      streamers.items.map((streamer, index) => {
-                        return (
-                          streamer && (
-                            <Grid.Column width={4} key={index}>
-                              <StreamersItem
-                                key={index}
-                                streamer={streamer}
-                                numberOfClips={streamer.numberOfClips}
-                                numberOfArchives={streamer.numberOfArchives}
-                              />
-                            </Grid.Column>
-                          )
-                        );
-                      })}
-                  </Grid.Row>
-                </Grid>
+                  <Grid
+                    stackable
+                    columns={4}
+                    className="streamer-grid animated fadeIn"
+                  >
+                    <Grid.Row>
+                      {streamers.items &&
+                        streamers.items.map((streamer, index) => {
+                          return (
+                            streamer && (
+                              <Grid.Column width={4} key={index}>
+                                <StreamersItem
+                                  key={index}
+                                  streamer={streamer}
+                                  numberOfClips={streamer.numberOfClips}
+                                  numberOfArchives={streamer.numberOfArchives}
+                                />
+                              </Grid.Column>
+                            )
+                          );
+                        })}
+                    </Grid.Row>
+                  </Grid>
+                </div>
               </div>
-            </div>
-          </Segment>
-        </Grid.Column>
-        <Grid.Column width={6}>
-          <ActivityFeed />
-        </Grid.Column>
-      </Grid>
+            </Segment>
+          </Grid.Column>
+          <Grid.Column width={6}>
+            <ActivityFeed />
+          </Grid.Column>
+        </Grid>
+      </div>
     );
   }
 }
