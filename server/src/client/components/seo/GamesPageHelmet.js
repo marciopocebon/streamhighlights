@@ -14,7 +14,7 @@ class GamesPageHelmet extends Component {
         />
         <meta property="og:title" content="stream highlights" />
         <meta
-          property="description"
+          name="description"
           content="Streams Highlights gathers the best clips and highlights from Twitch. We provide unique clips for League of Legends, Fortnite, Counter-Strike, Overwatch and all the best trending games."
         />
       </Helmet>

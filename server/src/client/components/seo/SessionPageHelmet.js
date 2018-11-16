@@ -11,7 +11,7 @@ render() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="keywords" content={`twitch, clips, highlights, league of legends, lol, fortnite, videos, ${archive} `}/>
         <meta property="og:title" content="stream highlights" />
-        <meta property="description" content={`Streams Highlights gathers the best clips and highlights from Twitch. Find the best clips and highlights for ${archive} now!`} />
+        <meta name="description" content={`Streams Highlights gathers the best clips and highlights from Twitch. Find the best clips and highlights for ${archive} now!`} />
     </Helmet>
     );
   }
