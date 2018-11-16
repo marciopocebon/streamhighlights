@@ -7,6 +7,7 @@ import activityReducer from "./activity/index";
 import clipsReducer from "./clips/index";
 import uiReducer from "./ui/index";
 import archivesReducer from "./archives/index";
+import gamesReducer from './games/index';
 
 export default combineReducers({
   users: usersReducer,
@@ -16,5 +17,6 @@ export default combineReducers({
   activity: activityReducer,
   clips: clipsReducer,
   ui: uiReducer,
-  archives: archivesReducer
+  archives: archivesReducer,
+  games: gamesReducer
 });

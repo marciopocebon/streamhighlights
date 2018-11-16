@@ -60241,12 +60241,18 @@ var _SessionPage = __webpack_require__(1148);
 
 var _SessionPage2 = _interopRequireDefault(_SessionPage);
 
+var _GamesPage = __webpack_require__(1202);
+
+var _GamesPage2 = _interopRequireDefault(_GamesPage);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = [_extends({}, _App2.default, {
   routes: [_extends({}, _StreamersPage2.default, {
     path: "/",
     exact: true
+  }), _extends({}, _GamesPage2.default, {
+    path: "/games"
   }), _extends({}, _StreamerDetailPage2.default, {
     path: "/streamer/:id"
   }), _extends({}, _SessionPage2.default, {
@@ -89293,6 +89299,10 @@ var _index9 = __webpack_require__(196);
 
 var _index10 = _interopRequireDefault(_index9);
 
+var _index11 = __webpack_require__(1204);
+
+var _index12 = _interopRequireDefault(_index11);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = (0, _redux.combineReducers)({
@@ -89303,7 +89313,8 @@ exports.default = (0, _redux.combineReducers)({
   activity: _index4.default,
   clips: _index6.default,
   ui: _index8.default,
-  archives: _index10.default
+  archives: _index10.default,
+  games: _index12.default
 });
 
 /***/ }),
@@ -90636,6 +90647,683 @@ var SessionClipTable = function (_Component) {
 }(_react.Component);
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(SessionClipTable);
+
+/***/ }),
+/* 1202 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(31);
+
+var _reactRedux = __webpack_require__(36);
+
+var _GameItem = __webpack_require__(1205);
+
+var _GameItem2 = _interopRequireDefault(_GameItem);
+
+var _index = __webpack_require__(1204);
+
+var _GameGridFilter = __webpack_require__(1206);
+
+var _GameGridFilter2 = _interopRequireDefault(_GameGridFilter);
+
+var _GameActivityFeed = __webpack_require__(1207);
+
+var _GameActivityFeed2 = _interopRequireDefault(_GameActivityFeed);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var GamesPage = function (_Component) {
+  _inherits(GamesPage, _Component);
+
+  function GamesPage(props) {
+    _classCallCheck(this, GamesPage);
+
+    var _this = _possibleConstructorReturn(this, (GamesPage.__proto__ || Object.getPrototypeOf(GamesPage)).call(this, props));
+
+    _this.handleScroll = function () {
+      if (_this.scroller) {
+        if (_this.scroller.scrollHeight - _this.scroller.scrollTop === _this.scroller.clientHeight) {
+          _this.setState(function (prevState) {
+            return { pageIndex: prevState.pageIndex + 1 };
+          });
+          var _fetchMoreGames = _this.props.fetchMoreGames;
+
+          _fetchMoreGames(_this.state.pageIndex, _this.state.searchValue);
+        }
+      }
+    };
+
+    _this.searchValueChanged = function (value) {
+      _this.setState({
+        pageIndex: 1,
+        searchValue: value
+      });
+      var getGames = _this.props.getGames;
+
+      getGames(0, value);
+    };
+
+    _this.state = {
+      pageIndex: 1,
+      searchValue: ""
+    };
+    return _this;
+  }
+
+  _createClass(GamesPage, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var games = this.props.games;
+
+      return _react2.default.createElement(
+        _semanticUiReact.Grid,
+        null,
+        _react2.default.createElement(
+          _semanticUiReact.Grid.Column,
+          { width: 10 },
+          _react2.default.createElement(
+            _semanticUiReact.Segment,
+            { className: "streamer-segment", loading: games.fetching },
+            _react2.default.createElement(
+              _semanticUiReact.Label,
+              { attached: "top", size: "big", className: "colored-label" },
+              _react2.default.createElement(_semanticUiReact.Icon, { name: "user" }),
+              "Games"
+            ),
+            _react2.default.createElement(
+              "div",
+              { className: "segment-grid-filter" },
+              _react2.default.createElement(_GameGridFilter2.default, { searchValueChanged: this.searchValueChanged }),
+              _react2.default.createElement(
+                _semanticUiReact.Divider,
+                { horizontal: true },
+                "Results"
+              ),
+              _react2.default.createElement(
+                "div",
+                {
+                  ref: function ref(scroller) {
+                    _this2.scroller = scroller;
+                  },
+                  onScroll: this.handleScroll,
+                  style: {
+                    height: "75vh",
+                    overflowY: "auto",
+                    overflowX: "hidden",
+                    paddingRight: "10px"
+                  }
+                },
+                _react2.default.createElement(
+                  _semanticUiReact.Grid,
+                  {
+                    stackable: true,
+                    columns: 4,
+                    className: "streamer-grid animated fadeIn"
+                  },
+                  _react2.default.createElement(
+                    _semanticUiReact.Grid.Row,
+                    null,
+                    games.items && games.items.map(function (game, index) {
+                      return game && _react2.default.createElement(
+                        _semanticUiReact.Grid.Column,
+                        { width: 4, key: index },
+                        _react2.default.createElement(_GameItem2.default, {
+                          key: index,
+                          game: game,
+                          numberOfClips: game.numberOfClips
+                        })
+                      );
+                    })
+                  )
+                )
+              )
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Grid.Column,
+          { width: 6 },
+          _react2.default.createElement(_GameActivityFeed2.default, null)
+        )
+      );
+    }
+  }]);
+
+  return GamesPage;
+}(_react.Component);
+
+function mapStateToProps(_ref) {
+  var games = _ref.games;
+
+  return { games: games };
+}
+
+exports.default = {
+  component: (0, _reactRedux.connect)(mapStateToProps, { getGames: _index.getGames, fetchMoreGames: _index.fetchMoreGames })(GamesPage),
+  loadData: function loadData(_ref2) {
+    var dispatch = _ref2.dispatch;
+
+    return dispatch((0, _index.getGames)(0));
+  }
+};
+
+/***/ }),
+/* 1203 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var REQUEST_GAMES = exports.REQUEST_GAMES = "REQUEST_GAMES";
+var FETCH_GAMES = exports.FETCH_GAMES = "FETCH_GAMES";
+var APPEND_GAMES = exports.APPEND_GAMES = "APPEND_GAMES";
+
+var requestGames = exports.requestGames = function requestGames() {
+  return {
+    type: REQUEST_GAMES
+  };
+};
+
+var fetchGames = exports.fetchGames = function fetchGames(games) {
+  return {
+    type: FETCH_GAMES,
+    payload: games
+  };
+};
+
+var appendGames = exports.appendGames = function appendGames(games) {
+  return {
+    type: APPEND_GAMES,
+    payload: games
+  };
+};
+
+/***/ }),
+/* 1204 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.fetchMoreGames = exports.getGames = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _games = __webpack_require__(1203);
+
+var _index = __webpack_require__(1203);
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+var initialState = { items: [], fetching: false };
+
+var games = function games() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _games.FETCH_GAMES:
+      {
+        return _extends({}, state, {
+          items: action.payload
+        });
+      }
+    case _games.REQUEST_GAMES:
+      return _extends({}, state, {
+        fetching: true
+      });
+    case _index.APPEND_GAMES:
+      return _extends({}, state, {
+        items: [].concat(_toConsumableArray(state.items), _toConsumableArray(action.payload)),
+        fetching: false
+      });
+    default:
+      return state;
+  }
+};
+
+var getGames = exports.getGames = function getGames(pageIndex, gameFilter) {
+  return function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch, getState, api) {
+      var res;
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return api.get("/games?page=" + pageIndex + (gameFilter ? "&q=" + gameFilter : ""));
+
+            case 2:
+              res = _context.sent;
+
+              // Error handling maybe?
+              dispatch((0, _games.fetchGames)(res.data.games));
+
+            case 4:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, undefined);
+    }));
+
+    return function (_x2, _x3, _x4) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+};
+
+var fetchMoreGames = exports.fetchMoreGames = function fetchMoreGames(pageIndex, gameFilter) {
+  return function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(dispatch, getState, api) {
+      var res;
+      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              dispatch((0, _games.requestGames)());
+              console.log("/games?page=" + pageIndex + (gameFilter ? "&q=" + gameFilter : ""));
+              _context2.next = 4;
+              return api.get("/games?page=" + pageIndex + (gameFilter ? "&q=" + gameFilter : ""));
+
+            case 4:
+              res = _context2.sent;
+
+              dispatch((0, _games.appendGames)(res.data.games));
+
+            case 6:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, undefined);
+    }));
+
+    return function (_x5, _x6, _x7) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+};
+
+exports.default = games;
+
+/***/ }),
+/* 1205 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(31);
+
+var _reactRouterDom = __webpack_require__(108);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var GameItem = function GameItem(_ref) {
+  var game = _ref.game,
+      numberOfClips = _ref.numberOfClips;
+
+  return _react2.default.createElement(
+    _semanticUiReact.Segment.Group,
+    { className: "streamer-item" },
+    _react2.default.createElement(
+      _semanticUiReact.Segment,
+      null,
+      _react2.default.createElement(
+        _semanticUiReact.Label,
+        { attached: "top", className: "inverted-color-label" },
+        game.name
+      ),
+      _react2.default.createElement(
+        _semanticUiReact.Item.Group,
+        null,
+        _react2.default.createElement(
+          _semanticUiReact.Item,
+          null,
+          _react2.default.createElement(_semanticUiReact.Item.Image, {
+            size: "tiny",
+            src: game.boxArtURL.replace("{width}", "285").replace("{height}", "380")
+          }),
+          _react2.default.createElement(
+            _semanticUiReact.Item.Content,
+            null,
+            _react2.default.createElement(
+              _semanticUiReact.Item.Extra,
+              null,
+              _react2.default.createElement(_semanticUiReact.Icon, { name: "video" }),
+              " ",
+              numberOfClips,
+              " clips"
+            )
+          )
+        )
+      )
+    ),
+    _react2.default.createElement(
+      _semanticUiReact.Segment,
+      { textAlign: "center" },
+      _react2.default.createElement(
+        _semanticUiReact.Button,
+        null,
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { to: { pathname: "/game/" + game.gameId } },
+          "Visit"
+        )
+      )
+    )
+  );
+};
+
+exports.default = GameItem;
+
+/***/ }),
+/* 1206 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(31);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var GameGridFilter = function (_Component) {
+  _inherits(GameGridFilter, _Component);
+
+  function GameGridFilter(props) {
+    _classCallCheck(this, GameGridFilter);
+
+    var _this = _possibleConstructorReturn(this, (GameGridFilter.__proto__ || Object.getPrototypeOf(GameGridFilter)).call(this, props));
+
+    _this.onSearchChange = function (value) {
+      if (_this.timeout) clearTimeout(_this.timeout);
+      _this.timeout = setTimeout(function () {
+        _this.props.searchValueChanged(value);
+      }, 1000);
+    };
+
+    _this.timeout = 0;
+    return _this;
+  }
+
+  _createClass(GameGridFilter, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      return _react2.default.createElement(
+        _semanticUiReact.Menu,
+        { fluid: true, borderless: true, size: "large" },
+        _react2.default.createElement(
+          _semanticUiReact.Menu.Item,
+          { header: true },
+          _react2.default.createElement(_semanticUiReact.Icon, { name: "filter" }),
+          "Filters"
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Menu.Item,
+          null,
+          _react2.default.createElement(_semanticUiReact.Input, {
+            className: "icon",
+            icon: "gamepad",
+            iconPosition: "left",
+            placeholder: "Search A Game",
+            size: "small",
+            onChange: function onChange(e, _ref) {
+              var value = _ref.value;
+              return _this2.onSearchChange(value);
+            }
+          })
+        )
+      );
+    }
+  }]);
+
+  return GameGridFilter;
+}(_react.Component);
+
+exports.default = GameGridFilter;
+
+/***/ }),
+/* 1207 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(31);
+
+var _reactRedux = __webpack_require__(36);
+
+var _reactTimeago = __webpack_require__(295);
+
+var _reactTimeago2 = _interopRequireDefault(_reactTimeago);
+
+var _languageUtils = __webpack_require__(132);
+
+var _index = __webpack_require__(294);
+
+var _reactRouterDom = __webpack_require__(108);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var image = "https://image.flaticon.com/icons/svg/843/843273.svg";
+
+var GameActivityFeed = function (_Component) {
+  _inherits(GameActivityFeed, _Component);
+
+  function GameActivityFeed(props) {
+    _classCallCheck(this, GameActivityFeed);
+
+    var _this = _possibleConstructorReturn(this, (GameActivityFeed.__proto__ || Object.getPrototypeOf(GameActivityFeed)).call(this, props));
+
+    _this.handleScroll = function () {
+      if (_this.scroller) {
+        if (_this.scroller.scrollHeight - _this.scroller.scrollTop === _this.scroller.clientHeight) {
+          _this.setState(function (prevState) {
+            return { pageIndex: prevState.pageIndex + 1 };
+          });
+          var _fetchMoreActivity = _this.props.fetchMoreActivity;
+
+          _fetchMoreActivity(_this.state.pageIndex);
+        }
+      }
+    };
+
+    _this.state = {
+      pageIndex: 1
+    };
+    return _this;
+  }
+
+  _createClass(GameActivityFeed, [{
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      var getActivity = this.props.getActivity;
+
+      getActivity(0);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var activity = this.props.activity;
+
+      return _react2.default.createElement(
+        _semanticUiReact.Segment,
+        { loading: activity.fetching, className: "activity-segment" },
+        _react2.default.createElement(
+          _semanticUiReact.Label,
+          { attached: "top", size: "big", className: "colored-label" },
+          _react2.default.createElement(_semanticUiReact.Icon, { loading: true, name: "certificate" }),
+          "Activity Feed"
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Message,
+          { warning: true },
+          "Those clips are generated automatically by ",
+          _react2.default.createElement(
+            "b",
+            null,
+            "AutoClipper (\u03B2)"
+          )
+        ),
+        _react2.default.createElement(
+          "div",
+          {
+            ref: function ref(scroller) {
+              _this2.scroller = scroller;
+            },
+            onScroll: this.handleScroll,
+            style: {
+              height: "85vh",
+              overflowY: "auto"
+            },
+            className: "activity-feed"
+          },
+          _react2.default.createElement(
+            _semanticUiReact.Feed,
+            { style: { marginTop: "20px", padding: "10px" } },
+            activity && activity.items && activity.items.map(function (clip) {
+              return _react2.default.createElement(
+                _semanticUiReact.Feed.Event,
+                {
+                  onClick: function onClick() {
+                    return _this2.props.history.push("/streamer/" + clip.channelId.streamerId);
+                  }
+                },
+                _react2.default.createElement(_semanticUiReact.Feed.Label, { image: image }),
+                _react2.default.createElement(
+                  _semanticUiReact.Feed.Content,
+                  null,
+                  _react2.default.createElement(_semanticUiReact.Feed.Date, { content: _react2.default.createElement(_reactTimeago2.default, { date: clip.created_at }) }),
+                  _react2.default.createElement(_semanticUiReact.Feed.Summary, {
+                    content: "AutoClipper created a new clip for " + (clip.gameId[0] ? clip.gameId[0].name : "Unknown")
+                  }),
+                  clip.gameId[0] && _react2.default.createElement(_semanticUiReact.Feed.Extra, {
+                    images: [clip.gameId[0].boxArtURL.replace("{width}", "285").replace("{height}", "380")]
+                  }),
+                  _react2.default.createElement(
+                    _semanticUiReact.Feed.Extra,
+                    null,
+                    _react2.default.createElement(
+                      _semanticUiReact.Label,
+                      null,
+                      _react2.default.createElement(_semanticUiReact.Flag, { name: (0, _languageUtils.mapToFlag)(clip.language) }),
+                      clip.language
+                    ),
+                    _react2.default.createElement(
+                      _semanticUiReact.Label,
+                      null,
+                      _react2.default.createElement(_semanticUiReact.Rating, {
+                        icon: "star",
+                        defaultRating: clip.score,
+                        maxRating: 5,
+                        disabled: true
+                      })
+                    )
+                  ),
+                  _react2.default.createElement(
+                    _semanticUiReact.Feed.Meta,
+                    null,
+                    _react2.default.createElement(
+                      _semanticUiReact.Feed.Like,
+                      null,
+                      _react2.default.createElement(_semanticUiReact.Icon, { name: "user" }),
+                      clip.channelId && clip.channelId.displayName
+                    )
+                  )
+                )
+              );
+            })
+          )
+        )
+      );
+    }
+  }]);
+
+  return GameActivityFeed;
+}(_react.Component);
+
+function mapStateToProps(_ref) {
+  var activity = _ref.activity;
+
+  return { activity: activity };
+}
+
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, { getActivity: _index.getActivity, fetchMoreActivity: _index.fetchMoreActivity })(GameActivityFeed));
 
 /***/ })
 /******/ ]);

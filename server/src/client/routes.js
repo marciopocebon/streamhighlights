@@ -5,6 +5,7 @@ import AdminsListPage from "./pages/AdminsListPage";
 import StreamersPage from "./pages/StreamersPage";
 import StreamerDetailPage from "./pages/StreamerDetailPage";
 import SessionPage from "./pages/SessionPage";
+import GamesPage from "./pages/GamesPage";
 
 export default [
   {
@@ -14,6 +15,10 @@ export default [
         ...StreamersPage,
         path: "/",
         exact: true
+      },
+      {
+        ...GamesPage,
+        path: "/games"
       },
       {
         ...StreamerDetailPage,
