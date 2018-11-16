@@ -79,17 +79,24 @@ export const fetchMoreClips = (
   dispatch(appendClips(res.data.clips));
 };
 
-// export const fetchClipsByArchive = (archiveId, pageIndex) => {
-//   return dispatch => {
-//     dispatch(requestClips());
-//     axios
-//       .get(`/clips/archive/${archiveId}?page=${pageIndex}`)
-//       .then(response => {
-//         dispatch(fetchClipsSuccess(response.data.clips));
-//       })
-//       .catch(err => console.log("This should be a dispatched error"));
-//   };
-// };
+export const getClipsByArchive = (archiveId, pageIndex) => async (
+  dispatch,
+  getState,
+  api
+) => {
+  const res = await api.get(`/clips/archive/${archiveId}?page=${pageIndex}`);
+  dispatch(fetchClips(res.data.clips));
+};
+
+export const fetchMoreClipsByArchive = (archiveId, pageIndex) => async (
+  dispatch,
+  getState,
+  api
+) => {
+  dispatch(requestClips());
+  const res = await api.get(`/clips/archive/${archiveId}?page=${pageIndex}`);
+  dispatch(appendClips(res.data.clips));
+};
 
 // export const fetchClipsByGame = (
 //   gameId,

@@ -4,6 +4,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 import AdminsListPage from "./pages/AdminsListPage";
 import StreamersPage from "./pages/StreamersPage";
 import StreamerDetailPage from "./pages/StreamerDetailPage";
+import SessionPage from "./pages/SessionPage";
 
 export default [
   {
@@ -16,7 +17,11 @@ export default [
       },
       {
         ...StreamerDetailPage,
-        path: "/streamer/:id",
+        path: "/streamer/:id"
+      },
+      {
+        ...SessionPage,
+        path: "/session/:id"
       },
       {
         path: "/users",

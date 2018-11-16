@@ -38,6 +38,7 @@ export const getArchive = (archiveId, pageIndex) => async (
   api
 ) => {
   const res = await api.get(`/archives/${archiveId}?page=${pageIndex}`);
+  console.log(res.data.archives);
   dispatch(fetchArchive(res.data.archives));
 };
 

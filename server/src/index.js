@@ -24,6 +24,10 @@ app.get("/streamer/:id", (req, res) => {
   renderContent(req, res);
 });
 
+app.get("/session/:id", (req, res) => {
+  renderContent(req, res);
+});
+
 app.get("*", (req, res) => {
   renderContent(req, res);
 });
