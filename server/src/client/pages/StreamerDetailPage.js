@@ -3,7 +3,6 @@ import { Grid, Tab, Modal, Button, Message, Icon } from "semantic-ui-react";
 import { connect } from "react-redux";
 // import { fetchClips } from "./../../redux/clips/clipsReducer";
 // import StreamerVideoPlayer from "./StreamerVideoPlayer";
-// import StreamerClipTable from "./StreamerClipTable";
 // import StreamerPageHeader from "./StreamerPageHeader";
 // import { setClips } from "./../../redux/clips/clipsActions";
 // import StreamerVideoArchive from "./page/StreamerVideoArchive";
@@ -13,6 +12,8 @@ import { setAutomaticCheckbox, setTimeFilter } from "./../actions/ui/index";
 import { setClips, requestClips } from "./../actions/clips/index";
 import { fetchClips } from "./../reducers/clips/index";
 import { setAutomaticCheckboxValue } from "./../reducers/ui/index";
+import StreamerPageHeader from "./../components/streamers/StreamerPageHeader";
+import StreamerClipTable from "./../components/streamers/StreamerClipTable";
 
 class StreamerDetailPage extends Component {
   constructor(props) {
@@ -48,88 +49,88 @@ class StreamerDetailPage extends Component {
     setAutomaticCheckbox(false);
     setTimeFilter("week");
     setClips([]);
-    // fetchClips(match.params.id, 0);
+    fetchClips(match.params.id, 0);
   }
 
-  //   handleScroll = () => {
-  //     this.setState(prevState => ({
-  //       clipPageIndex: prevState.clipPageIndex + 1
-  //     }));
-  //     const { fetchClips, match, ui } = this.props;
-  //     console.log("I will fetch page " + this.state.clipPageIndex);
-  //     fetchClips(
-  //       match.params.id,
-  //       this.state.clipPageIndex,
-  //       this.state.gameSearchValue,
-  //       this.state.titleSearchValue,
-  //       ui.automaticCheckbox,
-  //       ui.time
-  //     );
-  //   };
+  handleScroll = () => {
+    this.setState(prevState => ({
+      clipPageIndex: prevState.clipPageIndex + 1
+    }));
+    const { fetchClips, match, ui } = this.props;
+    console.log("I will fetch page " + this.state.clipPageIndex);
+    fetchClips(
+      match.params.id,
+      this.state.clipPageIndex,
+      this.state.gameSearchValue,
+      this.state.titleSearchValue,
+      ui.automaticCheckbox,
+      ui.time
+    );
+  };
 
-  //   gameSearchValueChanged = () => {
-  //     this.setState({
-  //       clipPageIndex: 1,
-  //       gameSearchValue: value
-  //     });
-  //     const { match, setClips, fetchClips, ui } = this.props;
-  //     setClips([]);
-  //     fetchClips(
-  //       match.params.id,
-  //       0,
-  //       value,
-  //       this.state.titleSearchValue,
-  //       ui.automaticCheckbox,
-  //       ui.time
-  //     );
-  //   };
+  gameSearchValueChanged = () => {
+    this.setState({
+      clipPageIndex: 1,
+      gameSearchValue: value
+    });
+    const { match, setClips, fetchClips, ui } = this.props;
+    setClips([]);
+    fetchClips(
+      match.params.id,
+      0,
+      value,
+      this.state.titleSearchValue,
+      ui.automaticCheckbox,
+      ui.time
+    );
+  };
 
-  //   titleSearchValueChanged = () => {
-  //     this.setState({
-  //       clipPageIndex: 1,
-  //       titleSearchValue: value
-  //     });
-  //     const { match, setClips, fetchClips, ui } = this.props;
-  //     setClips([]);
-  //     fetchClips(
-  //       match.params.id,
-  //       0,
-  //       this.state.gameSearchValue,
-  //       value,
-  //       ui.automaticCheckbox,
-  //       ui.time
-  //     );
-  //   };
+  titleSearchValueChanged = () => {
+    this.setState({
+      clipPageIndex: 1,
+      titleSearchValue: value
+    });
+    const { match, setClips, fetchClips, ui } = this.props;
+    setClips([]);
+    fetchClips(
+      match.params.id,
+      0,
+      this.state.gameSearchValue,
+      value,
+      ui.automaticCheckbox,
+      ui.time
+    );
+  };
 
-  //   checkBoxChanged = () => {
-  //     const { match, setClips, fetchClips, ui } = this.props;
-  //     setClips([]);
-  //     fetchClips(
-  //       match.params.id,
-  //       0,
-  //       this.state.gameSearchValue,
-  //       this.state.titleSearchValue,
-  //       !ui.automaticCheckbox,
-  //       ui.time
-  //     );
-  //   };
+  checkBoxChanged = () => {
+    const { match, setClips, fetchClips, ui } = this.props;
+    setClips([]);
+    fetchClips(
+      match.params.id,
+      0,
+      this.state.gameSearchValue,
+      this.state.titleSearchValue,
+      !ui.automaticCheckbox,
+      ui.time
+    );
+  };
 
-  //   timeChanged = () => {
-  //     const { match, setClips, fetchClips, ui } = this.props;
-  //     setClips([]);
-  //     fetchClips(
-  //       match.params.id,
-  //       0,
-  //       this.state.gameSearchValue,
-  //       this.state.titleSearchValue,
-  //       ui.automaticCheckbox,
-  //       timeValue
-  //     );
-  //   };
+  timeChanged = () => {
+    const { match, setClips, fetchClips, ui } = this.props;
+    setClips([]);
+    fetchClips(
+      match.params.id,
+      0,
+      this.state.gameSearchValue,
+      this.state.titleSearchValue,
+      ui.automaticCheckbox,
+      timeValue
+    );
+  };
 
-  //   close = () => {
-  //     this.setState({ modalOpen: false });
-  //   };
+  close = () => {
+    this.setState({ modalOpen: false });
+  };
 
   handleTabChange = (e, { activeIndex }) => this.setState({ activeIndex });
 
@@ -139,7 +140,52 @@ class StreamerDetailPage extends Component {
     return (
       <div>
         <Grid>
-          <Grid.Column width={16} />
+          <Grid.Column width={16}>
+            <StreamerPageHeader
+              numberOfClips={clips.items && clips.items.length}
+            />
+            <Tab
+              activeIndex={activeIndex}
+              onTabChange={this.handleTabChange}
+              panes={[
+                {
+                  menuItem: {
+                    key: "clips",
+                    icon: "rocket large",
+                    content: "Clips"
+                  },
+                  render: () => (
+                    <div>
+                      {clips && clips.items && (
+                        <StreamerClipTable
+                          fetching={clips.fetching}
+                          clips={clips.items}
+                          setClip={this.setClip}
+                          handleScroll={this.handleScroll}
+                          gameSearchValueChanged={this.gameSearchValueChanged}
+                          titleSearchValueChanged={this.titleSearchValueChanged}
+                          checkBoxChanged={this.checkBoxChanged}
+                          timeChanged={this.timeChanged}
+                        />
+                      )}
+                    </div>
+                  )
+                }
+                // {
+                //   menuItem: {
+                //     key: "archives",
+                //     icon: "film large",
+                //     content: "Archives"
+                //   },
+                //   render: () => (
+                //     <React.Fragment>
+                //       <div>f</div>
+                //     </React.Fragment>
+                //   )
+                // }
+              ]}
+            />
+          </Grid.Column>
         </Grid>
       </div>
     );

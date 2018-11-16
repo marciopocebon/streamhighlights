@@ -82578,6 +82578,14 @@ var _index3 = __webpack_require__(517);
 
 var _index4 = __webpack_require__(518);
 
+var _StreamerPageHeader = __webpack_require__(1151);
+
+var _StreamerPageHeader2 = _interopRequireDefault(_StreamerPageHeader);
+
+var _StreamerClipTable = __webpack_require__(1152);
+
+var _StreamerClipTable2 = _interopRequireDefault(_StreamerClipTable);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -82587,7 +82595,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 // import { fetchClips } from "./../../redux/clips/clipsReducer";
 // import StreamerVideoPlayer from "./StreamerVideoPlayer";
-// import StreamerClipTable from "./StreamerClipTable";
 // import StreamerPageHeader from "./StreamerPageHeader";
 // import { setClips } from "./../../redux/clips/clipsActions";
 // import StreamerVideoArchive from "./page/StreamerVideoArchive";
@@ -82610,6 +82617,77 @@ var StreamerDetailPage = function (_Component) {
         activeClip: clip,
         modalOpen: true
       });
+    };
+
+    _this.handleScroll = function () {
+      _this.setState(function (prevState) {
+        return {
+          clipPageIndex: prevState.clipPageIndex + 1
+        };
+      });
+      var _this$props = _this.props,
+          fetchClips = _this$props.fetchClips,
+          match = _this$props.match,
+          ui = _this$props.ui;
+
+      console.log("I will fetch page " + _this.state.clipPageIndex);
+      fetchClips(match.params.id, _this.state.clipPageIndex, _this.state.gameSearchValue, _this.state.titleSearchValue, ui.automaticCheckbox, ui.time);
+    };
+
+    _this.gameSearchValueChanged = function () {
+      _this.setState({
+        clipPageIndex: 1,
+        gameSearchValue: value
+      });
+      var _this$props2 = _this.props,
+          match = _this$props2.match,
+          setClips = _this$props2.setClips,
+          fetchClips = _this$props2.fetchClips,
+          ui = _this$props2.ui;
+
+      setClips([]);
+      fetchClips(match.params.id, 0, value, _this.state.titleSearchValue, ui.automaticCheckbox, ui.time);
+    };
+
+    _this.titleSearchValueChanged = function () {
+      _this.setState({
+        clipPageIndex: 1,
+        titleSearchValue: value
+      });
+      var _this$props3 = _this.props,
+          match = _this$props3.match,
+          setClips = _this$props3.setClips,
+          fetchClips = _this$props3.fetchClips,
+          ui = _this$props3.ui;
+
+      setClips([]);
+      fetchClips(match.params.id, 0, _this.state.gameSearchValue, value, ui.automaticCheckbox, ui.time);
+    };
+
+    _this.checkBoxChanged = function () {
+      var _this$props4 = _this.props,
+          match = _this$props4.match,
+          setClips = _this$props4.setClips,
+          fetchClips = _this$props4.fetchClips,
+          ui = _this$props4.ui;
+
+      setClips([]);
+      fetchClips(match.params.id, 0, _this.state.gameSearchValue, _this.state.titleSearchValue, !ui.automaticCheckbox, ui.time);
+    };
+
+    _this.timeChanged = function () {
+      var _this$props5 = _this.props,
+          match = _this$props5.match,
+          setClips = _this$props5.setClips,
+          fetchClips = _this$props5.fetchClips,
+          ui = _this$props5.ui;
+
+      setClips([]);
+      fetchClips(match.params.id, 0, _this.state.gameSearchValue, _this.state.titleSearchValue, ui.automaticCheckbox, timeValue);
+    };
+
+    _this.close = function () {
+      _this.setState({ modalOpen: false });
     };
 
     _this.handleTabChange = function (e, _ref) {
@@ -82642,92 +82720,13 @@ var StreamerDetailPage = function (_Component) {
       setAutomaticCheckbox(false);
       setTimeFilter("week");
       setClips([]);
-      // fetchClips(match.params.id, 0);
+      fetchClips(match.params.id, 0);
     }
-
-    //   handleScroll = () => {
-    //     this.setState(prevState => ({
-    //       clipPageIndex: prevState.clipPageIndex + 1
-    //     }));
-    //     const { fetchClips, match, ui } = this.props;
-    //     console.log("I will fetch page " + this.state.clipPageIndex);
-    //     fetchClips(
-    //       match.params.id,
-    //       this.state.clipPageIndex,
-    //       this.state.gameSearchValue,
-    //       this.state.titleSearchValue,
-    //       ui.automaticCheckbox,
-    //       ui.time
-    //     );
-    //   };
-
-    //   gameSearchValueChanged = () => {
-    //     this.setState({
-    //       clipPageIndex: 1,
-    //       gameSearchValue: value
-    //     });
-    //     const { match, setClips, fetchClips, ui } = this.props;
-    //     setClips([]);
-    //     fetchClips(
-    //       match.params.id,
-    //       0,
-    //       value,
-    //       this.state.titleSearchValue,
-    //       ui.automaticCheckbox,
-    //       ui.time
-    //     );
-    //   };
-
-    //   titleSearchValueChanged = () => {
-    //     this.setState({
-    //       clipPageIndex: 1,
-    //       titleSearchValue: value
-    //     });
-    //     const { match, setClips, fetchClips, ui } = this.props;
-    //     setClips([]);
-    //     fetchClips(
-    //       match.params.id,
-    //       0,
-    //       this.state.gameSearchValue,
-    //       value,
-    //       ui.automaticCheckbox,
-    //       ui.time
-    //     );
-    //   };
-
-    //   checkBoxChanged = () => {
-    //     const { match, setClips, fetchClips, ui } = this.props;
-    //     setClips([]);
-    //     fetchClips(
-    //       match.params.id,
-    //       0,
-    //       this.state.gameSearchValue,
-    //       this.state.titleSearchValue,
-    //       !ui.automaticCheckbox,
-    //       ui.time
-    //     );
-    //   };
-
-    //   timeChanged = () => {
-    //     const { match, setClips, fetchClips, ui } = this.props;
-    //     setClips([]);
-    //     fetchClips(
-    //       match.params.id,
-    //       0,
-    //       this.state.gameSearchValue,
-    //       this.state.titleSearchValue,
-    //       ui.automaticCheckbox,
-    //       timeValue
-    //     );
-    //   };
-
-    //   close = () => {
-    //     this.setState({ modalOpen: false });
-    //   };
-
   }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       var _props2 = this.props,
           clips = _props2.clips,
           match = _props2.match;
@@ -82739,7 +82738,52 @@ var StreamerDetailPage = function (_Component) {
         _react2.default.createElement(
           _semanticUiReact.Grid,
           null,
-          _react2.default.createElement(_semanticUiReact.Grid.Column, { width: 16 })
+          _react2.default.createElement(
+            _semanticUiReact.Grid.Column,
+            { width: 16 },
+            _react2.default.createElement(_StreamerPageHeader2.default, {
+              numberOfClips: clips.items && clips.items.length
+            }),
+            _react2.default.createElement(_semanticUiReact.Tab, {
+              activeIndex: activeIndex,
+              onTabChange: this.handleTabChange,
+              panes: [{
+                menuItem: {
+                  key: "clips",
+                  icon: "rocket large",
+                  content: "Clips"
+                },
+                render: function render() {
+                  return _react2.default.createElement(
+                    "div",
+                    null,
+                    clips && clips.items && _react2.default.createElement(_StreamerClipTable2.default, {
+                      fetching: clips.fetching,
+                      clips: clips.items,
+                      setClip: _this2.setClip,
+                      handleScroll: _this2.handleScroll,
+                      gameSearchValueChanged: _this2.gameSearchValueChanged,
+                      titleSearchValueChanged: _this2.titleSearchValueChanged,
+                      checkBoxChanged: _this2.checkBoxChanged,
+                      timeChanged: _this2.timeChanged
+                    })
+                  );
+                }
+                // {
+                //   menuItem: {
+                //     key: "archives",
+                //     icon: "film large",
+                //     content: "Archives"
+                //   },
+                //   render: () => (
+                //     <React.Fragment>
+                //       <div>f</div>
+                //     </React.Fragment>
+                //   )
+                // }
+              }]
+            })
+          )
         )
       );
     }
@@ -83766,6 +83810,668 @@ module.exports = function spread(callback) {
   };
 };
 
+
+/***/ }),
+/* 1151 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(75);
+
+var _reactRedux = __webpack_require__(89);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    streamer: state.ui.selectedStreamer
+  };
+};
+
+var StreamerPageHeader = function StreamerPageHeader(_ref) {
+  var streamer = _ref.streamer,
+      numberOfClips = _ref.numberOfClips;
+
+  return _react2.default.createElement(
+    _semanticUiReact.Segment,
+    { className: "bordered-segment" },
+    streamer && _react2.default.createElement(
+      _semanticUiReact.Item.Group,
+      null,
+      _react2.default.createElement(
+        _semanticUiReact.Item,
+        null,
+        _react2.default.createElement(_semanticUiReact.Item.Image, { size: "tiny", src: streamer.profileImageURL }),
+        _react2.default.createElement(
+          _semanticUiReact.Item.Content,
+          null,
+          _react2.default.createElement(
+            _semanticUiReact.Item.Header,
+            null,
+            streamer.displayName
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Item.Meta,
+            null,
+            streamer.description ? streamer.description : "Apparently, this streamer prefers to keep an air of mystery about them"
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Item.Meta,
+            null,
+            streamer.monitored ? _react2.default.createElement(
+              _semanticUiReact.Label,
+              null,
+              _react2.default.createElement(_semanticUiReact.Icon, {
+                name: "circle thin",
+                color: "red",
+                style: { marginRight: "10px" }
+              }),
+              "Live"
+            ) : _react2.default.createElement(
+              _semanticUiReact.Label,
+              null,
+              _react2.default.createElement(_semanticUiReact.Icon, {
+                name: "circle thin",
+                color: "grey",
+                style: { marginRight: "10px" }
+              }),
+              "Disconnected"
+            )
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Item.Meta,
+            null,
+            _react2.default.createElement(
+              _semanticUiReact.Label,
+              null,
+              _react2.default.createElement(_semanticUiReact.Icon, {
+                name: "twitch",
+                color: "violet",
+                style: { marginRight: "10px" }
+              }),
+              streamer.broadcasterType
+            )
+          )
+        )
+      )
+    )
+  );
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(StreamerPageHeader);
+
+/***/ }),
+/* 1152 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(75);
+
+var _reactTimeago = __webpack_require__(1121);
+
+var _reactTimeago2 = _interopRequireDefault(_reactTimeago);
+
+var _languageUtils = __webpack_require__(1124);
+
+var _NoResultsSegment = __webpack_require__(1153);
+
+var _NoResultsSegment2 = _interopRequireDefault(_NoResultsSegment);
+
+var _StreamerClipFilter = __webpack_require__(1154);
+
+var _StreamerClipFilter2 = _interopRequireDefault(_StreamerClipFilter);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var StreamerClipTable = function (_Component) {
+  _inherits(StreamerClipTable, _Component);
+
+  function StreamerClipTable() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, StreamerClipTable);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = StreamerClipTable.__proto__ || Object.getPrototypeOf(StreamerClipTable)).call.apply(_ref, [this].concat(args))), _this), _this.handleScroll = function () {
+      if (_this.scroller) {
+        if (_this.scroller.scrollHeight - _this.scroller.scrollTop === _this.scroller.clientHeight) {
+          _this.props.handleScroll();
+        }
+      }
+    }, _this.mapToScore = function (score) {
+      if (score < 2) {
+        return _react2.default.createElement(
+          _semanticUiReact.Label,
+          { inverted: true },
+          _react2.default.createElement(_semanticUiReact.Icon, { name: "lightning green" }),
+          "Moderately Epic"
+        );
+      } else if (score > 2 && score < 4) {
+        return _react2.default.createElement(
+          _semanticUiReact.Label,
+          { inverted: true },
+          _react2.default.createElement(_semanticUiReact.Icon, { name: "lightning yellow" }),
+          _react2.default.createElement(_semanticUiReact.Icon, { name: "lightning yellow" }),
+          "Very Epic"
+        );
+      } else {
+        return _react2.default.createElement(
+          _semanticUiReact.Label,
+          { inverted: true },
+          _react2.default.createElement(_semanticUiReact.Icon, { name: "lightning red" }),
+          _react2.default.createElement(_semanticUiReact.Icon, { name: "lightning red" }),
+          _react2.default.createElement(_semanticUiReact.Icon, { name: "lightning red" }),
+          "OMG!"
+        );
+      }
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(StreamerClipTable, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var _props = this.props,
+          clips = _props.clips,
+          setClip = _props.setClip,
+          fetching = _props.fetching,
+          checkBoxChanged = _props.checkBoxChanged;
+
+      console.log(clips);
+      return _react2.default.createElement(
+        _semanticUiReact.Segment,
+        { loading: fetching },
+        _react2.default.createElement(
+          _semanticUiReact.Label,
+          { attached: "top", size: "big", className: "colored-label" },
+          "Clips"
+        ),
+        _react2.default.createElement(_StreamerClipFilter2.default, {
+          gameSearchValueChanged: this.props.gameSearchValueChanged,
+          titleSearchValueChanged: this.props.titleSearchValueChanged,
+          checkBoxChanged: this.props.checkBoxChanged,
+          timeChanged: this.props.timeChanged
+        }),
+        _react2.default.createElement(
+          _semanticUiReact.Divider,
+          { horizontal: true },
+          "Results (",
+          clips && clips.length,
+          ")"
+        ),
+        _react2.default.createElement(
+          "div",
+          {
+            style: {
+              height: "50vh",
+              overflowY: "auto"
+            },
+            ref: function ref(scroller) {
+              _this2.scroller = scroller;
+            },
+            onScroll: this.handleScroll
+          },
+          clips && clips.length > 0 ? _react2.default.createElement(
+            _semanticUiReact.Table,
+            { celled: true, padded: true, fixed: true },
+            _react2.default.createElement(
+              _semanticUiReact.Table.Header,
+              null,
+              _react2.default.createElement(
+                _semanticUiReact.Table.Row,
+                null,
+                _react2.default.createElement(
+                  _semanticUiReact.Table.HeaderCell,
+                  { style: { width: "300px" } },
+                  "Stream Title"
+                ),
+                _react2.default.createElement(
+                  _semanticUiReact.Table.HeaderCell,
+                  null,
+                  "Game"
+                ),
+                _react2.default.createElement(
+                  _semanticUiReact.Table.HeaderCell,
+                  null,
+                  "Language"
+                ),
+                _react2.default.createElement(
+                  _semanticUiReact.Table.HeaderCell,
+                  null,
+                  "Score"
+                ),
+                _react2.default.createElement(
+                  _semanticUiReact.Table.HeaderCell,
+                  null,
+                  "Views"
+                ),
+                _react2.default.createElement(
+                  _semanticUiReact.Table.HeaderCell,
+                  null,
+                  "Created At"
+                ),
+                _react2.default.createElement(
+                  _semanticUiReact.Table.HeaderCell,
+                  null,
+                  "Action"
+                )
+              )
+            ),
+            _react2.default.createElement(
+              _semanticUiReact.Table.Body,
+              null,
+              clips && clips.map(function (clip) {
+                return _react2.default.createElement(
+                  _semanticUiReact.Table.Row,
+                  null,
+                  _react2.default.createElement(
+                    _semanticUiReact.Table.Cell,
+                    null,
+                    clip.title,
+                    " ",
+                    _react2.default.createElement("br", null),
+                    " by ",
+                    _react2.default.createElement(
+                      "b",
+                      null,
+                      clip.creatorName
+                    )
+                  ),
+                  _react2.default.createElement(
+                    _semanticUiReact.Table.Cell,
+                    null,
+                    _react2.default.createElement(
+                      _semanticUiReact.Header,
+                      { as: "h4", image: true },
+                      _react2.default.createElement(_semanticUiReact.Image, {
+                        src: clip.game && clip.game.boxArtURL && clip.game.boxArtURL.replace("{width}", "300").replace("{height}", "300"),
+                        rounded: true,
+                        size: "big"
+                      }),
+                      _react2.default.createElement(
+                        _semanticUiReact.Header.Content,
+                        null,
+                        _react2.default.createElement(
+                          _semanticUiReact.Header.Subheader,
+                          null,
+                          clip.game && clip.game.name
+                        )
+                      )
+                    )
+                  ),
+                  _react2.default.createElement(
+                    _semanticUiReact.Table.Cell,
+                    null,
+                    _react2.default.createElement(_semanticUiReact.Flag, { name: (0, _languageUtils.mapToFlag)(clip.language) }),
+                    clip.language
+                  ),
+                  _react2.default.createElement(
+                    _semanticUiReact.Table.Cell,
+                    null,
+                    _react2.default.createElement(
+                      _semanticUiReact.Label,
+                      { className: "clip-rating" },
+                      _react2.default.createElement(_semanticUiReact.Rating, {
+                        icon: "star",
+                        defaultRating: clip.score,
+                        maxRating: 5,
+                        disabled: true
+                      }),
+                      " "
+                    ),
+                    " ",
+                    _react2.default.createElement("br", null),
+                    _this2.mapToScore(clip.score)
+                  ),
+                  _react2.default.createElement(
+                    _semanticUiReact.Table.Cell,
+                    null,
+                    _react2.default.createElement(
+                      _semanticUiReact.Label,
+                      { size: "small" },
+                      _react2.default.createElement(_semanticUiReact.Icon, { name: "eye" }),
+                      clip.viewCount
+                    )
+                  ),
+                  _react2.default.createElement(
+                    _semanticUiReact.Table.Cell,
+                    null,
+                    _react2.default.createElement(_reactTimeago2.default, { date: clip.created_at })
+                  ),
+                  _react2.default.createElement(
+                    _semanticUiReact.Table.Cell,
+                    null,
+                    _react2.default.createElement(
+                      _semanticUiReact.Button,
+                      {
+                        size: "small",
+                        icon: true,
+                        labelPosition: "left",
+                        onClick: function onClick() {
+                          setClip(clip);
+                        }
+                      },
+                      _react2.default.createElement(_semanticUiReact.Icon, { name: "play" }),
+                      "Play"
+                    )
+                  )
+                );
+              })
+            )
+          ) : _react2.default.createElement(_NoResultsSegment2.default, null)
+        )
+      );
+    }
+  }]);
+
+  return StreamerClipTable;
+}(_react.Component);
+
+exports.default = StreamerClipTable;
+
+/***/ }),
+/* 1153 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(75);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var NoResultsSegment = function (_Component) {
+  _inherits(NoResultsSegment, _Component);
+
+  function NoResultsSegment() {
+    _classCallCheck(this, NoResultsSegment);
+
+    return _possibleConstructorReturn(this, (NoResultsSegment.__proto__ || Object.getPrototypeOf(NoResultsSegment)).apply(this, arguments));
+  }
+
+  _createClass(NoResultsSegment, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        _semanticUiReact.Segment,
+        null,
+        _react2.default.createElement(
+          _semanticUiReact.Item.Group,
+          null,
+          _react2.default.createElement(
+            _semanticUiReact.Item,
+            null,
+            _react2.default.createElement(_semanticUiReact.Item.Image, {
+              src: "https://image.flaticon.com/icons/svg/843/843273.svg",
+              size: "tiny"
+            }),
+            _react2.default.createElement(
+              _semanticUiReact.Item.Content,
+              null,
+              _react2.default.createElement(
+                _semanticUiReact.Item.Header,
+                null,
+                "Oops! No results were found for this streamer."
+              ),
+              _react2.default.createElement(
+                _semanticUiReact.Item.Meta,
+                null,
+                "Better luck checking automatic clips"
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return NoResultsSegment;
+}(_react.Component);
+
+exports.default = NoResultsSegment;
+
+/***/ }),
+/* 1154 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(75);
+
+var _reactRedux = __webpack_require__(89);
+
+var _index = __webpack_require__(288);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    setAutomaticCheckbox: function setAutomaticCheckbox(value) {
+      return dispatch((0, _index.setAutomaticCheckbox)(value));
+    },
+    setTimeFilter: function setTimeFilter(timeValue) {
+      return dispatch((0, _index.setTimeFilter)(timeValue));
+    }
+  };
+};
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    ui: state.ui
+  };
+};
+
+var timeOptions = [{
+  key: "today",
+  text: "today",
+  value: "day",
+  content: "Today"
+}, {
+  key: "this week",
+  text: "this week",
+  value: "week",
+  content: "This Week"
+}, {
+  key: "this month",
+  text: "this month",
+  value: "month",
+  content: "This Month"
+}, {
+  key: "this year",
+  text: "this year",
+  value: "year",
+  content: "This Year"
+}];
+
+var StreamerClipFilter = function (_Component) {
+  _inherits(StreamerClipFilter, _Component);
+
+  function StreamerClipFilter(props) {
+    _classCallCheck(this, StreamerClipFilter);
+
+    var _this = _possibleConstructorReturn(this, (StreamerClipFilter.__proto__ || Object.getPrototypeOf(StreamerClipFilter)).call(this, props));
+
+    _this.onCheckBoxChanged = function () {
+      var _this$props = _this.props,
+          setAutomaticCheckbox = _this$props.setAutomaticCheckbox,
+          ui = _this$props.ui;
+
+      if (ui.automaticCheckbox) {
+        setAutomaticCheckbox(false);
+      } else {
+        setAutomaticCheckbox(true);
+      }
+      _this.props.checkBoxChanged();
+    };
+
+    _this.onTimeChanged = function (value) {
+      var setTimeFilter = _this.props.setTimeFilter;
+
+      setTimeFilter(value);
+      _this.props.timeChanged(value);
+    };
+
+    _this.onGameSearchChanged = function (value) {
+      if (_this.timeout) clearTimeout(_this.timeout);
+      _this.timeout = setTimeout(function () {
+        _this.props.gameSearchValueChanged(value);
+      }, 1000);
+    };
+
+    _this.onTitleSearchChanged = function (value) {
+      if (_this.timeout) clearTimeout(_this.timeout);
+      _this.timeout = setTimeout(function () {
+        _this.props.titleSearchValueChanged(value);
+      }, 1000);
+    };
+
+    _this.timeout = 0;
+    return _this;
+  }
+
+  _createClass(StreamerClipFilter, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var ui = this.props.ui;
+
+      return _react2.default.createElement(
+        _semanticUiReact.Menu,
+        { fluid: true, borderless: true, size: "large" },
+        _react2.default.createElement(
+          _semanticUiReact.Menu.Item,
+          { header: true, active: true },
+          _react2.default.createElement(_semanticUiReact.Icon, { name: "filter" }),
+          "Filters"
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Menu.Item,
+          null,
+          _react2.default.createElement(_semanticUiReact.Input, {
+            className: "icon",
+            icon: "film",
+            iconPosition: "left",
+            placeholder: "Search A Clip",
+            size: "medium",
+            style: { marginRight: "10px" },
+            onChange: function onChange(e, _ref) {
+              var value = _ref.value;
+              return _this2.onTitleSearchChanged(value);
+            }
+          }),
+          _react2.default.createElement(_semanticUiReact.Input, {
+            className: "icon",
+            icon: "gamepad",
+            iconPosition: "left",
+            placeholder: "Search A Game",
+            size: "medium",
+            onChange: function onChange(e, _ref2) {
+              var value = _ref2.value;
+              return _this2.onGameSearchChanged(value);
+            }
+          })
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Menu.Item,
+          null,
+          _react2.default.createElement(
+            _semanticUiReact.Header,
+            { as: "h4" },
+            _react2.default.createElement(_semanticUiReact.Icon, { name: "eye" }),
+            _react2.default.createElement(
+              _semanticUiReact.Header.Content,
+              null,
+              "Most viewed",
+              " ",
+              _react2.default.createElement(_semanticUiReact.Dropdown, {
+                inline: true,
+                header: "Adjust time span",
+                options: timeOptions,
+                defaultValue: ui.time,
+                onChange: function onChange(e, _ref3) {
+                  var value = _ref3.value;
+                  return _this2.onTimeChanged(value);
+                }
+              })
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return StreamerClipFilter;
+}(_react.Component);
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(StreamerClipFilter);
 
 /***/ })
 /******/ ]);
