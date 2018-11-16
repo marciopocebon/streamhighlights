@@ -10,7 +10,7 @@ const mapStateToProps = state => ({
 const StreamerPageHeader = ({ streamer, numberOfClips }) => {
   return (
     <div>
-    <StreamerDetailPageHelmet streamer={streamer.displayName} />
+    {streamer && <StreamerDetailPageHelmet streamer={streamer.displayName} />}
     <Segment className="bordered-segment">
       {streamer && (
         <Item.Group>

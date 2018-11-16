@@ -5,6 +5,7 @@ import GameItem from "../components/games/GameItem";
 import { getGames, fetchMoreGames } from "./../reducers/games/index";
 import GameGridFilter from "../components/games/GameGridFilter";
 import GameActivityFeed from "../components/activity/GameActivityFeed";
+import GamesPageHelmet from "../components/seo/GamesPageHelmet";
 
 class GamesPage extends Component {
   constructor(props) {
@@ -45,59 +46,62 @@ class GamesPage extends Component {
   render() {
     const { games } = this.props;
     return (
-      <Grid>
-        <Grid.Column width={10}>
-          <Segment className="streamer-segment" loading={games.fetching}>
-            <Label attached="top" size="big" className="colored-label">
-              <Icon name="user" />
-              Games
-            </Label>
-            <div className="segment-grid-filter">
-              <GameGridFilter searchValueChanged={this.searchValueChanged} />
-              <Divider horizontal>Results</Divider>
-              <div
-                ref={scroller => {
-                  this.scroller = scroller;
-                }}
-                onScroll={this.handleScroll}
-                style={{
-                  height: "75vh",
-                  overflowY: "auto",
-                  overflowX: "hidden",
-                  paddingRight: "10px"
-                }}
-              >
-                <Grid
-                  stackable
-                  columns={4}
-                  className="streamer-grid animated fadeIn"
+      <div>
+        <GamesPageHelmet />
+        <Grid>
+          <Grid.Column width={10}>
+            <Segment className="streamer-segment" loading={games.fetching}>
+              <Label attached="top" size="big" className="colored-label">
+                <Icon name="user" />
+                Games
+              </Label>
+              <div className="segment-grid-filter">
+                <GameGridFilter searchValueChanged={this.searchValueChanged} />
+                <Divider horizontal>Results</Divider>
+                <div
+                  ref={scroller => {
+                    this.scroller = scroller;
+                  }}
+                  onScroll={this.handleScroll}
+                  style={{
+                    height: "75vh",
+                    overflowY: "auto",
+                    overflowX: "hidden",
+                    paddingRight: "10px"
+                  }}
                 >
-                  <Grid.Row>
-                    {games.items &&
-                      games.items.map((game, index) => {
-                        return (
-                          game && (
-                            <Grid.Column width={4} key={index}>
-                              <GameItem
-                                key={index}
-                                game={game}
-                                numberOfClips={game.numberOfClips}
-                              />
-                            </Grid.Column>
-                          )
-                        );
-                      })}
-                  </Grid.Row>
-                </Grid>
+                  <Grid
+                    stackable
+                    columns={4}
+                    className="streamer-grid animated fadeIn"
+                  >
+                    <Grid.Row>
+                      {games.items &&
+                        games.items.map((game, index) => {
+                          return (
+                            game && (
+                              <Grid.Column width={4} key={index}>
+                                <GameItem
+                                  key={index}
+                                  game={game}
+                                  numberOfClips={game.numberOfClips}
+                                />
+                              </Grid.Column>
+                            )
+                          );
+                        })}
+                    </Grid.Row>
+                  </Grid>
+                </div>
               </div>
-            </div>
-          </Segment>
-        </Grid.Column>
+            </Segment>
+          </Grid.Column>
 
-        <Grid.Column width={6}>
-          <GameActivityFeed />
-        </Grid.Column>
-      </Grid>
+          <Grid.Column width={6}>
+            <GameActivityFeed />
+          </Grid.Column>
+        </Grid>
+      </div>
     );
   }
 }

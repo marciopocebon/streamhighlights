@@ -17,7 +17,7 @@ class TopMenu extends Component {
   render() {
     const { activeItem } = this.state;
     return (
-      <Menu stackable borderless>
+      <Menu stackable borderless size='huge'>
         <Menu.Item className="brand">Stream Highlights</Menu.Item>
         <Menu.Item
           as={Link}

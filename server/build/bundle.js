@@ -287,6 +287,12 @@ var setTimeFilter = exports.setTimeFilter = function setTimeFilter(time) {
 
 /***/ }),
 /* 8 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-helmet");
+
+/***/ }),
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -395,7 +401,7 @@ var fetchMoreActivity = exports.fetchMoreActivity = function fetchMoreActivity(p
 exports.default = activity;
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -408,7 +414,7 @@ exports.fetchMoreArchive = exports.fetchMoreArchiveByStreamer = exports.getArchi
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _index = __webpack_require__(51);
+var _index = __webpack_require__(53);
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
@@ -564,7 +570,7 @@ var fetchMoreArchive = exports.fetchMoreArchive = function fetchMoreArchive(arch
 exports.default = archives;
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -577,7 +583,7 @@ exports.fetchMoreClipsByGame = exports.getClipsByGame = exports.fetchMoreClipsBy
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _index = __webpack_require__(52);
+var _index = __webpack_require__(54);
 
 var _ui = __webpack_require__(7);
 
@@ -800,13 +806,13 @@ var fetchMoreClipsByGame = exports.fetchMoreClipsByGame = function fetchMoreClip
 exports.default = clips;
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-router-config");
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -843,7 +849,7 @@ function VideoPlayer(_ref) {
 exports.default = VideoPlayer;
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -875,19 +881,19 @@ var _StreamersPage = __webpack_require__(39);
 
 var _StreamersPage2 = _interopRequireDefault(_StreamersPage);
 
-var _StreamerDetailPage = __webpack_require__(45);
+var _StreamerDetailPage = __webpack_require__(46);
 
 var _StreamerDetailPage2 = _interopRequireDefault(_StreamerDetailPage);
 
-var _SessionPage = __webpack_require__(53);
+var _SessionPage = __webpack_require__(55);
 
 var _SessionPage2 = _interopRequireDefault(_SessionPage);
 
-var _GamesPage = __webpack_require__(62);
+var _GamesPage = __webpack_require__(64);
 
 var _GamesPage2 = _interopRequireDefault(_GamesPage);
 
-var _GamesDetailPage = __webpack_require__(66);
+var _GamesDetailPage = __webpack_require__(68);
 
 var _GamesDetailPage2 = _interopRequireDefault(_GamesDetailPage);
 
@@ -911,12 +917,6 @@ exports.default = [_extends({}, _App2.default, {
     path: "/admins"
   }, _AdminsListPage2.default), _extends({}, _NotFoundPage2.default)]
 })];
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-helmet");
 
 /***/ }),
 /* 15 */
@@ -1399,21 +1399,21 @@ var _express = __webpack_require__(27);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _reactRouterConfig = __webpack_require__(11);
+var _reactRouterConfig = __webpack_require__(12);
 
-var _routes = __webpack_require__(13);
+var _routes = __webpack_require__(14);
 
 var _routes2 = _interopRequireDefault(_routes);
 
-var _expressHttpProxy = __webpack_require__(70);
+var _expressHttpProxy = __webpack_require__(72);
 
 var _expressHttpProxy2 = _interopRequireDefault(_expressHttpProxy);
 
-var _renderer = __webpack_require__(71);
+var _renderer = __webpack_require__(73);
 
 var _renderer2 = _interopRequireDefault(_renderer);
 
-var _createStore = __webpack_require__(74);
+var _createStore = __webpack_require__(76);
 
 var _createStore2 = _interopRequireDefault(_createStore);
 
@@ -1513,7 +1513,7 @@ var _reactRedux = __webpack_require__(2);
 
 var _actions = __webpack_require__(5);
 
-var _reactHelmet = __webpack_require__(14);
+var _reactHelmet = __webpack_require__(8);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1618,7 +1618,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterConfig = __webpack_require__(11);
+var _reactRouterConfig = __webpack_require__(12);
 
 var _index = __webpack_require__(5);
 
@@ -1724,7 +1724,7 @@ var TopMenu = function (_Component) {
 
       return _react2.default.createElement(
         _semanticUiReact.Menu,
-        { stackable: true, borderless: true },
+        { stackable: true, borderless: true, size: "huge" },
         _react2.default.createElement(
           _semanticUiReact.Menu.Item,
           { className: "brand" },
@@ -3752,13 +3752,13 @@ var _StreamerGridFilter2 = _interopRequireDefault(_StreamerGridFilter);
 
 var _index = __webpack_require__(20);
 
-var _activity = __webpack_require__(8);
+var _activity = __webpack_require__(9);
 
 var _ActivityFeed = __webpack_require__(43);
 
 var _ActivityFeed2 = _interopRequireDefault(_ActivityFeed);
 
-var _StreamersPageHelmet = __webpack_require__(82);
+var _StreamersPageHelmet = __webpack_require__(45);
 
 var _StreamersPageHelmet2 = _interopRequireDefault(_StreamersPageHelmet);
 
@@ -4164,7 +4164,7 @@ var _reactTimeago2 = _interopRequireDefault(_reactTimeago);
 
 var _languageUtils = __webpack_require__(4);
 
-var _index = __webpack_require__(8);
+var _index = __webpack_require__(9);
 
 var _ActivityModal = __webpack_require__(44);
 
@@ -4362,7 +4362,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _VideoPlayer = __webpack_require__(12);
+var _VideoPlayer = __webpack_require__(13);
 
 var _VideoPlayer2 = _interopRequireDefault(_VideoPlayer);
 
@@ -4440,6 +4440,67 @@ exports.default = (0, _reactRouterDom.withRouter)(ActivityModal);
 
 
 Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactHelmet = __webpack_require__(8);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var StreamersPageHelmet = function (_Component) {
+    _inherits(StreamersPageHelmet, _Component);
+
+    function StreamersPageHelmet() {
+        _classCallCheck(this, StreamersPageHelmet);
+
+        return _possibleConstructorReturn(this, (StreamersPageHelmet.__proto__ || Object.getPrototypeOf(StreamersPageHelmet)).apply(this, arguments));
+    }
+
+    _createClass(StreamersPageHelmet, [{
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement(
+                _reactHelmet.Helmet,
+                null,
+                _react2.default.createElement(
+                    "title",
+                    null,
+                    "Stream Highlights - Streamers Clips & Highlights"
+                ),
+                _react2.default.createElement("meta", { "http-equiv": "Content-Type", content: "text/html; charset=utf-8" }),
+                _react2.default.createElement("meta", { name: "viewport", content: "width=device-width, initial-scale=1" }),
+                _react2.default.createElement("meta", { name: "keywords", content: "twitch, clips, highlights, league of legends, lol, fortnite, videos" }),
+                _react2.default.createElement("meta", { property: "og:title", content: "stream highlights" }),
+                _react2.default.createElement("meta", { property: "description", content: "Streams Highlights gathers the best clips and highlights from Twitch. We provide unique clips for League of Legends, Fortnite, Counter-Strike and many more." })
+            );
+        }
+    }]);
+
+    return StreamersPageHelmet;
+}(_react.Component);
+
+exports.default = StreamersPageHelmet;
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
@@ -4455,21 +4516,21 @@ var _reactRedux = __webpack_require__(2);
 
 var _index = __webpack_require__(7);
 
-var _StreamerPageHeader = __webpack_require__(46);
+var _StreamerPageHeader = __webpack_require__(47);
 
 var _StreamerPageHeader2 = _interopRequireDefault(_StreamerPageHeader);
 
-var _StreamerClipTable = __webpack_require__(47);
+var _StreamerClipTable = __webpack_require__(49);
 
 var _StreamerClipTable2 = _interopRequireDefault(_StreamerClipTable);
 
-var _StreamerArchiveTable = __webpack_require__(50);
+var _StreamerArchiveTable = __webpack_require__(52);
 
 var _StreamerArchiveTable2 = _interopRequireDefault(_StreamerArchiveTable);
 
-var _index2 = __webpack_require__(10);
+var _index2 = __webpack_require__(11);
 
-var _VideoPlayer = __webpack_require__(12);
+var _VideoPlayer = __webpack_require__(13);
 
 var _VideoPlayer2 = _interopRequireDefault(_VideoPlayer);
 
@@ -4728,7 +4789,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4746,7 +4807,7 @@ var _semanticUiReact = __webpack_require__(1);
 
 var _reactRedux = __webpack_require__(2);
 
-var _StreamerDetailPageHelmet = __webpack_require__(83);
+var _StreamerDetailPageHelmet = __webpack_require__(48);
 
 var _StreamerDetailPageHelmet2 = _interopRequireDefault(_StreamerDetailPageHelmet);
 
@@ -4765,7 +4826,7 @@ var StreamerPageHeader = function StreamerPageHeader(_ref) {
   return _react2.default.createElement(
     "div",
     null,
-    _react2.default.createElement(_StreamerDetailPageHelmet2.default, { streamer: streamer.displayName }),
+    streamer && _react2.default.createElement(_StreamerDetailPageHelmet2.default, { streamer: streamer.displayName }),
     _react2.default.createElement(
       _semanticUiReact.Segment,
       { className: "bordered-segment" },
@@ -4836,7 +4897,70 @@ var StreamerPageHeader = function StreamerPageHeader(_ref) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(StreamerPageHeader);
 
 /***/ }),
-/* 47 */
+/* 48 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactHelmet = __webpack_require__(8);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var StreamerDetailPageHelmet = function (_Component) {
+    _inherits(StreamerDetailPageHelmet, _Component);
+
+    function StreamerDetailPageHelmet() {
+        _classCallCheck(this, StreamerDetailPageHelmet);
+
+        return _possibleConstructorReturn(this, (StreamerDetailPageHelmet.__proto__ || Object.getPrototypeOf(StreamerDetailPageHelmet)).apply(this, arguments));
+    }
+
+    _createClass(StreamerDetailPageHelmet, [{
+        key: "render",
+        value: function render() {
+            var streamer = this.props.streamer;
+
+            return _react2.default.createElement(
+                _reactHelmet.Helmet,
+                null,
+                _react2.default.createElement(
+                    "title",
+                    null,
+                    streamer + " - Best Clips & Highlights"
+                ),
+                _react2.default.createElement("meta", { "http-equiv": "Content-Type", content: "text/html; charset=utf-8" }),
+                _react2.default.createElement("meta", { name: "viewport", content: "width=device-width, initial-scale=1" }),
+                _react2.default.createElement("meta", { name: "keywords", content: "twitch, clips, highlights, league of legends, lol, fortnite, videos, " + streamer + " " }),
+                _react2.default.createElement("meta", { property: "og:title", content: "stream highlights" }),
+                _react2.default.createElement("meta", { property: "description", content: "Streams Highlights gathers the best clips and highlights from Twitch. Find the best clips and highlights for " + streamer + " now!" })
+            );
+        }
+    }]);
+
+    return StreamerDetailPageHelmet;
+}(_react.Component);
+
+exports.default = StreamerDetailPageHelmet;
+
+/***/ }),
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4860,11 +4984,11 @@ var _reactTimeago2 = _interopRequireDefault(_reactTimeago);
 
 var _languageUtils = __webpack_require__(4);
 
-var _NoResultsSegment = __webpack_require__(48);
+var _NoResultsSegment = __webpack_require__(50);
 
 var _NoResultsSegment2 = _interopRequireDefault(_NoResultsSegment);
 
-var _StreamerClipFilter = __webpack_require__(49);
+var _StreamerClipFilter = __webpack_require__(51);
 
 var _StreamerClipFilter2 = _interopRequireDefault(_StreamerClipFilter);
 
@@ -5128,7 +5252,7 @@ var StreamerClipTable = function (_Component) {
 exports.default = StreamerClipTable;
 
 /***/ }),
-/* 48 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5205,7 +5329,7 @@ var NoResultsSegment = function (_Component) {
 exports.default = NoResultsSegment;
 
 /***/ }),
-/* 49 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5398,7 +5522,7 @@ var StreamerClipFilter = function (_Component) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(StreamerClipFilter);
 
 /***/ }),
-/* 50 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5424,9 +5548,9 @@ var _reactTimeago2 = _interopRequireDefault(_reactTimeago);
 
 var _reactRedux = __webpack_require__(2);
 
-var _archives = __webpack_require__(9);
+var _archives = __webpack_require__(10);
 
-var _index = __webpack_require__(9);
+var _index = __webpack_require__(10);
 
 var _languageUtils = __webpack_require__(4);
 
@@ -5635,7 +5759,7 @@ var StreamerArchiveTable = function (_Component) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(StreamerArchiveTable);
 
 /***/ }),
-/* 51 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5669,7 +5793,7 @@ var appendArchive = exports.appendArchive = function appendArchive(archive) {
 };
 
 /***/ }),
-/* 52 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5703,7 +5827,7 @@ var appendClips = exports.appendClips = function appendClips(clips) {
 };
 
 /***/ }),
-/* 53 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5723,29 +5847,29 @@ var _reactRedux = __webpack_require__(2);
 
 var _semanticUiReact = __webpack_require__(1);
 
-var _index = __webpack_require__(9);
+var _index = __webpack_require__(10);
 
-var _SessionPageHeader = __webpack_require__(54);
+var _SessionPageHeader = __webpack_require__(56);
 
 var _SessionPageHeader2 = _interopRequireDefault(_SessionPageHeader);
 
-var _SessionAvailabilityMessage = __webpack_require__(55);
+var _SessionAvailabilityMessage = __webpack_require__(57);
 
 var _SessionAvailabilityMessage2 = _interopRequireDefault(_SessionAvailabilityMessage);
 
-var _SessionPlayer = __webpack_require__(58);
+var _SessionPlayer = __webpack_require__(60);
 
 var _SessionPlayer2 = _interopRequireDefault(_SessionPlayer);
 
-var _SessionMessage = __webpack_require__(60);
+var _SessionMessage = __webpack_require__(62);
 
 var _SessionMessage2 = _interopRequireDefault(_SessionMessage);
 
-var _SessionClipTable = __webpack_require__(61);
+var _SessionClipTable = __webpack_require__(63);
 
 var _SessionClipTable2 = _interopRequireDefault(_SessionClipTable);
 
-var _clips = __webpack_require__(10);
+var _clips = __webpack_require__(11);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5858,7 +5982,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 54 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5879,6 +6003,10 @@ var _reactRedux = __webpack_require__(2);
 var _semanticUiReact = __webpack_require__(1);
 
 var _languageUtils = __webpack_require__(4);
+
+var _SessionPageHelmet = __webpack_require__(86);
+
+var _SessionPageHelmet2 = _interopRequireDefault(_SessionPageHelmet);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5910,58 +6038,63 @@ var SessionPageHeader = function (_Component) {
       var archives = this.props.archives;
 
       return _react2.default.createElement(
-        _semanticUiReact.Segment,
-        { className: "bordered-segment" },
-        archives && archives.items[0] && archives.items[0].archive && _react2.default.createElement(
-          _semanticUiReact.Item.Group,
-          null,
-          _react2.default.createElement(
-            _semanticUiReact.Item,
+        "div",
+        null,
+        archives && archives.items[0] && archives.items[0].archive && _react2.default.createElement(_SessionPageHelmet2.default, { archive: archives.items[0].archive.title }),
+        _react2.default.createElement(
+          _semanticUiReact.Segment,
+          { className: "bordered-segment" },
+          archives && archives.items[0] && archives.items[0].archive && _react2.default.createElement(
+            _semanticUiReact.Item.Group,
             null,
-            _react2.default.createElement(_semanticUiReact.Item.Image, {
-              size: "tiny",
-              src: archives.items[0].archive.thumbnailURL ? archives.items[0].archive.thumbnailURL.replace("%{width}", "600").replace("%{height}", "600") : "https://cdn.logojoy.com/wp-content/uploads/2018/07/30093609/twitch9-768x591.png"
-            }),
             _react2.default.createElement(
-              _semanticUiReact.Item.Content,
+              _semanticUiReact.Item,
               null,
+              _react2.default.createElement(_semanticUiReact.Item.Image, {
+                size: "tiny",
+                src: archives.items[0].archive.thumbnailURL ? archives.items[0].archive.thumbnailURL.replace("%{width}", "600").replace("%{height}", "600") : "https://cdn.logojoy.com/wp-content/uploads/2018/07/30093609/twitch9-768x591.png"
+              }),
               _react2.default.createElement(
-                _semanticUiReact.Item.Header,
+                _semanticUiReact.Item.Content,
                 null,
-                archives.items[0].archive.title
-              ),
-              _react2.default.createElement(
-                _semanticUiReact.Item.Meta,
-                null,
-                "Duration : ",
-                archives.items[0].archive.duration
-              ),
-              _react2.default.createElement(
-                _semanticUiReact.Item.Meta,
-                null,
-                "Language :",
-                " ",
-                _react2.default.createElement(_semanticUiReact.Flag, { name: (0, _languageUtils.mapToFlag)(archives.items[0].archive.language) })
-              ),
-              _react2.default.createElement(
-                _semanticUiReact.Item.Meta,
-                null,
-                "Views : ",
-                archives.items[0].archive.viewCount
-              ),
-              _react2.default.createElement(
-                _semanticUiReact.Item.Meta,
-                null,
-                "Direct Link :",
-                " ",
                 _react2.default.createElement(
-                  "a",
-                  {
-                    href: archives.items[0].archive.url,
-                    target: "_blank",
-                    rel: "noopener noreferrer"
-                  },
-                  archives.items[0].archive.url
+                  _semanticUiReact.Item.Header,
+                  null,
+                  archives.items[0].archive.title
+                ),
+                _react2.default.createElement(
+                  _semanticUiReact.Item.Meta,
+                  null,
+                  "Duration : ",
+                  archives.items[0].archive.duration
+                ),
+                _react2.default.createElement(
+                  _semanticUiReact.Item.Meta,
+                  null,
+                  "Language :",
+                  " ",
+                  _react2.default.createElement(_semanticUiReact.Flag, { name: (0, _languageUtils.mapToFlag)(archives.items[0].archive.language) })
+                ),
+                _react2.default.createElement(
+                  _semanticUiReact.Item.Meta,
+                  null,
+                  "Views : ",
+                  archives.items[0].archive.viewCount
+                ),
+                _react2.default.createElement(
+                  _semanticUiReact.Item.Meta,
+                  null,
+                  "Direct Link :",
+                  " ",
+                  _react2.default.createElement(
+                    "a",
+                    {
+                      href: archives.items[0].archive.url,
+                      target: "_blank",
+                      rel: "noopener noreferrer"
+                    },
+                    archives.items[0].archive.url
+                  )
                 )
               )
             )
@@ -5977,7 +6110,7 @@ var SessionPageHeader = function (_Component) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(SessionPageHeader);
 
 /***/ }),
-/* 55 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5997,11 +6130,11 @@ var _semanticUiReact = __webpack_require__(1);
 
 var _reactRedux = __webpack_require__(2);
 
-var _format = __webpack_require__(56);
+var _format = __webpack_require__(58);
 
 var _format2 = _interopRequireDefault(_format);
 
-var _add_days = __webpack_require__(57);
+var _add_days = __webpack_require__(59);
 
 var _add_days2 = _interopRequireDefault(_add_days);
 
@@ -6067,19 +6200,19 @@ var SessionAvailabilityMessage = function (_Component) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(SessionAvailabilityMessage);
 
 /***/ }),
-/* 56 */
+/* 58 */
 /***/ (function(module, exports) {
 
 module.exports = require("date-fns/format");
 
 /***/ }),
-/* 57 */
+/* 59 */
 /***/ (function(module, exports) {
 
 module.exports = require("date-fns/add_days");
 
 /***/ }),
-/* 58 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6095,7 +6228,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactPlayer = __webpack_require__(59);
+var _reactPlayer = __webpack_require__(61);
 
 var _reactPlayer2 = _interopRequireDefault(_reactPlayer);
 
@@ -6170,13 +6303,13 @@ var SessionPlayer = function (_React$Component) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(SessionPlayer);
 
 /***/ }),
-/* 59 */
+/* 61 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-player");
 
 /***/ }),
-/* 60 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6246,7 +6379,7 @@ var SessionMessage = function (_Component) {
 exports.default = SessionMessage;
 
 /***/ }),
-/* 61 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6487,7 +6620,7 @@ var SessionClipTable = function (_Component) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(SessionClipTable);
 
 /***/ }),
-/* 62 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6507,19 +6640,23 @@ var _semanticUiReact = __webpack_require__(1);
 
 var _reactRedux = __webpack_require__(2);
 
-var _GameItem = __webpack_require__(63);
+var _GameItem = __webpack_require__(65);
 
 var _GameItem2 = _interopRequireDefault(_GameItem);
 
 var _index = __webpack_require__(22);
 
-var _GameGridFilter = __webpack_require__(64);
+var _GameGridFilter = __webpack_require__(66);
 
 var _GameGridFilter2 = _interopRequireDefault(_GameGridFilter);
 
-var _GameActivityFeed = __webpack_require__(65);
+var _GameActivityFeed = __webpack_require__(67);
 
 var _GameActivityFeed2 = _interopRequireDefault(_GameActivityFeed);
+
+var _GamesPageHelmet = __webpack_require__(84);
+
+var _GamesPageHelmet2 = _interopRequireDefault(_GamesPageHelmet);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -6582,74 +6719,79 @@ var GamesPage = function (_Component) {
       var games = this.props.games;
 
       return _react2.default.createElement(
-        _semanticUiReact.Grid,
+        "div",
         null,
+        _react2.default.createElement(_GamesPageHelmet2.default, null),
         _react2.default.createElement(
-          _semanticUiReact.Grid.Column,
-          { width: 10 },
+          _semanticUiReact.Grid,
+          null,
           _react2.default.createElement(
-            _semanticUiReact.Segment,
-            { className: "streamer-segment", loading: games.fetching },
+            _semanticUiReact.Grid.Column,
+            { width: 10 },
             _react2.default.createElement(
-              _semanticUiReact.Label,
-              { attached: "top", size: "big", className: "colored-label" },
-              _react2.default.createElement(_semanticUiReact.Icon, { name: "user" }),
-              "Games"
-            ),
-            _react2.default.createElement(
-              "div",
-              { className: "segment-grid-filter" },
-              _react2.default.createElement(_GameGridFilter2.default, { searchValueChanged: this.searchValueChanged }),
+              _semanticUiReact.Segment,
+              { className: "streamer-segment", loading: games.fetching },
               _react2.default.createElement(
-                _semanticUiReact.Divider,
-                { horizontal: true },
-                "Results"
+                _semanticUiReact.Label,
+                { attached: "top", size: "big", className: "colored-label" },
+                _react2.default.createElement(_semanticUiReact.Icon, { name: "user" }),
+                "Games"
               ),
               _react2.default.createElement(
                 "div",
-                {
-                  ref: function ref(scroller) {
-                    _this2.scroller = scroller;
-                  },
-                  onScroll: this.handleScroll,
-                  style: {
-                    height: "75vh",
-                    overflowY: "auto",
-                    overflowX: "hidden",
-                    paddingRight: "10px"
-                  }
-                },
+                { className: "segment-grid-filter" },
+                _react2.default.createElement(_GameGridFilter2.default, { searchValueChanged: this.searchValueChanged }),
                 _react2.default.createElement(
-                  _semanticUiReact.Grid,
+                  _semanticUiReact.Divider,
+                  { horizontal: true },
+                  "Results"
+                ),
+                _react2.default.createElement(
+                  "div",
                   {
-                    stackable: true,
-                    columns: 4,
-                    className: "streamer-grid animated fadeIn"
+                    ref: function ref(scroller) {
+                      _this2.scroller = scroller;
+                    },
+                    onScroll: this.handleScroll,
+                    style: {
+                      height: "75vh",
+                      overflowY: "auto",
+                      overflowX: "hidden",
+                      paddingRight: "10px"
+                    }
                   },
                   _react2.default.createElement(
-                    _semanticUiReact.Grid.Row,
-                    null,
-                    games.items && games.items.map(function (game, index) {
-                      return game && _react2.default.createElement(
-                        _semanticUiReact.Grid.Column,
-                        { width: 4, key: index },
-                        _react2.default.createElement(_GameItem2.default, {
-                          key: index,
-                          game: game,
-                          numberOfClips: game.numberOfClips
-                        })
-                      );
-                    })
+                    _semanticUiReact.Grid,
+                    {
+                      stackable: true,
+                      columns: 4,
+                      className: "streamer-grid animated fadeIn"
+                    },
+                    _react2.default.createElement(
+                      _semanticUiReact.Grid.Row,
+                      null,
+                      games.items && games.items.map(function (game, index) {
+                        return game && _react2.default.createElement(
+                          _semanticUiReact.Grid.Column,
+                          { width: 4, key: index },
+                          _react2.default.createElement(_GameItem2.default, {
+                            key: index,
+                            game: game,
+                            numberOfClips: game.numberOfClips
+                          })
+                        );
+                      })
+                    )
                   )
                 )
               )
             )
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Grid.Column,
+            { width: 6 },
+            _react2.default.createElement(_GameActivityFeed2.default, null)
           )
-        ),
-        _react2.default.createElement(
-          _semanticUiReact.Grid.Column,
-          { width: 6 },
-          _react2.default.createElement(_GameActivityFeed2.default, null)
         )
       );
     }
@@ -6674,7 +6816,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 63 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6753,7 +6895,7 @@ var GameItem = function GameItem(_ref) {
 exports.default = GameItem;
 
 /***/ }),
-/* 64 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6837,7 +6979,7 @@ var GameGridFilter = function (_Component) {
 exports.default = GameGridFilter;
 
 /***/ }),
-/* 65 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6863,7 +7005,7 @@ var _reactTimeago2 = _interopRequireDefault(_reactTimeago);
 
 var _languageUtils = __webpack_require__(4);
 
-var _index = __webpack_require__(8);
+var _index = __webpack_require__(9);
 
 var _reactRouterDom = __webpack_require__(3);
 
@@ -7023,7 +7165,7 @@ function mapStateToProps(_ref) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, { getActivity: _index.getActivity, fetchMoreActivity: _index.fetchMoreActivity })(GameActivityFeed));
 
 /***/ }),
-/* 66 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7039,17 +7181,17 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _clips = __webpack_require__(10);
+var _clips = __webpack_require__(11);
 
 var _semanticUiReact = __webpack_require__(1);
 
 var _reactRedux = __webpack_require__(2);
 
-var _GamePageHeader = __webpack_require__(67);
+var _GamePageHeader = __webpack_require__(69);
 
 var _GamePageHeader2 = _interopRequireDefault(_GamePageHeader);
 
-var _GameClipTable = __webpack_require__(68);
+var _GameClipTable = __webpack_require__(70);
 
 var _GameClipTable2 = _interopRequireDefault(_GameClipTable);
 
@@ -7057,7 +7199,7 @@ var _StreamerVideoArchive = __webpack_require__(21);
 
 var _StreamerVideoArchive2 = _interopRequireDefault(_StreamerVideoArchive);
 
-var _VideoPlayer = __webpack_require__(12);
+var _VideoPlayer = __webpack_require__(13);
 
 var _VideoPlayer2 = _interopRequireDefault(_VideoPlayer);
 
@@ -7273,7 +7415,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 67 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7291,6 +7433,10 @@ var _semanticUiReact = __webpack_require__(1);
 
 var _reactRedux = __webpack_require__(2);
 
+var _GamesDetailPageHelmet = __webpack_require__(85);
+
+var _GamesDetailPageHelmet2 = _interopRequireDefault(_GamesDetailPageHelmet);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -7304,31 +7450,36 @@ var GamePageHeader = function GamePageHeader(_ref) {
       numberOfClips = _ref.numberOfClips;
 
   return _react2.default.createElement(
-    _semanticUiReact.Segment,
-    { className: "bordered-segment" },
-    game && _react2.default.createElement(
-      _semanticUiReact.Item.Group,
-      null,
-      _react2.default.createElement(
-        _semanticUiReact.Item,
+    "div",
+    null,
+    game && _react2.default.createElement(_GamesDetailPageHelmet2.default, { game: game.name }),
+    _react2.default.createElement(
+      _semanticUiReact.Segment,
+      { className: "bordered-segment" },
+      game && _react2.default.createElement(
+        _semanticUiReact.Item.Group,
         null,
-        _react2.default.createElement(_semanticUiReact.Item.Image, {
-          size: "tiny",
-          src: game.boxArtURL.replace("{width}", "285").replace("{height}", "380")
-        }),
         _react2.default.createElement(
-          _semanticUiReact.Item.Content,
+          _semanticUiReact.Item,
           null,
+          _react2.default.createElement(_semanticUiReact.Item.Image, {
+            size: "tiny",
+            src: game.boxArtURL.replace("{width}", "285").replace("{height}", "380")
+          }),
           _react2.default.createElement(
-            _semanticUiReact.Item.Header,
+            _semanticUiReact.Item.Content,
             null,
-            game.name
-          ),
-          _react2.default.createElement(
-            _semanticUiReact.Item.Meta,
-            null,
-            numberOfClips,
-            " clips"
+            _react2.default.createElement(
+              _semanticUiReact.Item.Header,
+              null,
+              game.name
+            ),
+            _react2.default.createElement(
+              _semanticUiReact.Item.Meta,
+              null,
+              numberOfClips,
+              " clips"
+            )
           )
         )
       )
@@ -7339,7 +7490,7 @@ var GamePageHeader = function GamePageHeader(_ref) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps)(GamePageHeader);
 
 /***/ }),
-/* 68 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7363,7 +7514,7 @@ var _reactTimeago2 = _interopRequireDefault(_reactTimeago);
 
 var _languageUtils = __webpack_require__(4);
 
-var _GameClipFilter = __webpack_require__(69);
+var _GameClipFilter = __webpack_require__(71);
 
 var _GameClipFilter2 = _interopRequireDefault(_GameClipFilter);
 
@@ -7626,7 +7777,7 @@ var GameClipTable = function (_Component) {
 exports.default = GameClipTable;
 
 /***/ }),
-/* 69 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7762,13 +7913,13 @@ var GameClipFilter = function (_Component) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(GameClipFilter);
 
 /***/ }),
-/* 70 */
+/* 72 */
 /***/ (function(module, exports) {
 
 module.exports = require("express-http-proxy");
 
 /***/ }),
-/* 71 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7782,23 +7933,23 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _server = __webpack_require__(72);
+var _server = __webpack_require__(74);
 
 var _reactRouterDom = __webpack_require__(3);
 
 var _reactRedux = __webpack_require__(2);
 
-var _reactRouterConfig = __webpack_require__(11);
+var _reactRouterConfig = __webpack_require__(12);
 
-var _routes = __webpack_require__(13);
+var _routes = __webpack_require__(14);
 
 var _routes2 = _interopRequireDefault(_routes);
 
-var _serializeJavascript = __webpack_require__(73);
+var _serializeJavascript = __webpack_require__(75);
 
 var _serializeJavascript2 = _interopRequireDefault(_serializeJavascript);
 
-var _reactHelmet = __webpack_require__(14);
+var _reactHelmet = __webpack_require__(8);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -7823,19 +7974,19 @@ exports.default = function (req, store, context) {
 };
 
 /***/ }),
-/* 72 */
+/* 74 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 73 */
+/* 75 */
 /***/ (function(module, exports) {
 
 module.exports = require("serialize-javascript");
 
 /***/ }),
-/* 74 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7847,15 +7998,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(24);
 
-var _reduxThunk = __webpack_require__(75);
+var _reduxThunk = __webpack_require__(77);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _index = __webpack_require__(76);
+var _index = __webpack_require__(78);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _axios = __webpack_require__(81);
+var _axios = __webpack_require__(83);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -7871,13 +8022,13 @@ exports.default = function (req) {
 };
 
 /***/ }),
-/* 75 */
+/* 77 */
 /***/ (function(module, exports) {
 
 module.exports = require("redux-thunk");
 
 /***/ }),
-/* 76 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7889,15 +8040,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(24);
 
-var _usersReducer = __webpack_require__(77);
+var _usersReducer = __webpack_require__(79);
 
 var _usersReducer2 = _interopRequireDefault(_usersReducer);
 
-var _authReducer = __webpack_require__(78);
+var _authReducer = __webpack_require__(80);
 
 var _authReducer2 = _interopRequireDefault(_authReducer);
 
-var _adminsReducer = __webpack_require__(79);
+var _adminsReducer = __webpack_require__(81);
 
 var _adminsReducer2 = _interopRequireDefault(_adminsReducer);
 
@@ -7905,19 +8056,19 @@ var _index = __webpack_require__(19);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _index3 = __webpack_require__(8);
+var _index3 = __webpack_require__(9);
 
 var _index4 = _interopRequireDefault(_index3);
 
-var _index5 = __webpack_require__(10);
+var _index5 = __webpack_require__(11);
 
 var _index6 = _interopRequireDefault(_index5);
 
-var _index7 = __webpack_require__(80);
+var _index7 = __webpack_require__(82);
 
 var _index8 = _interopRequireDefault(_index7);
 
-var _index9 = __webpack_require__(9);
+var _index9 = __webpack_require__(10);
 
 var _index10 = _interopRequireDefault(_index9);
 
@@ -7940,7 +8091,7 @@ exports.default = (0, _redux.combineReducers)({
 });
 
 /***/ }),
-/* 77 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7965,7 +8116,7 @@ exports.default = function () {
 };
 
 /***/ }),
-/* 78 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7990,7 +8141,7 @@ exports.default = function () {
 var _index = __webpack_require__(5);
 
 /***/ }),
-/* 79 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8015,7 +8166,7 @@ exports.default = function () {
 };
 
 /***/ }),
-/* 80 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8086,20 +8237,20 @@ var setAutomaticCheckboxValue = exports.setAutomaticCheckboxValue = function set
 exports.default = ui;
 
 /***/ }),
-/* 81 */
+/* 83 */
 /***/ (function(module, exports) {
 
 module.exports = require("axios");
 
 /***/ }),
-/* 82 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -8108,7 +8259,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactHelmet = __webpack_require__(14);
+var _reactHelmet = __webpack_require__(8);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -8118,42 +8269,48 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var StreamersPageHelmet = function (_Component) {
-    _inherits(StreamersPageHelmet, _Component);
+var GamesPageHelmet = function (_Component) {
+  _inherits(GamesPageHelmet, _Component);
 
-    function StreamersPageHelmet() {
-        _classCallCheck(this, StreamersPageHelmet);
+  function GamesPageHelmet() {
+    _classCallCheck(this, GamesPageHelmet);
 
-        return _possibleConstructorReturn(this, (StreamersPageHelmet.__proto__ || Object.getPrototypeOf(StreamersPageHelmet)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (GamesPageHelmet.__proto__ || Object.getPrototypeOf(GamesPageHelmet)).apply(this, arguments));
+  }
+
+  _createClass(GamesPageHelmet, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        _reactHelmet.Helmet,
+        null,
+        _react2.default.createElement(
+          "title",
+          null,
+          "Stream Highlights - Streamers Clips & Highlights"
+        ),
+        _react2.default.createElement("meta", { "http-equiv": "Content-Type", content: "text/html; charset=utf-8" }),
+        _react2.default.createElement("meta", { name: "viewport", content: "width=device-width, initial-scale=1" }),
+        _react2.default.createElement("meta", {
+          name: "keywords",
+          content: "twitch, clips, highlights, league of legends, lol, fortnite, videos"
+        }),
+        _react2.default.createElement("meta", { property: "og:title", content: "stream highlights" }),
+        _react2.default.createElement("meta", {
+          property: "description",
+          content: "Streams Highlights gathers the best clips and highlights from Twitch. We provide unique clips for League of Legends, Fortnite, Counter-Strike, Overwatch and all the best trending games."
+        })
+      );
     }
+  }]);
 
-    _createClass(StreamersPageHelmet, [{
-        key: "render",
-        value: function render() {
-            return _react2.default.createElement(
-                _reactHelmet.Helmet,
-                null,
-                _react2.default.createElement(
-                    "title",
-                    null,
-                    "Stream Highlights - Streamers Clips & Highlights"
-                ),
-                _react2.default.createElement("meta", { "http-equiv": "Content-Type", content: "text/html; charset=utf-8" }),
-                _react2.default.createElement("meta", { name: "viewport", content: "width=device-width, initial-scale=1" }),
-                _react2.default.createElement("meta", { name: "keywords", content: "twitch, clips, highlights, league of legends, lol, fortnite, videos" }),
-                _react2.default.createElement("meta", { property: "og:title", content: "stream highlights" }),
-                _react2.default.createElement("meta", { property: "description", content: "Streams Highlights gathers the best clips and highlights from Twitch. We provide unique clips for League of Legends, Fortnite, Counter-Strike and many more." })
-            );
-        }
-    }]);
-
-    return StreamersPageHelmet;
+  return GamesPageHelmet;
 }(_react.Component);
 
-exports.default = StreamersPageHelmet;
+exports.default = GamesPageHelmet;
 
 /***/ }),
-/* 83 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8169,7 +8326,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactHelmet = __webpack_require__(14);
+var _reactHelmet = __webpack_require__(8);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -8191,7 +8348,7 @@ var StreamerDetailPageHelmet = function (_Component) {
     _createClass(StreamerDetailPageHelmet, [{
         key: "render",
         value: function render() {
-            var streamer = this.props.streamer;
+            var game = this.props.game;
 
             return _react2.default.createElement(
                 _reactHelmet.Helmet,
@@ -8199,13 +8356,13 @@ var StreamerDetailPageHelmet = function (_Component) {
                 _react2.default.createElement(
                     "title",
                     null,
-                    "Stream Highlights - Best Clips for " + streamer
+                    game + " - Best Clips & Highlights"
                 ),
                 _react2.default.createElement("meta", { "http-equiv": "Content-Type", content: "text/html; charset=utf-8" }),
                 _react2.default.createElement("meta", { name: "viewport", content: "width=device-width, initial-scale=1" }),
-                _react2.default.createElement("meta", { name: "keywords", content: "twitch, clips, highlights, league of legends, lol, fortnite, videos, " + streamer + " " }),
+                _react2.default.createElement("meta", { name: "keywords", content: "twitch, clips, highlights, league of legends, lol, fortnite, videos, " + game + " " }),
                 _react2.default.createElement("meta", { property: "og:title", content: "stream highlights" }),
-                _react2.default.createElement("meta", { property: "description", content: "Streams Highlights gathers the best clips and highlights from Twitch. Find the best clips and highlights for " + streamer + " now!" })
+                _react2.default.createElement("meta", { property: "description", content: "Streams Highlights gathers the best clips and highlights from Twitch. Find the best clips and highlights for " + game + " now!" })
             );
         }
     }]);
@@ -8214,6 +8371,69 @@ var StreamerDetailPageHelmet = function (_Component) {
 }(_react.Component);
 
 exports.default = StreamerDetailPageHelmet;
+
+/***/ }),
+/* 86 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactHelmet = __webpack_require__(8);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SessionPageHelmet = function (_Component) {
+    _inherits(SessionPageHelmet, _Component);
+
+    function SessionPageHelmet() {
+        _classCallCheck(this, SessionPageHelmet);
+
+        return _possibleConstructorReturn(this, (SessionPageHelmet.__proto__ || Object.getPrototypeOf(SessionPageHelmet)).apply(this, arguments));
+    }
+
+    _createClass(SessionPageHelmet, [{
+        key: "render",
+        value: function render() {
+            var archive = this.props.archive;
+
+            return _react2.default.createElement(
+                _reactHelmet.Helmet,
+                null,
+                _react2.default.createElement(
+                    "title",
+                    null,
+                    archive + " - Best Clips & Highlights"
+                ),
+                _react2.default.createElement("meta", { "http-equiv": "Content-Type", content: "text/html; charset=utf-8" }),
+                _react2.default.createElement("meta", { name: "viewport", content: "width=device-width, initial-scale=1" }),
+                _react2.default.createElement("meta", { name: "keywords", content: "twitch, clips, highlights, league of legends, lol, fortnite, videos, " + archive + " " }),
+                _react2.default.createElement("meta", { property: "og:title", content: "stream highlights" }),
+                _react2.default.createElement("meta", { property: "description", content: "Streams Highlights gathers the best clips and highlights from Twitch. Find the best clips and highlights for " + archive + " now!" })
+            );
+        }
+    }]);
+
+    return SessionPageHelmet;
+}(_react.Component);
+
+exports.default = SessionPageHelmet;
 
 /***/ })
 /******/ ]);
