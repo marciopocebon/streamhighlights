@@ -88244,9 +88244,6 @@ var SessionPlayer = function (_React$Component) {
   }
 
   _createClass(SessionPlayer, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {}
-  }, {
     key: "render",
     value: function render() {
       var archives = this.props.archives;
@@ -88262,7 +88259,8 @@ var SessionPlayer = function (_React$Component) {
             ref: this.ref,
             url: archives.items[0].archive.url,
             playing: true
-          })
+          }),
+          this.player ? _react2.default.createElement("div", { seekTo: this.player.seekTo(this.props.time) }) : undefined
         )
       );
     }

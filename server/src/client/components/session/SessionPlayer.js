@@ -14,8 +14,6 @@ class SessionPlayer extends React.Component {
     this.player = player;
   };
 
-  componentWillMount() {}
-
   render() {
     const { archives } = this.props;
     return (
@@ -32,6 +30,11 @@ class SessionPlayer extends React.Component {
                 playing={true}
               />
             )}
+            {this.player ? (
+              <div seekTo={this.player.seekTo(this.props.time)} />
+        ) : (
+          undefined
+        )}
         </div>
       </div>
     );
