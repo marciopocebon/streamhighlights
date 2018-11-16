@@ -4,8 +4,9 @@ import authReducer from "./authReducer";
 import adminsReducer from "./adminsReducer";
 import streamersReducer from "./streamers/index";
 import activityReducer from "./activity/index";
-import clipsReducer from './clips/index';
-import uiReducer from './ui/index'
+import clipsReducer from "./clips/index";
+import uiReducer from "./ui/index";
+import archivesReducer from "./archives/index";
 
 export default combineReducers({
   users: usersReducer,
@@ -14,5 +15,6 @@ export default combineReducers({
   streamers: streamersReducer,
   activity: activityReducer,
   clips: clipsReducer,
-  ui: uiReducer
+  ui: uiReducer,
+  archives: archivesReducer
 });

@@ -27819,8 +27819,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var REQUEST_CLIPS = exports.REQUEST_CLIPS = "REQUEST_CLIPS";
-var FETCH_CLIPS_SUCCESS = exports.FETCH_CLIPS_SUCCESS = "FETCH_CLIPS_SUCCESS";
-var SET_CLIPS = exports.SET_CLIPS = "SET_CLIPS";
+var FETCH_CLIPS = exports.FETCH_CLIPS = "FETCH_CLIPS";
+var APPEND_CLIPS = exports.APPEND_CLIPS = "APPEND_CLIPS";
 
 var requestClips = exports.requestClips = function requestClips() {
   return {
@@ -27828,16 +27828,16 @@ var requestClips = exports.requestClips = function requestClips() {
   };
 };
 
-var fetchClipsSuccess = exports.fetchClipsSuccess = function fetchClipsSuccess(json) {
+var fetchClips = exports.fetchClips = function fetchClips(clips) {
   return {
-    type: FETCH_CLIPS_SUCCESS,
-    payload: json
+    type: FETCH_CLIPS,
+    payload: clips
   };
 };
 
-var setClips = exports.setClips = function setClips(clips) {
+var appendClips = exports.appendClips = function appendClips(clips) {
   return {
-    type: SET_CLIPS,
+    type: APPEND_CLIPS,
     payload: clips
   };
 };
@@ -27852,7 +27852,7 @@ var setClips = exports.setClips = function setClips(clips) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchClips = undefined;
+exports.fetchMoreClips = exports.getClips = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -27871,7 +27871,7 @@ var clips = function clips() {
   var action = arguments[1];
 
   switch (action.type) {
-    case _index.SET_CLIPS:
+    case _index.FETCH_CLIPS:
       return _extends({}, state, {
         items: action.payload
       });
@@ -27879,7 +27879,7 @@ var clips = function clips() {
       return _extends({}, state, {
         fetching: true
       });
-    case _index.FETCH_CLIPS_SUCCESS:
+    case _index.APPEND_CLIPS:
       return _extends({}, state, {
         items: [].concat(_toConsumableArray(state.items), _toConsumableArray(action.payload)),
         fetching: false
@@ -27889,7 +27889,7 @@ var clips = function clips() {
   }
 };
 
-var fetchClips = exports.fetchClips = function fetchClips(userId, pageIndex, game, title, automatic, time) {
+var getClips = exports.getClips = function getClips(userId, pageIndex, game, title, automatic, time) {
   return function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch, getState, api) {
       var res;
@@ -27897,18 +27897,17 @@ var fetchClips = exports.fetchClips = function fetchClips(userId, pageIndex, gam
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              dispatch((0, _index.requestClips)());
               console.log("/clips/" + userId + "?page=" + pageIndex + (time ? "&time=" + time : "&time=week") + (game ? "&game=" + game : "") + (title ? "&title=" + title : "") + "&automatic=1");
-              _context.next = 4;
+              _context.next = 3;
               return api.get("/clips/" + userId + "?page=" + pageIndex + (time ? "&time=" + time : "&time=week") + (game ? "&game=" + game : "") + (title ? "&title=" + title : "") + "&automatic=1");
 
-            case 4:
+            case 3:
               res = _context.sent;
 
               dispatch((0, _ui.setSelectedStreamer)(res.data.streamer));
-              dispatch((0, _index.fetchClipsSuccess)(res.data.clips));
+              dispatch((0, _index.fetchClips)(res.data.clips));
 
-            case 7:
+            case 6:
             case "end":
               return _context.stop();
           }
@@ -27918,6 +27917,38 @@ var fetchClips = exports.fetchClips = function fetchClips(userId, pageIndex, gam
 
     return function (_x2, _x3, _x4) {
       return _ref.apply(this, arguments);
+    };
+  }();
+};
+
+var fetchMoreClips = exports.fetchMoreClips = function fetchMoreClips(userId, pageIndex, game, title, automatic, time) {
+  return function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(dispatch, getState, api) {
+      var res;
+      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              dispatch((0, _index.requestClips)());
+              _context2.next = 3;
+              return api.get("/clips/" + userId + "?page=" + pageIndex + (time ? "&time=" + time : "&time=week") + (game ? "&game=" + game : "") + (title ? "&title=" + title : "") + "&automatic=1");
+
+            case 3:
+              res = _context2.sent;
+
+              dispatch((0, _ui.setSelectedStreamer)(res.data.streamer));
+              dispatch((0, _index.appendClips)(res.data.clips));
+
+            case 6:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, undefined);
+    }));
+
+    return function (_x5, _x6, _x7) {
+      return _ref2.apply(this, arguments);
     };
   }();
 };
@@ -82572,12 +82603,6 @@ var _reactRedux = __webpack_require__(89);
 
 var _index = __webpack_require__(288);
 
-var _index2 = __webpack_require__(516);
-
-var _index3 = __webpack_require__(517);
-
-var _index4 = __webpack_require__(518);
-
 var _StreamerPageHeader = __webpack_require__(1151);
 
 var _StreamerPageHeader2 = _interopRequireDefault(_StreamerPageHeader);
@@ -82586,6 +82611,20 @@ var _StreamerClipTable = __webpack_require__(1152);
 
 var _StreamerClipTable2 = _interopRequireDefault(_StreamerClipTable);
 
+var _StreamerArchiveTable = __webpack_require__(1155);
+
+var _StreamerArchiveTable2 = _interopRequireDefault(_StreamerArchiveTable);
+
+var _index2 = __webpack_require__(517);
+
+var _VideoPlayer = __webpack_require__(1126);
+
+var _VideoPlayer2 = _interopRequireDefault(_VideoPlayer);
+
+var _StreamerVideoArchive = __webpack_require__(1156);
+
+var _StreamerVideoArchive2 = _interopRequireDefault(_StreamerVideoArchive);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -82593,14 +82632,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-// import { fetchClips } from "./../../redux/clips/clipsReducer";
-// import StreamerVideoPlayer from "./StreamerVideoPlayer";
-// import StreamerPageHeader from "./StreamerPageHeader";
-// import { setClips } from "./../../redux/clips/clipsActions";
-// import StreamerVideoArchive from "./page/StreamerVideoArchive";
-// import StreamerArchiveTable from "./page/StreamerArchiveTable";
-// import { setAutomaticCheckbox, setTimeFilter } from "../../redux/ui/uiActions";
-
 
 var StreamerDetailPage = function (_Component) {
   _inherits(StreamerDetailPage, _Component);
@@ -82610,7 +82641,7 @@ var StreamerDetailPage = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (StreamerDetailPage.__proto__ || Object.getPrototypeOf(StreamerDetailPage)).call(this, props));
 
-    _this.setClip = function () {
+    _this.setClip = function (clip) {
       _this.setState({
         active: true,
         url: clip.embedClipURL,
@@ -82626,64 +82657,56 @@ var StreamerDetailPage = function (_Component) {
         };
       });
       var _this$props = _this.props,
-          fetchClips = _this$props.fetchClips,
+          fetchMoreClips = _this$props.fetchMoreClips,
           match = _this$props.match,
           ui = _this$props.ui;
 
       console.log("I will fetch page " + _this.state.clipPageIndex);
-      fetchClips(match.params.id, _this.state.clipPageIndex, _this.state.gameSearchValue, _this.state.titleSearchValue, ui.automaticCheckbox, ui.time);
+      fetchMoreClips(match.params.id, _this.state.clipPageIndex, _this.state.gameSearchValue, _this.state.titleSearchValue, ui.automaticCheckbox, ui.time);
     };
 
-    _this.gameSearchValueChanged = function () {
+    _this.gameSearchValueChanged = function (value) {
       _this.setState({
         clipPageIndex: 1,
         gameSearchValue: value
       });
       var _this$props2 = _this.props,
           match = _this$props2.match,
-          setClips = _this$props2.setClips,
-          fetchClips = _this$props2.fetchClips,
+          getClips = _this$props2.getClips,
           ui = _this$props2.ui;
 
-      setClips([]);
-      fetchClips(match.params.id, 0, value, _this.state.titleSearchValue, ui.automaticCheckbox, ui.time);
+      getClips(match.params.id, 0, value, _this.state.titleSearchValue, ui.automaticCheckbox, ui.time);
     };
 
-    _this.titleSearchValueChanged = function () {
+    _this.titleSearchValueChanged = function (value) {
       _this.setState({
         clipPageIndex: 1,
         titleSearchValue: value
       });
       var _this$props3 = _this.props,
           match = _this$props3.match,
-          setClips = _this$props3.setClips,
-          fetchClips = _this$props3.fetchClips,
+          getClips = _this$props3.getClips,
           ui = _this$props3.ui;
 
-      setClips([]);
-      fetchClips(match.params.id, 0, _this.state.gameSearchValue, value, ui.automaticCheckbox, ui.time);
+      getClips(match.params.id, 0, _this.state.gameSearchValue, value, ui.automaticCheckbox, ui.time);
     };
 
     _this.checkBoxChanged = function () {
       var _this$props4 = _this.props,
           match = _this$props4.match,
-          setClips = _this$props4.setClips,
-          fetchClips = _this$props4.fetchClips,
+          getClips = _this$props4.getClips,
           ui = _this$props4.ui;
 
-      setClips([]);
-      fetchClips(match.params.id, 0, _this.state.gameSearchValue, _this.state.titleSearchValue, !ui.automaticCheckbox, ui.time);
+      getClips(match.params.id, 0, _this.state.gameSearchValue, _this.state.titleSearchValue, !ui.automaticCheckbox, ui.time);
     };
 
-    _this.timeChanged = function () {
+    _this.timeChanged = function (timeValue) {
       var _this$props5 = _this.props,
           match = _this$props5.match,
-          setClips = _this$props5.setClips,
-          fetchClips = _this$props5.fetchClips,
+          getClips = _this$props5.getClips,
           ui = _this$props5.ui;
 
-      setClips([]);
-      fetchClips(match.params.id, 0, _this.state.gameSearchValue, _this.state.titleSearchValue, ui.automaticCheckbox, timeValue);
+      getClips(match.params.id, 0, _this.state.gameSearchValue, _this.state.titleSearchValue, ui.automaticCheckbox, timeValue);
     };
 
     _this.close = function () {
@@ -82711,16 +82734,15 @@ var StreamerDetailPage = function (_Component) {
     key: "componentWillMount",
     value: function componentWillMount() {
       var _props = this.props,
-          fetchClips = _props.fetchClips,
+          getClips = _props.getClips,
           match = _props.match,
-          setClips = _props.setClips,
+          fetchMoreClips = _props.fetchMoreClips,
           setAutomaticCheckbox = _props.setAutomaticCheckbox,
           setTimeFilter = _props.setTimeFilter;
 
       setAutomaticCheckbox(false);
       setTimeFilter("week");
-      setClips([]);
-      fetchClips(match.params.id, 0);
+      getClips(match.params.id, 0);
     }
   }, {
     key: "render",
@@ -82750,7 +82772,7 @@ var StreamerDetailPage = function (_Component) {
               panes: [{
                 menuItem: {
                   key: "clips",
-                  icon: "rocket large",
+                  icon: "rocket",
                   content: "Clips"
                 },
                 render: function render() {
@@ -82769,20 +82791,65 @@ var StreamerDetailPage = function (_Component) {
                     })
                   );
                 }
-                // {
-                //   menuItem: {
-                //     key: "archives",
-                //     icon: "film large",
-                //     content: "Archives"
-                //   },
-                //   render: () => (
-                //     <React.Fragment>
-                //       <div>f</div>
-                //     </React.Fragment>
-                //   )
-                // }
+              }, {
+                menuItem: {
+                  key: "archives",
+                  icon: "film",
+                  content: "Archives"
+                },
+                render: function render() {
+                  return _react2.default.createElement(_StreamerArchiveTable2.default, {
+                    streamerId: match.params.id
+                  });
+                }
               }]
             })
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Modal,
+            {
+              dimmer: "blurring",
+              closeOnEscape: true,
+              closeOnDimmerClick: true,
+              open: this.state.modalOpen,
+              size: "small"
+            },
+            _react2.default.createElement(
+              _semanticUiReact.Modal.Content,
+              null,
+              _react2.default.createElement(_VideoPlayer2.default, {
+                active: this.state.active,
+                url: this.state.url
+              }),
+              this.state.activeClip && this.state.activeClip.archive && this.state.activeClip.archive[0] ? _react2.default.createElement(_StreamerVideoArchive2.default, {
+                archive: this.state.activeClip.archive[0],
+                creatorName: this.state.activeClip.creatorName,
+                automatic: this.state.activeClip.automatic
+              }) : _react2.default.createElement(
+                _semanticUiReact.Message,
+                { warning: true, icon: true },
+                _react2.default.createElement(_semanticUiReact.Icon, { name: "file video outline" }),
+                _react2.default.createElement(
+                  _semanticUiReact.Message.Content,
+                  null,
+                  _react2.default.createElement(
+                    _semanticUiReact.Message.Header,
+                    null,
+                    "No Archive Yet"
+                  ),
+                  "The archive will be available soon."
+                )
+              )
+            ),
+            _react2.default.createElement(
+              _semanticUiReact.Modal.Actions,
+              null,
+              _react2.default.createElement(
+                _semanticUiReact.Button,
+                { color: "grey", onClick: this.close },
+                "Close"
+              )
+            )
           )
         )
       );
@@ -82800,12 +82867,12 @@ function mapStateToProps(_ref2) {
 }
 
 exports.default = {
-  component: (0, _reactRedux.connect)(mapStateToProps, { setAutomaticCheckbox: _index.setAutomaticCheckbox, setTimeFilter: _index.setTimeFilter, setClips: _index2.setClips, fetchClips: _index3.fetchClips })(StreamerDetailPage),
+  component: (0, _reactRedux.connect)(mapStateToProps, { setAutomaticCheckbox: _index.setAutomaticCheckbox, setTimeFilter: _index.setTimeFilter, fetchMoreClips: _index2.fetchMoreClips, getClips: _index2.getClips })(StreamerDetailPage),
   loadData: function loadData(_ref3, _ref4) {
     var dispatch = _ref3.dispatch;
     var id = _ref4.id;
 
-    return dispatch((0, _index3.fetchClips)(id, 0));
+    return dispatch((0, _index2.getClips)(id, 0));
   }
 };
 
@@ -82850,6 +82917,10 @@ var _index7 = __webpack_require__(518);
 
 var _index8 = _interopRequireDefault(_index7);
 
+var _index9 = __webpack_require__(1157);
+
+var _index10 = _interopRequireDefault(_index9);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = (0, _redux.combineReducers)({
@@ -82859,7 +82930,8 @@ exports.default = (0, _redux.combineReducers)({
   streamers: _index2.default,
   activity: _index4.default,
   clips: _index6.default,
-  ui: _index8.default
+  ui: _index8.default,
+  archives: _index10.default
 });
 
 /***/ }),
@@ -84472,6 +84544,595 @@ var StreamerClipFilter = function (_Component) {
 }(_react.Component);
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(StreamerClipFilter);
+
+/***/ }),
+/* 1155 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(75);
+
+var _reactRouterDom = __webpack_require__(144);
+
+var _reactTimeago = __webpack_require__(1121);
+
+var _reactTimeago2 = _interopRequireDefault(_reactTimeago);
+
+var _reactRedux = __webpack_require__(89);
+
+var _archives = __webpack_require__(1157);
+
+var _index = __webpack_require__(1157);
+
+var _languageUtils = __webpack_require__(1124);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    getArchiveByStreamerId: function getArchiveByStreamerId(streamerId, pageIndex) {
+      return dispatch((0, _archives.getArchiveByStreamerId)(streamerId, pageIndex));
+    },
+    fetchMoreArchiveByStreamer: function fetchMoreArchiveByStreamer(streamerId, pageIndex) {
+      return dispatch((0, _index.fetchMoreArchiveByStreamer)(streamerId, pageIndex));
+    }
+  };
+};
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    archives: state.archives
+  };
+};
+
+var StreamerArchiveTable = function (_Component) {
+  _inherits(StreamerArchiveTable, _Component);
+
+  function StreamerArchiveTable(props) {
+    _classCallCheck(this, StreamerArchiveTable);
+
+    var _this = _possibleConstructorReturn(this, (StreamerArchiveTable.__proto__ || Object.getPrototypeOf(StreamerArchiveTable)).call(this, props));
+
+    _this.handleScroll = function () {
+      if (_this.scroller) {
+        if (_this.scroller.scrollHeight - _this.scroller.scrollTop === _this.scroller.clientHeight) {
+          _this.setState(function (prevState) {
+            return {
+              pageIndex: prevState.pageIndex + 1
+            };
+          });
+          var _this$props = _this.props,
+              fetchMoreArchiveByStreamer = _this$props.fetchMoreArchiveByStreamer,
+              streamerId = _this$props.streamerId;
+
+          fetchMoreArchiveByStreamer(streamerId, _this.state.pageIndex);
+        }
+      }
+    };
+
+    _this.state = {
+      pageIndex: 1
+    };
+    return _this;
+  }
+
+  _createClass(StreamerArchiveTable, [{
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      var _props = this.props,
+          getArchiveByStreamerId = _props.getArchiveByStreamerId,
+          streamerId = _props.streamerId;
+
+      getArchiveByStreamerId(streamerId, 0);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var archives = this.props.archives;
+
+      return _react2.default.createElement(
+        _semanticUiReact.Segment,
+        { loading: archives.fetching },
+        _react2.default.createElement(
+          _semanticUiReact.Label,
+          { attached: "top", size: "big", className: "colored-label" },
+          "Archives"
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Divider,
+          { horizontal: true },
+          "Results"
+        ),
+        _react2.default.createElement(
+          "div",
+          {
+            style: {
+              height: "55vh",
+              overflowY: "auto"
+            },
+            ref: function ref(scroller) {
+              _this2.scroller = scroller;
+            },
+            onScroll: this.handleScroll
+          },
+          _react2.default.createElement(
+            _semanticUiReact.Table,
+            { celled: true, padded: true },
+            _react2.default.createElement(
+              _semanticUiReact.Table.Header,
+              null,
+              _react2.default.createElement(
+                _semanticUiReact.Table.Row,
+                null,
+                _react2.default.createElement(
+                  _semanticUiReact.Table.HeaderCell,
+                  { style: { width: "300px" } },
+                  "Archive Title"
+                ),
+                _react2.default.createElement(
+                  _semanticUiReact.Table.HeaderCell,
+                  null,
+                  "View Count"
+                ),
+                _react2.default.createElement(
+                  _semanticUiReact.Table.HeaderCell,
+                  null,
+                  "Language"
+                ),
+                _react2.default.createElement(
+                  _semanticUiReact.Table.HeaderCell,
+                  null,
+                  "Published"
+                ),
+                _react2.default.createElement(
+                  _semanticUiReact.Table.HeaderCell,
+                  null,
+                  "Number Of Clips"
+                ),
+                _react2.default.createElement(
+                  _semanticUiReact.Table.HeaderCell,
+                  null,
+                  "Action"
+                )
+              )
+            ),
+            _react2.default.createElement(
+              _semanticUiReact.Table.Body,
+              null,
+              archives.items && archives.items.map(function (archive) {
+                return _react2.default.createElement(
+                  _semanticUiReact.Table.Row,
+                  null,
+                  _react2.default.createElement(
+                    _semanticUiReact.Table.Cell,
+                    null,
+                    archive.title
+                  ),
+                  _react2.default.createElement(
+                    _semanticUiReact.Table.Cell,
+                    null,
+                    _react2.default.createElement(_semanticUiReact.Icon, { name: "eye" }),
+                    archive.viewCount
+                  ),
+                  _react2.default.createElement(
+                    _semanticUiReact.Table.Cell,
+                    null,
+                    _react2.default.createElement(_semanticUiReact.Flag, { name: (0, _languageUtils.mapToFlag)(archive.language) }),
+                    archive.language
+                  ),
+                  _react2.default.createElement(
+                    _semanticUiReact.Table.Cell,
+                    null,
+                    _react2.default.createElement(_reactTimeago2.default, { date: archive.publishedAt })
+                  ),
+                  _react2.default.createElement(
+                    _semanticUiReact.Table.Cell,
+                    null,
+                    _react2.default.createElement(_semanticUiReact.Icon, { name: "film" }),
+                    archive.numberOfClips
+                  ),
+                  _react2.default.createElement(
+                    _semanticUiReact.Table.Cell,
+                    null,
+                    _react2.default.createElement(
+                      _semanticUiReact.Button,
+                      null,
+                      _react2.default.createElement(
+                        _reactRouterDom.Link,
+                        {
+                          to: {
+                            pathname: "/session/" + archive.archiveId
+                          }
+                        },
+                        "Jump To Source"
+                      )
+                    )
+                  )
+                );
+              })
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return StreamerArchiveTable;
+}(_react.Component);
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(StreamerArchiveTable);
+
+/***/ }),
+/* 1156 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(75);
+
+var _reactRouterDom = __webpack_require__(144);
+
+var _languageUtils = __webpack_require__(1124);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var StreamerVideoArchive = function (_Component) {
+  _inherits(StreamerVideoArchive, _Component);
+
+  function StreamerVideoArchive() {
+    _classCallCheck(this, StreamerVideoArchive);
+
+    return _possibleConstructorReturn(this, (StreamerVideoArchive.__proto__ || Object.getPrototypeOf(StreamerVideoArchive)).apply(this, arguments));
+  }
+
+  _createClass(StreamerVideoArchive, [{
+    key: "render",
+    value: function render() {
+      var _props = this.props,
+          archive = _props.archive,
+          creatorName = _props.creatorName,
+          automatic = _props.automatic;
+
+      return _react2.default.createElement(
+        _semanticUiReact.Segment.Group,
+        null,
+        automatic ? _react2.default.createElement(
+          _semanticUiReact.Message,
+          { attached: "top", info: true },
+          _react2.default.createElement(_semanticUiReact.Icon, { name: "help" }),
+          "Did we miss the action?\xA0 Jump to the source and replay this epic moment."
+        ) : _react2.default.createElement(
+          _semanticUiReact.Message,
+          { attached: "top", info: true },
+          "This clip was created by ",
+          _react2.default.createElement(
+            "b",
+            null,
+            creatorName
+          )
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Segment,
+          null,
+          _react2.default.createElement(
+            _semanticUiReact.Label,
+            { attached: "top", size: "big", className: "colored-label" },
+            _react2.default.createElement(_semanticUiReact.Icon, { name: "linkify" }),
+            "Linked Archive"
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Item.Group,
+            null,
+            _react2.default.createElement(
+              _semanticUiReact.Item,
+              null,
+              _react2.default.createElement(_semanticUiReact.Item.Image, {
+                size: "tiny",
+                src: archive.thumbnailURL ? archive.thumbnailURL.replace("%{width}", "200").replace("%{height}", "200") : "https://cdn.logojoy.com/wp-content/uploads/2018/07/30093609/twitch9-768x591.png"
+              }),
+              _react2.default.createElement(
+                _semanticUiReact.Item.Content,
+                null,
+                _react2.default.createElement(
+                  _semanticUiReact.Item.Header,
+                  { as: "a" },
+                  archive.title
+                ),
+                _react2.default.createElement(
+                  _semanticUiReact.Item.Meta,
+                  null,
+                  archive.description
+                ),
+                _react2.default.createElement(
+                  _semanticUiReact.Item.Extra,
+                  null,
+                  _react2.default.createElement(_semanticUiReact.Icon, { name: "eye" }),
+                  archive.viewCount,
+                  " views"
+                ),
+                _react2.default.createElement(
+                  _semanticUiReact.Item.Extra,
+                  null,
+                  _react2.default.createElement(_semanticUiReact.Flag, { name: (0, _languageUtils.mapToFlag)(archive.language) }),
+                  archive.language
+                ),
+                _react2.default.createElement(
+                  _semanticUiReact.Item.Extra,
+                  null,
+                  "Duration : ",
+                  archive.duration
+                )
+              )
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Segment,
+          null,
+          _react2.default.createElement(
+            _semanticUiReact.Button,
+            null,
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              {
+                to: {
+                  pathname: "/session/" + archive.archiveId
+                }
+              },
+              "Jump To Source"
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return StreamerVideoArchive;
+}(_react.Component);
+
+exports.default = StreamerVideoArchive;
+
+/***/ }),
+/* 1157 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.fetchMoreArchive = exports.fetchMoreArchiveByStreamer = exports.getArchiveByStreamerId = exports.getArchive = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _index = __webpack_require__(1158);
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+var initialState = { items: [], fetching: false };
+
+var archives = function archives() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _index.FETCH_ARCHIVE:
+      return _extends({}, state, {
+        items: action.payload
+      });
+    case _index.REQUEST_ARCHIVE:
+      return _extends({}, state, {
+        fetching: true
+      });
+    case _index.APPEND_ARCHIVE:
+      return _extends({}, state, {
+        items: [].concat(_toConsumableArray(state.items), _toConsumableArray(action.payload)),
+        fetching: false
+      });
+    default:
+      return state;
+  }
+};
+
+var getArchive = exports.getArchive = function getArchive(archiveId, pageIndex) {
+  return function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch, getState, api) {
+      var res;
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return api.get("/archives/" + archiveId + "?page=" + pageIndex);
+
+            case 2:
+              res = _context.sent;
+
+              dispatch((0, _index.fetchArchive)(res.data.archives));
+
+            case 4:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, undefined);
+    }));
+
+    return function (_x2, _x3, _x4) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+};
+
+var getArchiveByStreamerId = exports.getArchiveByStreamerId = function getArchiveByStreamerId(streamerId, pageIndex) {
+  return function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(dispatch, getState, api) {
+      var res;
+      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              console.log("/archives/streamer/" + streamerId + "?page=" + pageIndex);
+              _context2.next = 3;
+              return api.get("/archives/streamer/" + streamerId + "?page=" + pageIndex);
+
+            case 3:
+              res = _context2.sent;
+
+              console.log(res.data.archives);
+              dispatch((0, _index.fetchArchive)(res.data.archives));
+
+            case 6:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, undefined);
+    }));
+
+    return function (_x5, _x6, _x7) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+};
+
+var fetchMoreArchiveByStreamer = exports.fetchMoreArchiveByStreamer = function fetchMoreArchiveByStreamer(streamerId, pageIndex) {
+  return function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(dispatch, getState, api) {
+      var res;
+      return regeneratorRuntime.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              dispatch((0, _index.requestArchive)());
+              _context3.next = 3;
+              return api.get("/archives/streamer/" + streamerId + "?page=" + pageIndex);
+
+            case 3:
+              res = _context3.sent;
+
+              dispatch((0, _index.appendArchive)(res.data.archives));
+
+            case 5:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, undefined);
+    }));
+
+    return function (_x8, _x9, _x10) {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+};
+
+var fetchMoreArchive = exports.fetchMoreArchive = function fetchMoreArchive(archiveId, pageIndex) {
+  return function () {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(dispatch, getState, api) {
+      var res;
+      return regeneratorRuntime.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              dispatch((0, _index.requestArchive)());
+              _context4.next = 3;
+              return api.get("/archives/" + archiveId + "?page=" + pageIndex);
+
+            case 3:
+              res = _context4.sent;
+
+              dispatch((0, _index.appendArchive)(res.data.archives));
+
+            case 5:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, undefined);
+    }));
+
+    return function (_x11, _x12, _x13) {
+      return _ref4.apply(this, arguments);
+    };
+  }();
+};
+
+exports.default = archives;
+
+/***/ }),
+/* 1158 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var REQUEST_ARCHIVE = exports.REQUEST_ARCHIVE = "REQUEST_ARCHIVE";
+var FETCH_ARCHIVE = exports.FETCH_ARCHIVE = "FETCH_ARCHIVE";
+var APPEND_ARCHIVE = exports.APPEND_ARCHIVE = "APPEND_ARCHIVE";
+
+var requestArchive = exports.requestArchive = function requestArchive() {
+  return {
+    type: REQUEST_ARCHIVE
+  };
+};
+
+var fetchArchive = exports.fetchArchive = function fetchArchive(archive) {
+  return {
+    type: FETCH_ARCHIVE,
+    payload: archive
+  };
+};
+
+var appendArchive = exports.appendArchive = function appendArchive(archive) {
+  return {
+    type: APPEND_ARCHIVE,
+    payload: archive
+  };
+};
 
 /***/ })
 /******/ ]);

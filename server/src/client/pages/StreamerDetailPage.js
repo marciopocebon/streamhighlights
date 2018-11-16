@@ -1,19 +1,13 @@
 import React, { Component } from "react";
 import { Grid, Tab, Modal, Button, Message, Icon } from "semantic-ui-react";
 import { connect } from "react-redux";
-// import { fetchClips } from "./../../redux/clips/clipsReducer";
-// import StreamerVideoPlayer from "./StreamerVideoPlayer";
-// import StreamerPageHeader from "./StreamerPageHeader";
-// import { setClips } from "./../../redux/clips/clipsActions";
-// import StreamerVideoArchive from "./page/StreamerVideoArchive";
-// import StreamerArchiveTable from "./page/StreamerArchiveTable";
-// import { setAutomaticCheckbox, setTimeFilter } from "../../redux/ui/uiActions";
 import { setAutomaticCheckbox, setTimeFilter } from "./../actions/ui/index";
-import { setClips, requestClips } from "./../actions/clips/index";
-import { fetchClips } from "./../reducers/clips/index";
-import { setAutomaticCheckboxValue } from "./../reducers/ui/index";
 import StreamerPageHeader from "./../components/streamers/StreamerPageHeader";
 import StreamerClipTable from "./../components/streamers/StreamerClipTable";
+import StreamerArchiveTable from "./../components/streamers/StreamerArchiveTable";
+import { getClips, fetchMoreClips } from "./../reducers/clips/index";
+import VideoPlayer from './../components/video/VideoPlayer';
+import StreamerVideoArchive from './../components/streamers/StreamerVideoArchive';
 
 class StreamerDetailPage extends Component {
   constructor(props) {
@@ -29,7 +23,7 @@ class StreamerDetailPage extends Component {
     };
   }
 
-  setClip = () => {
+  setClip = (clip) => {
     this.setState({
       active: true,
       url: clip.embedClipURL,
@@ -40,25 +34,24 @@ class StreamerDetailPage extends Component {
 
   componentWillMount() {
     const {
-      fetchClips,
+      getClips,
       match,
-      setClips,
+      fetchMoreClips,
       setAutomaticCheckbox,
       setTimeFilter
     } = this.props;
     setAutomaticCheckbox(false);
     setTimeFilter("week");
-    setClips([]);
-    fetchClips(match.params.id, 0);
+    getClips(match.params.id, 0);
   }
 
   handleScroll = () => {
     this.setState(prevState => ({
       clipPageIndex: prevState.clipPageIndex + 1
     }));
-    const { fetchClips, match, ui } = this.props;
+    const { fetchMoreClips, match, ui } = this.props;
     console.log("I will fetch page " + this.state.clipPageIndex);
-    fetchClips(
+    fetchMoreClips(
       match.params.id,
       this.state.clipPageIndex,
       this.state.gameSearchValue,
@@ -68,14 +61,13 @@ class StreamerDetailPage extends Component {
     );
   };
 
-  gameSearchValueChanged = () => {
+  gameSearchValueChanged = value => {
     this.setState({
       clipPageIndex: 1,
       gameSearchValue: value
     });
-    const { match, setClips, fetchClips, ui } = this.props;
-    setClips([]);
-    fetchClips(
+    const { match, getClips, ui } = this.props;
+    getClips(
       match.params.id,
       0,
       value,
@@ -85,14 +77,13 @@ class StreamerDetailPage extends Component {
     );
   };
 
-  titleSearchValueChanged = () => {
+  titleSearchValueChanged = value => {
     this.setState({
       clipPageIndex: 1,
       titleSearchValue: value
     });
-    const { match, setClips, fetchClips, ui } = this.props;
-    setClips([]);
-    fetchClips(
+    const { match, getClips, ui } = this.props;
+    getClips(
       match.params.id,
       0,
       this.state.gameSearchValue,
@@ -103,9 +94,8 @@ class StreamerDetailPage extends Component {
   };
 
   checkBoxChanged = () => {
-    const { match, setClips, fetchClips, ui } = this.props;
-    setClips([]);
-    fetchClips(
+    const { match, getClips, ui } = this.props;
+    getClips(
       match.params.id,
       0,
       this.state.gameSearchValue,
@@ -115,10 +105,9 @@ class StreamerDetailPage extends Component {
     );
   };
 
-  timeChanged = () => {
-    const { match, setClips, fetchClips, ui } = this.props;
-    setClips([]);
-    fetchClips(
+  timeChanged = timeValue => {
+    const { match, getClips, ui } = this.props;
+    getClips(
       match.params.id,
       0,
       this.state.gameSearchValue,
@@ -151,7 +140,7 @@ class StreamerDetailPage extends Component {
                 {
                   menuItem: {
                     key: "clips",
-                    icon: "rocket large",
+                    icon: "rocket",
                     content: "Clips"
                   },
                   render: () => (
@@ -170,22 +159,58 @@ class StreamerDetailPage extends Component {
                       )}
                     </div>
                   )
+                },
+                {
+                  menuItem: {
+                    key: "archives",
+                    icon: "film",
+                    content: "Archives"
+                  },
+                  render: () => (
+                    <StreamerArchiveTable
+                      streamerId={match.params.id}
+                    />
+                  )
                 }
-                // {
-                //   menuItem: {
-                //     key: "archives",
-                //     icon: "film large",
-                //     content: "Archives"
-                //   },
-                //   render: () => (
-                //     <React.Fragment>
-                //       <div>f</div>
-                //     </React.Fragment>
-                //   )
-                // }
               ]}
             />
           </Grid.Column>
+          <Modal
+            dimmer="blurring"
+            closeOnEscape={true}
+            closeOnDimmerClick={true}
+            open={this.state.modalOpen}
+            size="small"
+          >
+            <Modal.Content>
+              <VideoPlayer
+                active={this.state.active}
+                url={this.state.url}
+              />
+              {this.state.activeClip &&
+              this.state.activeClip.archive &&
+              this.state.activeClip.archive[0] ? (
+                <StreamerVideoArchive
+                  archive={this.state.activeClip.archive[0]}
+                  creatorName={this.state.activeClip.creatorName}
+                  automatic={this.state.activeClip.automatic}
+                />
+              ) : (
+                <Message warning icon>
+                  <Icon name="file video outline" />
+                  <Message.Content>
+                    <Message.Header>No Archive Yet</Message.Header>
+                    The archive will be available soon.
+                  </Message.Content>
+                </Message>
+              )}
+            </Modal.Content>
+            <Modal.Actions>
+              <Button color="grey" onClick={this.close}>
+                Close
+              </Button>
+            </Modal.Actions>
+          </Modal>
         </Grid>
       </div>
     );
@@ -199,9 +224,9 @@ function mapStateToProps({ clips, ui }) {
 export default {
   component: connect(
     mapStateToProps,
-    { setAutomaticCheckbox, setTimeFilter, setClips, fetchClips }
+    { setAutomaticCheckbox, setTimeFilter, fetchMoreClips, getClips }
   )(StreamerDetailPage),
   loadData: ({ dispatch }, { id }) => {
-    return dispatch(fetchClips(id, 0));
+    return dispatch(getClips(id, 0));
   }
 };

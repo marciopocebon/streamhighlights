@@ -1,6 +1,6 @@
 export const REQUEST_CLIPS = "REQUEST_CLIPS";
-export const FETCH_CLIPS_SUCCESS = "FETCH_CLIPS_SUCCESS";
-export const SET_CLIPS = "SET_CLIPS";
+export const FETCH_CLIPS = "FETCH_CLIPS";
+export const APPEND_CLIPS = "APPEND_CLIPS";
 
 export const requestClips = () => {
   return {
@@ -8,16 +8,16 @@ export const requestClips = () => {
   };
 };
 
-export const fetchClipsSuccess = json => {
+export const fetchClips = clips => {
   return {
-    type: FETCH_CLIPS_SUCCESS,
-    payload: json
+    type: FETCH_CLIPS,
+    payload: clips
   };
 };
 
-export const setClips = clips => {
+export const appendClips = clips => {
   return {
-    type: SET_CLIPS,
+    type: APPEND_CLIPS,
     payload: clips
   };
 };

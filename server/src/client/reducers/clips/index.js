@@ -1,9 +1,10 @@
 import {
-  SET_CLIPS,
+  FETCH_CLIPS,
   REQUEST_CLIPS,
-  FETCH_CLIPS_SUCCESS,
+  APPEND_CLIPS,
   requestClips,
-  fetchClipsSuccess
+  fetchClips,
+  appendClips
 } from "./../../actions/clips/index";
 import { setSelectedStreamer } from "../../actions/ui";
 
@@ -11,7 +12,7 @@ const initialState = { items: [], fetching: false };
 
 const clips = (state = initialState, action) => {
   switch (action.type) {
-    case SET_CLIPS:
+    case FETCH_CLIPS:
       return {
         ...state,
         items: action.payload
@@ -21,7 +22,7 @@ const clips = (state = initialState, action) => {
         ...state,
         fetching: true
       };
-    case FETCH_CLIPS_SUCCESS:
+    case APPEND_CLIPS:
       return {
         ...state,
         items: [...state.items, ...action.payload],
@@ -32,7 +33,7 @@ const clips = (state = initialState, action) => {
   }
 };
 
-export const fetchClips = (
+export const getClips = (
   userId,
   pageIndex,
   game,
@@ -40,7 +41,6 @@ export const fetchClips = (
   automatic,
   time
 ) => async (dispatch, getState, api) => {
-  dispatch(requestClips());
   console.log(
     `/clips/${userId}?page=${pageIndex}` +
       (time ? `&time=${time}` : "&time=week") +
@@ -56,7 +56,27 @@ export const fetchClips = (
       `&automatic=1`
   );
   dispatch(setSelectedStreamer(res.data.streamer));
-  dispatch(fetchClipsSuccess(res.data.clips));
+  dispatch(fetchClips(res.data.clips));
+};
+
+export const fetchMoreClips = (
+  userId,
+  pageIndex,
+  game,
+  title,
+  automatic,
+  time
+) => async (dispatch, getState, api) => {
+  dispatch(requestClips());
+  const res = await api.get(
+    `/clips/${userId}?page=${pageIndex}` +
+      (time ? `&time=${time}` : "&time=week") +
+      (game ? `&game=${game}` : "") +
+      (title ? `&title=${title}` : "") +
+      `&automatic=1`
+  );
+  dispatch(setSelectedStreamer(res.data.streamer));
+  dispatch(appendClips(res.data.clips));
 };
 
 // export const fetchClipsByArchive = (archiveId, pageIndex) => {
