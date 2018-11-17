@@ -17,6 +17,7 @@ a {
   font-family: "Pacifico", sans-serif !important;
   font-size: 150% !important;
   color: #6d7fcc !important;
+  margin-top: 7px !important;
 }
 
 /* Common */
@@ -43,6 +44,8 @@ a {
   background-color: #e8e8e838 !important;
   color: #7386d5 !important;
 }
+
+
 
 .bordered-segment {
   border-left: 5px solid #6d7fcc !important;
