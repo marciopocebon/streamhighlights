@@ -12,24 +12,6 @@ games.get("/", function(req, res) {
       }
     },
     {
-      $lookup: {
-        from: "clips",
-        localField: "gameId",
-        foreignField: "gameId",
-        as: "clips"
-      }
-    },
-    { $unwind: "$clips" },
-    {
-      $group: {
-        _id: "$_id",
-        gameId: { $first: "$gameId" },
-        name: { $first: "$name" },
-        boxArtURL: { $first: "$boxArtURL" },
-        numberOfClips: { $sum: 1 }
-      }
-    },
-    {
       $sort: {
         numberOfClips: -1
       }

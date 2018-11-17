@@ -15,6 +15,11 @@ const GamesSchema = new Schema(
     boxArtURL: {
       type: String,
       required: false
+    },
+    numberOfClips: {
+      type: Number,
+      required: false,
+      default: 0
     }
   },
   { timestamps: { createdAt: "created_at" } }
