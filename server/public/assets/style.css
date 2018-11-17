@@ -1,4 +1,5 @@
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+@import url("https://fonts.googleapis.com/css?family=Pacifico");
 
 body {
   font-family: "Poppins", sans-serif;
@@ -8,6 +9,14 @@ body {
 
 a {
   color: unset;
+}
+
+/* Home Page */
+
+.brand {
+  font-family: "Pacifico", sans-serif !important;
+  font-size: 150% !important;
+  color: #6d7fcc !important;
 }
 
 /* Common */

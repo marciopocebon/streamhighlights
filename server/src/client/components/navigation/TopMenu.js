@@ -12,12 +12,12 @@ class TopMenu extends Component {
 
   handleItemClick = (e, { name }) => {
     this.setState({ activeItem: name });
-  }
+  };
 
   render() {
     const { activeItem } = this.state;
     return (
-      <Menu stackable borderless size='huge'>
+      <Menu stackable size="huge" className="bordered-segment">
         <Menu.Item className="brand">Stream Highlights</Menu.Item>
         <Menu.Item
           as={Link}

@@ -1700,7 +1700,7 @@ var TopMenu = function (_Component) {
 
       return _react2.default.createElement(
         _semanticUiReact.Menu,
-        { stackable: true, borderless: true, size: "huge" },
+        { stackable: true, size: "huge", className: "bordered-segment" },
         _react2.default.createElement(
           _semanticUiReact.Menu.Item,
           { className: "brand" },
