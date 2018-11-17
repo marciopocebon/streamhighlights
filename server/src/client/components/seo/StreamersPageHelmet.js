@@ -5,7 +5,7 @@ class StreamersPageHelmet extends Component {
 render() {
     return (
         <Helmet>
-        <title>{`Stream Highlights - Streamers Clips & Highlights`}</title>
+        <title>{`Stream Highlights - Best Clips & Highlights from Twitch.tv`}</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="keywords" content="twitch, clips, highlights, league of legends, lol, fortnite, videos" />

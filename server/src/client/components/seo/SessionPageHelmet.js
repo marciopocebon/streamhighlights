@@ -6,7 +6,7 @@ render() {
     const { archive } = this.props;
     return (
      <Helmet>
-        <title>{`${archive} - Best Clips & Highlights`}</title>
+        <title>{`${archive} - Best Clips & Highlights from Twitch.tv`}</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="keywords" content={`twitch, clips, highlights, league of legends, lol, fortnite, videos, ${archive} `}/>

@@ -2693,7 +2693,7 @@ var StreamersPageHelmet = function (_Component) {
                 _react2.default.createElement(
                     "title",
                     null,
-                    "Stream Highlights - Streamers Clips & Highlights"
+                    "Stream Highlights - Best Clips & Highlights from Twitch.tv"
                 ),
                 _react2.default.createElement("meta", { "http-equiv": "Content-Type", content: "text/html; charset=utf-8" }),
                 _react2.default.createElement("meta", { name: "viewport", content: "width=device-width, initial-scale=1" }),
@@ -3159,7 +3159,7 @@ var StreamerDetailPageHelmet = function (_Component) {
                 _react2.default.createElement(
                     "title",
                     null,
-                    streamer + " - Best Clips & Highlights"
+                    streamer + " - Best Clips & Highlights from Twitch.tv"
                 ),
                 _react2.default.createElement("meta", { "http-equiv": "Content-Type", content: "text/html; charset=utf-8" }),
                 _react2.default.createElement("meta", { name: "viewport", content: "width=device-width, initial-scale=1" }),
@@ -4376,7 +4376,7 @@ var SessionPageHelmet = function (_Component) {
                 _react2.default.createElement(
                     "title",
                     null,
-                    archive + " - Best Clips & Highlights"
+                    archive + " - Best Clips & Highlights from Twitch.tv"
                 ),
                 _react2.default.createElement("meta", { "http-equiv": "Content-Type", content: "text/html; charset=utf-8" }),
                 _react2.default.createElement("meta", { name: "viewport", content: "width=device-width, initial-scale=1" }),
@@ -5491,7 +5491,7 @@ var GamesPageHelmet = function (_Component) {
         _react2.default.createElement(
           "title",
           null,
-          "Stream Highlights - Streamers Clips & Highlights"
+          "Stream Highlights - Best Clips & Highlights from Twitch.tv"
         ),
         _react2.default.createElement("meta", { "http-equiv": "Content-Type", content: "text/html; charset=utf-8" }),
         _react2.default.createElement("meta", { name: "viewport", content: "width=device-width, initial-scale=1" }),
@@ -5885,7 +5885,7 @@ var StreamerDetailPageHelmet = function (_Component) {
                 _react2.default.createElement(
                     "title",
                     null,
-                    game + " - Best Clips & Highlights"
+                    game + " - Best Clips & Highlights from Twitch.tv"
                 ),
                 _react2.default.createElement("meta", { "http-equiv": "Content-Type", content: "text/html; charset=utf-8" }),
                 _react2.default.createElement("meta", { name: "viewport", content: "width=device-width, initial-scale=1" }),
