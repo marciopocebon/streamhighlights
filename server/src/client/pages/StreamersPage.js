@@ -53,7 +53,7 @@ class StreamersPage extends Component {
     return (
       <div>
         <StreamersPageHelmet />
-        <Grid>
+        <Grid stackable>
           <Grid.Column width={10}>
             <Segment className="streamer-segment" loading={streamers.fetching}>
               <Label attached="top" size="big" className="colored-label">
@@ -79,6 +79,7 @@ class StreamersPage extends Component {
                   }}
                 >
                   <Grid
+                    doubling
                     stackable
                     columns={4}
                     className="streamer-grid animated fadeIn"

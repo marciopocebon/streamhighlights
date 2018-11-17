@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { Input, Menu, Icon, Checkbox } from "semantic-ui-react";
 import { connect } from "react-redux";
-import { setAutomaticCheckbox } from './../../actions/ui/index';
-
+import { setAutomaticCheckbox } from "./../../actions/ui/index";
 
 const mapDispatchToProps = dispatch => ({
   setAutomaticCheckbox: value => dispatch(setAutomaticCheckbox(value))
@@ -45,7 +44,7 @@ class GameClipFilter extends Component {
   render() {
     const { ui } = this.props;
     return (
-      <Menu fluid borderless size="large">
+      <Menu fluid borderless size="large" stackable>
         <Menu.Item header active>
           <Icon name="filter" />
           Filters
@@ -60,6 +59,8 @@ class GameClipFilter extends Component {
             style={{ marginRight: "10px" }}
             onChange={(e, { value }) => this.onTitleSearchChanged(value)}
           />
+        </Menu.Item>
+        <Menu.Item>
           <Input
             className="icon"
             icon="user"

@@ -2047,7 +2047,7 @@ var StreamersPage = function (_Component) {
         _react2.default.createElement(_StreamersPageHelmet2.default, null),
         _react2.default.createElement(
           _semanticUiReact.Grid,
-          null,
+          { stackable: true },
           _react2.default.createElement(
             _semanticUiReact.Grid.Column,
             { width: 10 },
@@ -2088,6 +2088,7 @@ var StreamersPage = function (_Component) {
                   _react2.default.createElement(
                     _semanticUiReact.Grid,
                     {
+                      doubling: true,
                       stackable: true,
                       columns: 4,
                       className: "streamer-grid animated fadeIn"
@@ -2287,7 +2288,7 @@ var StreamerGridFilter = function (_Component) {
 
       return _react2.default.createElement(
         _semanticUiReact.Menu,
-        { fluid: true, borderless: true, size: "large" },
+        { fluid: true, borderless: true, size: "large", stackable: true },
         _react2.default.createElement(
           _semanticUiReact.Menu.Item,
           { header: true },
@@ -3668,7 +3669,7 @@ var StreamerClipFilter = function (_Component) {
 
       return _react2.default.createElement(
         _semanticUiReact.Menu,
-        { fluid: true, borderless: true, size: "large" },
+        { borderless: true, size: "large", stackable: true },
         _react2.default.createElement(
           _semanticUiReact.Menu.Item,
           { header: true, active: true },
@@ -3689,7 +3690,11 @@ var StreamerClipFilter = function (_Component) {
               var value = _ref.value;
               return _this2.onTitleSearchChanged(value);
             }
-          }),
+          })
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Menu.Item,
+          null,
           _react2.default.createElement(_semanticUiReact.Input, {
             className: "icon",
             icon: "gamepad",
@@ -4143,7 +4148,7 @@ var SessionPage = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         _semanticUiReact.Grid,
-        null,
+        { stackable: true },
         _react2.default.createElement(
           _semanticUiReact.Grid.Column,
           { width: 16 },
@@ -5000,7 +5005,7 @@ var GamesPage = function (_Component) {
         _react2.default.createElement(_GamesPageHelmet2.default, null),
         _react2.default.createElement(
           _semanticUiReact.Grid,
-          null,
+          { stackable: true },
           _react2.default.createElement(
             _semanticUiReact.Grid.Column,
             { width: 10 },
@@ -5040,6 +5045,7 @@ var GamesPage = function (_Component) {
                     _semanticUiReact.Grid,
                     {
                       stackable: true,
+                      doubling: true,
                       columns: 4,
                       className: "streamer-grid animated fadeIn"
                     },
@@ -5223,7 +5229,7 @@ var GameGridFilter = function (_Component) {
 
       return _react2.default.createElement(
         _semanticUiReact.Menu,
-        { fluid: true, borderless: true, size: "large" },
+        { fluid: true, borderless: true, size: "large", stackable: true },
         _react2.default.createElement(
           _semanticUiReact.Menu.Item,
           { header: true },
@@ -6275,7 +6281,7 @@ var GameClipFilter = function (_Component) {
 
       return _react2.default.createElement(
         _semanticUiReact.Menu,
-        { fluid: true, borderless: true, size: "large" },
+        { fluid: true, borderless: true, size: "large", stackable: true },
         _react2.default.createElement(
           _semanticUiReact.Menu.Item,
           { header: true, active: true },
@@ -6296,7 +6302,11 @@ var GameClipFilter = function (_Component) {
               var value = _ref.value;
               return _this2.onTitleSearchChanged(value);
             }
-          }),
+          })
+        ),
+        _react2.default.createElement(
+          _semanticUiReact.Menu.Item,
+          null,
           _react2.default.createElement(_semanticUiReact.Input, {
             className: "icon",
             icon: "user",

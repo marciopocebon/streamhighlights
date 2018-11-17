@@ -16,7 +16,7 @@ class StreamerGridFilter extends Component {
 
   render() {
     return (
-      <Menu fluid borderless size="large">
+      <Menu fluid borderless size="large" stackable>
         <Menu.Item header>
           <Icon name="filter" />
           Filters

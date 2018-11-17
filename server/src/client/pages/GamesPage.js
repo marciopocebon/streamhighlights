@@ -48,7 +48,7 @@ class GamesPage extends Component {
     return (
       <div>
         <GamesPageHelmet />
-        <Grid>
+        <Grid stackable>
           <Grid.Column width={10}>
             <Segment className="streamer-segment" loading={games.fetching}>
               <Label attached="top" size="big" className="colored-label">
@@ -72,6 +72,7 @@ class GamesPage extends Component {
                 >
                   <Grid
                     stackable
+                    doubling
                     columns={4}
                     className="streamer-grid animated fadeIn"
                   >

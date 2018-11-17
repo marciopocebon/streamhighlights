@@ -39,7 +39,7 @@ class SessionPage extends Component {
 
   render() {
     return (
-      <Grid>
+      <Grid stackable>
         <Grid.Column width={16}>
           <SessionPageHeader />
         </Grid.Column>

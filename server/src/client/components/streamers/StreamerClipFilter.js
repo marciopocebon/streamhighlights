@@ -8,7 +8,7 @@ import {
   Dropdown
 } from "semantic-ui-react";
 import { connect } from "react-redux";
-import { setAutomaticCheckbox, setTimeFilter } from './../../actions/ui/index';
+import { setAutomaticCheckbox, setTimeFilter } from "./../../actions/ui/index";
 
 const mapDispatchToProps = dispatch => ({
   setAutomaticCheckbox: value => dispatch(setAutomaticCheckbox(value)),
@@ -85,7 +85,7 @@ class StreamerClipFilter extends Component {
   render() {
     const { ui } = this.props;
     return (
-      <Menu fluid borderless size="large">
+      <Menu borderless size="large" stackable>
         <Menu.Item header active>
           <Icon name="filter" />
           Filters
@@ -100,6 +100,8 @@ class StreamerClipFilter extends Component {
             style={{ marginRight: "10px" }}
             onChange={(e, { value }) => this.onTitleSearchChanged(value)}
           />
+        </Menu.Item>
+        <Menu.Item>
           <Input
             className="icon"
             icon="gamepad"
