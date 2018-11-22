@@ -110,7 +110,7 @@ class SessionClipTable extends Component {
                           <Rating
                             icon="star"
                             defaultRating={clip.score}
-                            maxRating={5}
+                            maxRating={3}
                             disabled
                           />{" "}
                         </Label>

@@ -40,6 +40,7 @@
     "react-router-config": "1.0.0-beta.4",
     "react-router-dom": "4.2.2",
     "react-timeago": "^4.1.9",
+    "react-typing-animation": "^1.4.0",
     "redux": "3.7.2",
     "redux-thunk": "2.2.0",
     "semantic-ui-react": "^0.83.0",

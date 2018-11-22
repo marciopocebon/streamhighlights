@@ -14,8 +14,7 @@ export default [
     routes: [
       {
         ...StreamersPage,
-        path: "/",
-        exact: true
+        path: "/streamers"
       },
       {
         ...GamesPage,

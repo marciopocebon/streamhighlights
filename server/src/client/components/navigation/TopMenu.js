@@ -17,12 +17,17 @@ class TopMenu extends Component {
   render() {
     const { activeItem } = this.state;
     return (
-      <Menu stackable size="huge" className="bordered-segment menu-active" icon='labeled'>
+      <Menu
+        stackable
+        size="huge"
+        className="bordered-segment menu-active"
+        icon="labeled"
+      >
         <Menu.Item className="brand">Stream Highlights</Menu.Item>
         <Menu.Item
           as={Link}
           name="streamers"
-          to="/"
+          to="/streamers"
           onClick={this.handleItemClick}
           active={activeItem === "streamers"}
         >
