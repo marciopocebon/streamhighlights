@@ -12,15 +12,15 @@ const config = {
     path: path.resolve(__dirname, "public")
   },
   plugins: [new CompressionPlugin({ cache: true })],
-  optimization: {
-    minimizer: [
-      new UglifyJsPlugin({
-        cache: true,
-        parallel: true,
-        test: /\.js$|\.css$|\.html$/,
-      })
-    ]
-  }
+  // optimization: {
+  //   minimizer: [
+  //     new UglifyJsPlugin({
+  //       cache: true,
+  //       parallel: true,
+  //       test: /\.js$|\.css$|\.html$/,
+  //     })
+  //   ]
+  // }
 };
 
 module.exports = merge(baseConfig, config);
