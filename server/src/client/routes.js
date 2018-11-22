@@ -14,6 +14,11 @@ export default [
     routes: [
       {
         ...StreamersPage,
+        path: "/",
+        exact: true
+      },
+      {
+        ...StreamersPage,
         path: "/streamers"
       },
       {
