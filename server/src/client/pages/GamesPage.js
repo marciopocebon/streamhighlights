@@ -81,7 +81,7 @@ class GamesPage extends Component {
                         games.items.map((game, index) => {
                           return (
                             game && (
-                              <Grid.Column width={4} key={index}>
+                              <Grid.Column width={4} key={index} computer={8} largeScreen={4} widescreen={4}>
                                 <GameItem
                                   key={index}
                                   game={game}

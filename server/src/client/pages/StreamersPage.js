@@ -7,7 +7,7 @@ import StreamerGridFilter from "./../components/streamers/StreamerGridFilter";
 import { requestStreamers } from "./../actions/streamers/index";
 import { getActivity } from "../reducers/activity";
 import ActivityFeed from "../components/activity/ActivityFeed";
-import StreamersPageHelmet from '../components/seo/StreamersPageHelmet'
+import StreamersPageHelmet from "../components/seo/StreamersPageHelmet";
 
 class StreamersPage extends Component {
   constructor(props) {
@@ -47,7 +47,6 @@ class StreamersPage extends Component {
     getStreamers(0, value);
   };
 
-
   render() {
     const { streamers } = this.props;
     return (
@@ -79,8 +78,8 @@ class StreamersPage extends Component {
                   }}
                 >
                   <Grid
-                    doubling
                     stackable
+                    doubling
                     columns={4}
                     className="streamer-grid animated fadeIn"
                   >
@@ -89,7 +88,7 @@ class StreamersPage extends Component {
                         streamers.items.map((streamer, index) => {
                           return (
                             streamer && (
-                              <Grid.Column width={4} key={index}>
+                              <Grid.Column width={4} key={index} computer={8} largeScreen={4} widescreen={4}>
                                 <StreamersItem
                                   key={index}
                                   streamer={streamer}

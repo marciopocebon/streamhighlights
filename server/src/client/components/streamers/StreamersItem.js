@@ -27,11 +27,11 @@ const StreamersItem = ({ streamer, numberOfClips, numberOfArchives }) => {
         </Item.Group>
       </Segment>
       <Segment textAlign="center">
-        <Button>
-          <Link to={{ pathname: `/streamer/${streamer.streamerId}` }}>
-            Visit
-          </Link>
-        </Button>
+        <Button
+          as={Link}
+          to={{ pathname: `/streamer/${streamer.streamerId}` }}
+          content="Visit"
+        />
       </Segment>
     </Segment.Group>
   );
