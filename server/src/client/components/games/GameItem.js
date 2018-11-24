@@ -26,9 +26,11 @@ const GameItem = ({ game, numberOfClips }) => {
         </Item.Group>
       </Segment>
       <Segment textAlign="center">
-        <Button>
-          <Link to={{ pathname: `/game/${game.gameId}` }}>Visit</Link>
-        </Button>
+        <Button
+          as={Link}
+          to={{ pathname: `/game/${game.gameId}` }}
+          content="Visit"
+        />
       </Segment>
     </Segment.Group>
   );
