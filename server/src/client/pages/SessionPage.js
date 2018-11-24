@@ -18,7 +18,7 @@ class SessionPage extends Component {
     };
   }
   componentWillMount() {
-    const { getArchive, match } = this.props;
+    const { getArchive, match, getClipsByArchive } = this.props;
     getArchive(match.params.id, 0);
     getClipsByArchive(match.params.id, 0);
   }
@@ -69,7 +69,7 @@ class SessionPage extends Component {
 export default {
   component: connect(
     null,
-    { getArchive, fetchMoreClipsByArchive }
+    { getArchive, fetchMoreClipsByArchive, getClipsByArchive }
   )(SessionPage),
   loadData: ({ dispatch }, { id }) => {
     return dispatch(getArchive(id, 0)).then(() =>
