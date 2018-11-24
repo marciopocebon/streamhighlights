@@ -29,14 +29,14 @@ class StreamerClipTable extends Component {
   };
 
   mapToScore = score => {
-    if (score < 2) {
+    if (score == 1) {
       return (
         <Label>
           <Icon name="lightning" color="green" />
           Moderately Epic
         </Label>
       );
-    } else if (score > 2 && score < 4) {
+    } else if (score == 2) {
       return (
         <Label>
           <Icon name="lightning" color="yellow" />

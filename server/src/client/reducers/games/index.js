@@ -14,7 +14,8 @@ const games = (state = initialState, action) => {
     case FETCH_GAMES: {
       return {
         ...state,
-        items: action.payload
+        items: action.payload,
+        fetching: false
       };
     }
     case REQUEST_GAMES:
@@ -38,6 +39,7 @@ export const getGames = (pageIndex, gameFilter) => async (
   getState,
   api
 ) => {
+  dispatch(requestGames());
   const res = await api.get(
     `/games?page=${pageIndex}` + (gameFilter ? `&q=${gameFilter}` : "")
   );
