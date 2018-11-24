@@ -29,27 +29,27 @@ class StreamerClipTable extends Component {
   };
 
   mapToScore = score => {
-    if (score == 1) {
+    if (score > 0 && score < 2.0) {
       return (
-        <Label>
-          <Icon name="lightning" color="green" />
+        <Label inverted>
+          <Icon name="lightning green" />
           Moderately Epic
         </Label>
       );
-    } else if (score == 2) {
+    } else if (score >= 2.0 && score < 3.0) {
       return (
-        <Label>
-          <Icon name="lightning" color="yellow" />
-          <Icon name="lightning" color="yellow" />
+        <Label inverted>
+          <Icon name="lightning yellow" />
+          <Icon name="lightning yellow" />
           Very Epic
         </Label>
       );
     } else {
       return (
-        <Label>
-          <Icon name="lightning" color="red" />
-          <Icon name="lightning" color="red" />
-          <Icon name="lightning" color="red" />
+        <Label inverted>
+          <Icon name="lightning red" />
+          <Icon name="lightning red" />
+          <Icon name="lightning red" />
           OMG!
         </Label>
       );

@@ -30,14 +30,14 @@ class GameClipTable extends Component {
   };
 
   mapToScore = score => {
-    if (score == 1) {
+    if (score > 0 && score < 2.0) {
       return (
         <Label inverted>
           <Icon name="lightning green" />
           Moderately Epic
         </Label>
       );
-    } else if (score == 2) {
+    } else if (score >= 2.0 && score < 3.0) {
       return (
         <Label inverted>
           <Icon name="lightning yellow" />
