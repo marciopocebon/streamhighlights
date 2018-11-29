@@ -21,7 +21,7 @@ class StreamersPageHelmet extends Component {
         {paginated && streamers.items && streamers.items.length == 24 ? (
           <link
             rel="next"
-            href={`www.streamhighlights.tv/streamers/page/${parseInt(page) +
+            href={`streamers/page/${parseInt(page) +
               1}`}
           />
         ) : (
@@ -33,14 +33,14 @@ class StreamersPageHelmet extends Component {
         parseInt(page) > 0 ? (
           <link
             rel="prev"
-            href={`www.streamhighlights.tv/streamers/page/${parseInt(page) -
+            href={`streamers/page/${parseInt(page) -
               1}`}
           />
         ) : (
           undefined
         )}
         {parseInt(page) == -1 ? (
-          <link rel="next" href={`www.streamhighlights.tv/streamers/page/0`} />
+          <link rel="next" href={`streamers/page/0`} />
         ) : (
           undefined
         )}
