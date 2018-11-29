@@ -23,6 +23,7 @@ export default (req, store, context) => {
         <head>
           ${helmet.title.toString()}
           ${helmet.meta.toString()}
+          ${helmet.link.toString()}
           <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.0/dist/semantic.min.css">
           <link rel="stylesheet" href="/assets/style.css">
           <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
