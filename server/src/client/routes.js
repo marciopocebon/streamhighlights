@@ -7,6 +7,7 @@ import StreamerDetailPage from "./pages/StreamerDetailPage";
 import SessionPage from "./pages/SessionPage";
 import GamesPage from "./pages/GamesPage";
 import GamesDetailPage from "./pages/GamesDetailPage";
+import PaginatedStreamersPage from "./pages/paginated/PaginatedStreamersPage";
 
 export default [
   {
@@ -19,7 +20,12 @@ export default [
       },
       {
         ...StreamersPage,
-        path: "/streamers"
+        path: "/streamers",
+        exact: true
+      },
+      {
+        ...PaginatedStreamersPage,
+        path: "/streamers/page/:id"
       },
       {
         ...GamesPage,

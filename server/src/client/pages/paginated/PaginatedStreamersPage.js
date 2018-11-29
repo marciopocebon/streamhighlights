@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { Grid, Segment, Divider, Label, Icon } from "semantic-ui-react";
 import { connect } from "react-redux";
-import { getStreamers, fetchMoreStreamers } from "../reducers/streamers";
-import StreamersItem from "./../components/streamers/StreamersItem";
-import StreamerGridFilter from "./../components/streamers/StreamerGridFilter";
-import { requestStreamers } from "./../actions/streamers/index";
-import { getActivity } from "../reducers/activity";
-import ActivityFeed from "../components/activity/ActivityFeed";
-import StreamersPageHelmet from "../components/seo/StreamersPageHelmet";
+import { getStreamers, fetchMoreStreamers } from "./../../reducers/streamers";
+import StreamersItem from "./../../components/streamers/StreamersItem";
+import StreamerGridFilter from "./../../components/streamers/StreamerGridFilter";
+import { requestStreamers } from "./../../actions/streamers/index";
+import { getActivity } from "./../../reducers/activity";
+import ActivityFeed from "./../../components/activity/ActivityFeed";
+import StreamersPageHelmet from "./../../components/seo/StreamersPageHelmet";
 
 class StreamersPage extends Component {
   constructor(props) {
@@ -19,39 +19,20 @@ class StreamersPage extends Component {
   }
 
   componentWillMount() {
-    const { getStreamers } = this.props;
+    const { getStreamers, match } = this.props;
     // Client side rendering of the streamers
-    getStreamers(0);
+    getStreamers(match.params.id);
   }
 
-  handleScroll = () => {
-    if (this.scroller) {
-      if (
-        this.scroller.scrollHeight - this.scroller.scrollTop ===
-        this.scroller.clientHeight
-      ) {
-        this.setState(prevState => ({ pageIndex: prevState.pageIndex + 1 }));
-        const { fetchMoreStreamers } = this.props;
-        fetchMoreStreamers(this.state.pageIndex, this.state.searchValue);
-      }
-    }
-  };
-
-  searchValueChanged = value => {
-    this.setState({
-      pageIndex: 1,
-      searchValue: value
-    });
-    const { getStreamers, requestStreamers } = this.props;
-    requestStreamers();
-    getStreamers(0, value);
-  };
-
   render() {
-    const { streamers } = this.props;
+    const { streamers, match } = this.props;
     return (
       <div>
-        <StreamersPageHelmet page={-1} />
+        <StreamersPageHelmet
+          paginated={true}
+          page={match.params.id}
+          streamers={streamers}
+        />
         <Grid stackable>
           <Grid.Column width={10}>
             <Segment className="streamer-segment" loading={streamers.fetching}>
@@ -60,16 +41,8 @@ class StreamersPage extends Component {
                 Streamers
               </Label>
               <div className="segment-grid-filter">
-                <StreamerGridFilter
-                  searchValueChanged={this.searchValueChanged}
-                />
-
                 <Divider horizontal>Results</Divider>
                 <div
-                  ref={scroller => {
-                    this.scroller = scroller;
-                  }}
-                  onScroll={this.handleScroll}
                   style={{
                     height: "75vh",
                     overflowY: "auto",
@@ -127,9 +100,9 @@ function mapStateToProps({ streamers }) {
 export default {
   component: connect(
     mapStateToProps,
-    { getStreamers, fetchMoreStreamers, requestStreamers }
+    { getStreamers, requestStreamers }
   )(StreamersPage),
-  loadData: ({ dispatch }) => {
-    return dispatch(getStreamers(0)).then(() => dispatch(getActivity(0)));
+  loadData: ({ dispatch }, { id }) => {
+    return dispatch(getStreamers(id)).then(() => dispatch(getActivity(0)));
   }
 };
